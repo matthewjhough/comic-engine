@@ -6,6 +6,7 @@ namespace ComicEngineApi.Marvel {
     /// Gemeral Pagination wrapper around Marvel Comic Results.
     /// </summary>
     public class MarvelComicData {
+
         /// <summary>
         /// Number of comics to skip to return results.
         /// </summary>
