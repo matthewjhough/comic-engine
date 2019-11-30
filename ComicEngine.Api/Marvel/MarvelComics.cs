@@ -4,36 +4,85 @@ using ComicEngineCommon;
 
 namespace ComicEngineApi.Marvel {
     public class MarvelComics {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public int Id { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public int DigitalId { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Title { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public double IssueNumber { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string VariantDescription { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Description { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public DateTime Modified { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Isbn { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Upc { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string DiamondCode { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Ean { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Issn { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string Format { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public int PageCount { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public List<TextObject> TextObjects { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string ResourceUri { get; set; }
 
         // TODO: Create objects for all of these, and put them in common
