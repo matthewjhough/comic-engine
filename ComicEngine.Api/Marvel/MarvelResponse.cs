@@ -1,8 +1,7 @@
 ﻿using System;
-namespace ComicEngine.Marvel
-{
-    public class MarvelResponse
-    {
+
+namespace ComicEngineApi.Marvel {
+    public class MarvelResponse {
         public int Code { get; set; }
         public string Status { get; set; }
         public string Copyright { get; set; }

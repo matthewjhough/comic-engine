@@ -1,5 +1,7 @@
 ﻿using System;
-namespace ComicEngine.Marvel {
+using System.Collections.Generic;
+
+namespace ComicEngineApi.Marvel {
     /// <summary>
     /// Gemeral Pagination wrapper around Marvel Comic Results.
     /// </summary>
@@ -27,6 +29,6 @@ namespace ComicEngine.Marvel {
         /// <summary>
         /// Various items included in the list returned by Marvel API.
         /// </summary>
-        public MarvelComics[] MarvelComic { get; set; }
+        public List<MarvelComics> MarvelComic { get; set; }
     }
 }

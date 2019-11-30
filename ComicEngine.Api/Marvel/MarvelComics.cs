@@ -1,10 +1,9 @@
 ﻿using System;
-using ComicEngine.Common;
+using System.Collections.Generic;
+using ComicEngineCommon;
 
-namespace ComicEngine.Marvel
-{
-    public class MarvelComics
-    {
+namespace ComicEngineApi.Marvel {
+    public class MarvelComics {
         public int Id { get; set; }
 
         public int DigitalId { get; set; }
@@ -33,7 +32,7 @@ namespace ComicEngine.Marvel
 
         public int PageCount { get; set; }
 
-        public TextObject[] TextObjects { get; set; }
+        public List<TextObject> TextObjects { get; set; }
 
         public string ResourceUri { get; set; }
 
