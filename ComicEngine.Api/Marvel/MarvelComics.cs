@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ComicEngineCommon;
+using ComicEngine.Common;
 
 namespace ComicEngineApi.Marvel {
     public class MarvelComics {

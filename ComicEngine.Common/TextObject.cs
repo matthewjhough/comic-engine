@@ -1,4 +1,4 @@
-﻿namespace ComicEngineCommon {
+﻿namespace ComicEngine.Common {
     public class TextObject {
 
         /// <summary>
