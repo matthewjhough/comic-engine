@@ -1,6 +1,6 @@
 {
-  "short_name": "ComicEngineClient",
-  "name": "ComicEngineClient",
+  "short_name": "ComicEngine.Client",
+  "name": "ComicEngine.Client",
   "icons": [
     {
       "src": "favicon.ico",

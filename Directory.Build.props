@@ -8,6 +8,6 @@
 
  <PropertyGroup>
   <MicrosoftNetCoreVersion>2.2.0</MicrosoftNetCoreVersion>
-  <MicrosoftSpaServicesVersion>3.0.0-preview8.19405.4</MicrosoftSpaServicesVersion>
+  <MicrosoftSpaServicesVersion>3.0.0-preview8.19405.7</MicrosoftSpaServicesVersion>
  </PropertyGroup>
 </Project>
