@@ -101,105 +101,82 @@ namespace ComicEngineApi.Marvel {
         /// <value></value>
         public string ResourceUri { get; set; }
 
-        // TODO: Create objects for all of these, and put them in common
-        //        "urls": [
-        //            {
-        //                "type": "string",
-        //                "url": "string"
-        //            }
-        //        ],
-        //        "series": {
-        //            "resourceURI": "string",
-        //            "name": "string"
-        //        },
-        //        "variants": [
-        //            {
-        //                "resourceURI": "string",
-        //                "name": "string"
-        //            }
-        //        ],
-        //        "collections": [
-        //            {
-        //                "resourceURI": "string",
-        //                "name": "string"
-        //            }
-        //        ],
-        //        "collectedIssues": [
-        //            {
-        //                "resourceURI": "string",
-        //                "name": "string"
-        //            }
-        //        ],
-        //        "dates": [
-        //            {
-        //                "type": "string",
-        //                "date": "Date"
-        //            }
-        //        ],
-        //        "prices": [
-        //            {
-        //                "type": "string",
-        //                "price": "float"
-        //            }
-        //        ],
-        //        "thumbnail": {
-        //            "path": "string",
-        //            "extension": "string"
-        //        },
-        //        "images": [
-        //            {
-        //                "path": "string",
-        //                "extension": "string"
-        //            }
-        //        ],
-        //        "creators": {
-        //            "available": "int",
-        //            "returned": "int",
-        //            "collectionURI": "string",
-        //            "items": [
-        //                {
-        //                    "resourceURI": "string",
-        //                    "name": "string",
-        //                    "role": "string"
-        //                }
-        //            ]
-        //        },
-        //        "characters": {
-        //            "available": "int",
-        //            "returned": "int",
-        //            "collectionURI": "string",
-        //            "items": [
-        //                {
-        //                    "resourceURI": "string",
-        //                    "name": "string",
-        //                    "role": "string"
-        //                }
-        //            ]
-        //        },
-        //        "stories": {
-        //            "available": "int",
-        //            "returned": "int",
-        //            "collectionURI": "string",
-        //            "items": [
-        //                {
-        //                    "resourceURI": "string",
-        //                    "name": "string",
-        //                    "type": "string"
-        //                }
-        //            ]
-        //        },
-        //        "events": {
-        //            "available": "int",
-        //            "returned": "int",
-        //            "collectionURI": "string",
-        //            "items": [
-        //                {
-        //                    "resourceURI": "string",
-        //                    "name": "string"
-        //                }
-        //            ]
-        //        }
-        //    }
-        //]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicUrl> Urls { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public ComicResource ComicSeries { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicResource> Variants { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicResource> Collections { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicResource> CollectedIssues { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicDate> Dates { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicPrice> Prices { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public ComicImageResource Thumbnail { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public List<ComicImageResource> Images { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public Profile Creators { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public Profile Characters { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public Profile Stories { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        public Profile Events { get; set; }
     }
 }
