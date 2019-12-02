@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ComicEngine.Common;
 
 namespace ComicEngine.Api.Marvel {
-    public class MarvelComics {
+    public class MarvelComic {
 
         /// <summary>
         /// 

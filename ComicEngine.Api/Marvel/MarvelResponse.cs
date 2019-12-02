@@ -37,6 +37,6 @@ namespace ComicEngine.Api.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public MarvelComicData Data { get; set; }
+        public MarvelComicDataWrapper Data { get; set; }
     }
 }
