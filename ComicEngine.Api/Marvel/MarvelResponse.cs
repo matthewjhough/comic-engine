@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ComicEngineApi.Marvel {
+namespace ComicEngine.Api.Marvel {
     public class MarvelResponse {
 
         /// <summary>
@@ -37,6 +37,6 @@ namespace ComicEngineApi.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public MarvelComicData MarvelComicData { get; set; }
+        public MarvelComicData Data { get; set; }
     }
 }

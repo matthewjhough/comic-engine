@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ComicEngine.Common;
 
-namespace ComicEngineApi.Marvel {
+namespace ComicEngine.Api.Marvel {
     public class MarvelComics {
 
         /// <summary>
@@ -41,11 +41,12 @@ namespace ComicEngineApi.Marvel {
         /// <value></value>
         public string Description { get; set; }
 
+        // TODO: CONVERT TO DATETIME
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public DateTime Modified { get; set; }
+        public string Modified { get; set; }
 
         /// <summary>
         /// 
