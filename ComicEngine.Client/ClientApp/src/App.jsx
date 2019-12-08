@@ -4,9 +4,9 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
-import AuthorizeRoute from './api-authorization/AuthorizeRoute';
-import ApiAuthorizationRoutes from './api-authorization/ApiAuthorizationRoutes';
-import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
+import AuthorizeRoute from './Authorization/AuthorizeRoute';
+import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
+import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';
 
 import './custom.css';
 import { BarcodeScanner } from './BarcodeScanner/BarcodeScanner';

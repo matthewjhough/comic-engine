@@ -9,7 +9,7 @@ import {
   NavLink
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { LoginMenu } from '../api-authorization/LoginMenu';
+import { LoginMenu } from '../Authorization/LoginMenu';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
