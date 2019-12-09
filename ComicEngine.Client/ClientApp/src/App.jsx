@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import { Layout } from './Layout/Layout';
+import { Home } from './Home/Home';
+import { FetchData } from './FetchData/FetchData';
+import { Counter } from './Counter/Counter';
 import AuthorizeRoute from './Authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';

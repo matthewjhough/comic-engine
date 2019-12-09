@@ -55,6 +55,8 @@ export class BarcodeScanner extends Component {
   render() {
     const { code } = this.state;
 
+    // TODO: Add styling to camera / scanner.
+    // TODO: Disable camera on browsers?
     return (
       <div>
         <p>Point the camera feed below at the barcode.</p>
