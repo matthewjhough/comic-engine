@@ -44,8 +44,6 @@ export class BarcodeScannerReader extends Component {
               isScannerActive: false
             });
 
-            // TODO: Close camera on succesful barcode read, bring up info.
-            // TODO: Add "scan" button for user to initiate scan
             // TODO: Make graphql request with code, return marvel stored comic data.
           });
         }
