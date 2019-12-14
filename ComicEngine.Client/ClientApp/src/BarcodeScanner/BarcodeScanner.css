@@ -1,0 +1,10 @@
+.barcodeScannerWrapper {
+  width: 100%;
+  height: 90vmin;
+  overflow: hidden;
+}
+
+.barcodeScannerWrapper video {
+  width: 100%;
+  position: absolute;
+}
