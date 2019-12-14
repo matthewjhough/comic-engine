@@ -4,7 +4,6 @@ import './BarcodeScannerReader.css';
 
 export class BarcodeScannerReader extends Component {
   state = {
-    code: '',
     isScannerActive: false
   };
 
@@ -39,12 +38,12 @@ export class BarcodeScannerReader extends Component {
           Quagga.onDetected(results => {
             const codeResult = results.codeResult.code;
 
-            this.setState({
-              code: codeResult,
-              isScannerActive: false
-            });
-
-            // TODO: Make graphql request with code, return marvel stored comic data.
+            this.setState(
+              {
+                isScannerActive: false
+              },
+              () => this.fetchApi(codeResult)
+            );
           });
         }
       );
@@ -58,12 +57,33 @@ export class BarcodeScannerReader extends Component {
   toggleScanner = () =>
     this.setState({ isScannerActive: !this.state.isScannerActive });
 
+  fetchApi = codeResult =>
+    fetch('/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `query($isbn: String){ basicComic(isbn:$isbn) { description isbn issueNumber title } }`,
+        variables: {
+          isbn: codeResult
+        }
+      })
+    })
+      .then(res => res.json())
+      .then(({ data }) => {
+        const { basicComic } = data;
+        this.setState({
+          basicComic
+        });
+      });
+
   render() {
     const { toggleScanner } = this;
-    const { isScannerActive, code } = this.state;
+    const { isScannerActive, basicComic } = this.state;
 
     return (
-      <>
+      <div className="scannerWrapper">
         {isScannerActive ? (
           <>
             <div className="scannerHeader">
@@ -78,11 +98,11 @@ export class BarcodeScannerReader extends Component {
           </>
         ) : (
           <button className="barcodeReaderStart" onClick={toggleScanner}>
-            Start Scanning
+            Scan
           </button>
         )}
-        <div className="barcodeResult">{code}</div>
-      </>
+        <div className="barcodeResult">{basicComic && basicComic.isbn}</div>
+      </div>
     );
   }
 }

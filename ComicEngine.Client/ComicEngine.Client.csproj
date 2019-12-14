@@ -22,6 +22,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

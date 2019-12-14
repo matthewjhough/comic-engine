@@ -5,6 +5,10 @@
   padding: 0.75rem;
 }
 
+.scannerWrapper {
+  padding: 1rem;
+}
+
 .closeScanner {
   font-size: 2rem;
   background: transparent;
@@ -34,10 +38,13 @@
 }
 
 .barcodeResult {
+  overflow-wrap: break-word;
   display: flex;
   justify-content: center;
+  position: relative;
   padding-top: 3rem;
+  width: 100%;
 
-  font-size: 2.15rem;
+  font-size: 1rem;
   font-weight: 900;
 }

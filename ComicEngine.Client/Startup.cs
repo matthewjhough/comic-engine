@@ -80,7 +80,7 @@ namespace ComicEngine.Client {
                 endpoints.MapRazorPages ();
             });
 
-            app.UseGraphQL ();
+            app.UseGraphQL ("/graphql");
             app.UsePlayground ();
 
             app.UseSpa (spa => {
