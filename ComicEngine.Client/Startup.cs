@@ -46,6 +46,9 @@ namespace ComicEngine.Client {
                 configuration.RootPath = "ClientApp/build";
             });
 
+            // Add dotnet HttpClient
+            services.AddHttpClient ();
+
             services.AddGraphQL (services =>
                 SchemaBuilder.New ()
                 .AddServices (services)

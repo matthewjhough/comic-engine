@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import Quagga from 'quagga';
 import './BarcodeScannerReader.css';
 
+// ES6 code
+function debounced(delay, fn) {
+  let timerId;
+  return function(...args) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
+}
+
 export class BarcodeScannerReader extends Component {
   state = {
     isScannerActive: false
@@ -23,7 +37,7 @@ export class BarcodeScannerReader extends Component {
               {
                 format: 'ean_reader',
                 config: {
-                  supplements: ['ean_5_reader', 'ean_2_reader']
+                  supplements: ['ean_5_reader', 'ean_8_reader'] // 'i2of5_reader',
                 }
               }
             ]
@@ -36,13 +50,26 @@ export class BarcodeScannerReader extends Component {
           }
           Quagga.start();
           Quagga.onDetected(results => {
-            const codeResult = results.codeResult.code;
+            console.log(results);
+            // FIXME: Find a better way to prune uneccesary leading zero format.
+            const codeResult =
+              results.codeResult.code.substr(0, 1) === '0'
+                ? results.codeResult.code.substr(1)
+                : results.codeResult.code;
+            Quagga.stop();
 
+            const dFetch = debounced(1500, () => {
+              return this.fetchApi(
+                codeResult.substr(0, 1) === '0'
+                  ? codeResult.substr(1)
+                  : codeResult
+              );
+            });
             this.setState(
               {
                 isScannerActive: false
               },
-              () => this.fetchApi(codeResult)
+              dFetch
             );
           });
         }
@@ -64,9 +91,9 @@ export class BarcodeScannerReader extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        query: `query($isbn: String){ basicComic(isbn:$isbn) { description isbn issueNumber title } }`,
+        query: `query($upc: String){ basicComic(upc:$upc) { description upc issueNumber title } }`,
         variables: {
-          isbn: codeResult
+          upc: codeResult
         }
       })
     })
@@ -98,10 +125,10 @@ export class BarcodeScannerReader extends Component {
           </>
         ) : (
           <button className="barcodeReaderStart" onClick={toggleScanner}>
-            Scan
+            Scan Barcode
           </button>
         )}
-        <div className="barcodeResult">{basicComic && basicComic.isbn}</div>
+        <div className="barcodeResult">{basicComic && basicComic.title}</div>
       </div>
     );
   }

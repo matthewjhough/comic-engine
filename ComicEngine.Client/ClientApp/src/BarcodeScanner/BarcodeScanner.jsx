@@ -9,7 +9,7 @@ export class BarcodeScanner extends Component {
 
   render() {
     const { checkIfMobileDevice } = this;
-    const isMobileDevice = checkIfMobileDevice();
+    const isMobileDevice = true; // checkIfMobileDevice();
 
     return (
       <div className="barcodeScannerWrapper">
