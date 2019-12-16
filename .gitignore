@@ -12,6 +12,9 @@ tarballs/
 test-results/
 .vscode
 
+# Custom
+ComicEngine.Api/appsettings.json
+
 # Mac bundle stuff
 *.dmg
 *.app
