@@ -34,7 +34,7 @@ namespace ComicEngine.Api.Controllers {
         private MarvelHttpClientV1 _marvelHttpClient;
         private readonly ILogger _logger;
 
-        public MarvelControllerV1 (MarvelHttpClientV1 marvelHttpClient, ILogger<MarvelController> logger) {
+        public MarvelControllerV1 (MarvelHttpClientV1 marvelHttpClient, ILogger<MarvelControllerV1> logger) {
             _marvelHttpClient = marvelHttpClient;
             _logger = logger;
         }
