@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Quagga from 'quagga';
 import './BarcodeScannerReader.css';
 
-// ES6 code
 function debounced(delay, fn) {
   let timerId;
   return function(...args) {
