@@ -7,8 +7,12 @@ using Newtonsoft.Json;
 
 namespace ComicEngine.Client.Graphql {
     public class Query {
+
         private readonly IHttpClientFactory _clientFactory;
+
         private readonly ILogger _logger;
+
+        // TODO: get from appsettings.json
         private readonly string ComicEngineApi = "http://localhost:6002";
 
         public Query (IHttpClientFactory clientFactory, ILogger<Query> logger) {
