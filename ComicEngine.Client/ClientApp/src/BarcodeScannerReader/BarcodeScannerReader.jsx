@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import Quagga from 'quagga';
 import './BarcodeScannerReader.css';
 
-function debounced(delay, fn) {
-  let timerId;
-  return function(...args) {
-    if (timerId) {
-      clearTimeout(timerId);
+function throttle(f, t) {
+  return function(args) {
+    let previousCall = this.lastCall;
+    this.lastCall = Date.now();
+    if (
+      previousCall === undefined || // function is being called for the first time
+      this.lastCall - previousCall > t
+    ) {
+      // throttle time has elapsed
+      f(args);
     }
-    timerId = setTimeout(() => {
-      fn(...args);
-      timerId = null;
-    }, delay);
   };
 }
 
@@ -36,7 +37,7 @@ export class BarcodeScannerReader extends Component {
               {
                 format: 'ean_reader',
                 config: {
-                  supplements: ['ean_5_reader', 'ean_8_reader'] // 'i2of5_reader',
+                  supplements: ['ean_5_reader'] // ['ean_5_reader', 'ean_8_reader']
                 }
               }
             ]
@@ -57,18 +58,19 @@ export class BarcodeScannerReader extends Component {
                 : results.codeResult.code;
             Quagga.stop();
 
-            const dFetch = debounced(1500, () => {
+            const tFetch = throttle(() => {
               return this.fetchApi(
                 codeResult.substr(0, 1) === '0'
                   ? codeResult.substr(1)
-                  : codeResult
+                  : codeResult,
+                1500
               );
             });
             this.setState(
               {
                 isScannerActive: false
               },
-              dFetch
+              tFetch
             );
           });
         }
