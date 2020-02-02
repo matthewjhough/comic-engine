@@ -1,33 +1,68 @@
+using System.Net.Http;
+using ComicEngine.Client.ComicEngineApi;
 using ComicEngine.Client.Data;
 using ComicEngine.Client.Graphql;
 using ComicEngine.Client.Models;
 using HotChocolate;
 using HotChocolate.AspNetCore;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Client {
     public class Startup {
-        public Startup (IConfiguration configuration) {
+        private ILoggerFactory _loggerFactory;
+
+        public Startup (IConfiguration configuration, ILoggerFactory loggerFactory) {
             Configuration = configuration;
+            _loggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
+
+        private string DevelopmentCors = "DevelopmentCors";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<ApplicationDbContext> (options =>
                 options.UseSqlite (
                     Configuration.GetConnectionString ("DefaultConnection")));
+
+            #region cors
+            // todo: add appsettings flag for isDevelopment to enable this
+            services.AddCors (options => options.AddPolicy (DevelopmentCors,
+                builder => {
+                    builder.AllowAnyOrigin ()
+                        .AllowAnyMethod ()
+                        .AllowAnyHeader ();
+                }));
+
+            var cors = new DefaultCorsPolicyService (
+                _loggerFactory.CreateLogger<DefaultCorsPolicyService> ()
+            ) {
+                AllowAll = true
+            };
+
+            services.AddSingleton<ICorsPolicyService> (cors);
+
+            services.AddSingleton<IComicHttpClient> (sp =>
+                new ComicHttpClient (
+                    sp.GetRequiredService<ILogger<ComicHttpClient>> (),
+                    sp.GetRequiredService<IHttpClientFactory> (),
+                    Configuration
+                    .GetSection ("ComicHttpClientConfig")
+                    .Get<ComicHttpClientConfig> ()
+                ));
+            #endregion cors
+
+            services.AddSingleton<IComicEngineApiService, ComicEngineApiService> ();
 
             services.AddDefaultIdentity<ApplicationUser> ()
                 .AddEntityFrameworkStores<ApplicationDbContext> ();
@@ -67,6 +102,9 @@ namespace ComicEngine.Client {
                 app.UseHsts ();
             }
 
+            // todo: Add Appsettings flag to enable/disable this.
+            app.UseCors (DevelopmentCors);
+
             app.UseHttpsRedirection ();
             app.UseStaticFiles ();
             app.UseSpaStaticFiles ();
@@ -76,6 +114,7 @@ namespace ComicEngine.Client {
             app.UseAuthentication ();
             app.UseIdentityServer ();
             app.UseAuthorization ();
+
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllerRoute (
                     name: "default",
@@ -84,6 +123,7 @@ namespace ComicEngine.Client {
             });
 
             app.UseGraphQL ("/graphql");
+            // todo: Add Appsettings flag to enable/disable this.
             app.UsePlayground ();
 
             app.UseSpa (spa => {

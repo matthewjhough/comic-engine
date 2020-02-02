@@ -1,6 +1,7 @@
 using System;
-using System.Net.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using ComicEngine.Client.ComicEngineApi;
 using ComicEngine.Common;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -8,51 +9,42 @@ using Newtonsoft.Json;
 namespace ComicEngine.Client.Graphql {
     public class Query {
 
-        private readonly IHttpClientFactory _clientFactory;
-
         private readonly ILogger _logger;
 
-        // TODO: get from appsettings.json
-        private readonly string ComicEngineApi = "http://localhost:6002";
+        private IComicEngineApiService _comicApiService;
 
-        public Query (IHttpClientFactory clientFactory, ILogger<Query> logger) {
-            _clientFactory = clientFactory;
+        public Query (ILogger<Query> logger, IComicEngineApiService comicApiService) {
             _logger = logger;
+            _comicApiService = comicApiService;
         }
 
         public async Task<BasicComic> BasicComic (string upc) {
-            try {
-                _logger.LogDebug ("Fetching marvel comic with upc: {upc}", upc);
+            _logger.LogDebug ("Executing query with parameter: {param}", upc);
 
-                HttpRequestMessage request = new HttpRequestMessage (HttpMethod.Get,
-                    $"{ComicEngineApi}/marvel/comic?upc={upc}");
+            // todo: Add exception handling / custom errors.
+            string parameters = $"upc={upc}";
+            BasicComic response = await _comicApiService.RequestComicByParameters (parameters);
 
-                HttpClient client = _clientFactory.CreateClient ("comics");
-                request.Headers.Add ("Accept", "*/*");
-                request.Headers.Add ("Sec-Fetch-Mode", "cors");
+            return response;
+        }
 
-                HttpResponseMessage response = await client.SendAsync (request);
+        public async Task<IList<BasicComic>> ComicsByTitleAndIssueNumber (
+            string title,
+            string issueNumber
+        ) {
+            _logger.LogDebug ("Executing ComicByTitleAndIssueNumber with parameters: {title}, {issueNumber}",
+                title,
+                issueNumber
+            );
 
-                if (response.IsSuccessStatusCode) {
-                    _logger.LogDebug ("Response Message Header \n\n" + response.Content.Headers + "\n");
-                    // Get the response
-                    string comicJsonString = await response.Content.ReadAsStringAsync ();
-                    _logger.LogDebug ("Comic data returned: {comicData}", comicJsonString);
+            // todo: Add exception handling / custom errors.
+            string parameters = $"title={title}&issueNumber={issueNumber}";
+            var response = await _comicApiService.RequestComicsByParameters (
+                parameters,
+                "/search"
+            );
 
-                    // Deserialise the data (include the Newtonsoft JSON Nuget package if you don't already have it)
-                    BasicComic deserializedComic = JsonConvert.DeserializeObject<BasicComic> (comicJsonString);
-                    // Do something with it
-                    return deserializedComic;
-                }
-
-                return new BasicComic { };
-            } catch (Exception exception) {
-                _logger.LogDebug (exception, "Request not send to ComicEngine API.");
-                _logger.LogDebug ("Base URL attempted: {comicEngineApi}", ComicEngineApi);
-
-                return new BasicComic { };
-            }
-
+            return response;
         }
     }
 }
