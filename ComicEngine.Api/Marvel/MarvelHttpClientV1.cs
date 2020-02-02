@@ -34,7 +34,7 @@ namespace ComicEngine.Api.Marvel {
         /// </summary>
         /// <param name="marvelComic"></param>
         /// <returns>Comic POCO</returns>
-        public Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
+        private Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
             try {
                 return new Comic () {
                     Id = marvelComic.Id,
