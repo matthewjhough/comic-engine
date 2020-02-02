@@ -51,7 +51,7 @@ namespace ComicEngine.Api.Controllers {
         }
 
         /// <summary>
-        /// Returns a marvel comic that matches isbn submitted.
+        /// Returns a marvel comic that matches upc submitted.
         /// </summary>
         /// <param name="upc"></param>
         /// <returns></returns>
