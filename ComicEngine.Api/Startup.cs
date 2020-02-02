@@ -29,7 +29,7 @@ namespace ComicEngine.Api {
                 new MarvelHttpClientV1 (
                     sp.GetRequiredService<IHttpClientFactory> (),
                     sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
-                    Configuration.GetSection ("marvelApi").Get<MarvelApi> ()
+                    Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                 ));
         }
 

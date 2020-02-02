@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -11,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Marvel {
     public class MarvelHttpClientV1 : IMarvelHttpClient {
-        private MarvelApi _marvelApiSettings;
+        private MarvelApiConfig _marvelApiSettings;
 
         private readonly ILogger _logger;
 
@@ -20,12 +21,14 @@ namespace ComicEngine.Api.Marvel {
         public MarvelHttpClientV1 (
             IHttpClientFactory clientFactory,
             ILogger<MarvelHttpClientV1> logger,
-            MarvelApi marvelApiSettings
+            MarvelApiConfig marvelApiSettings
         ) {
             _clientFactory = clientFactory;
             _logger = logger;
             _marvelApiSettings = marvelApiSettings;
         }
+
+        // todo: Move to service layer
 
         /// <summary>
         /// Fetches all comics from marvels api with pagination.
@@ -49,6 +52,8 @@ namespace ComicEngine.Api.Marvel {
             }
         }
 
+        // todo: Move to service layer
+
         /// <summary>
         /// Fetches matching comic based on barcode isbn number.
         /// </summary>
@@ -63,7 +68,9 @@ namespace ComicEngine.Api.Marvel {
                 .Results?
                 .FirstOrDefault ();
 
-            if (comicData is null) return new BasicComic ();
+            if (comicData is null) {
+                return new BasicComic ();
+            }
 
             BasicComic comic = new BasicComic () {
                 Title = comicData?.Title,
@@ -73,6 +80,31 @@ namespace ComicEngine.Api.Marvel {
             };
 
             return comic;
+        }
+
+        // todo: Move to service layer.
+        async public Task<IList<BasicComic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
+            var request = CreateRequestMessage (
+                "/comics", $"title={title}&issueNumber={issueNumber}"
+            );
+
+            MarvelResponse comicResponse = await RequestComic (request, "marvelByCode");
+            IEnumerable<MarvelComic> comicData = comicResponse?
+                .Data?
+                .Results.AsEnumerable ();
+
+            if (comicData is null) {
+                return new List<BasicComic> ();;
+            }
+
+            var comics = comicData.Select (marvelComic => new BasicComic () {
+                Title = marvelComic?.Title,
+                    Upc = marvelComic?.Upc,
+                    IssueNumber = (double) marvelComic?.IssueNumber,
+                    Description = marvelComic?.Description
+            }).ToList ();
+
+            return comics;
         }
 
         /// <summary>
