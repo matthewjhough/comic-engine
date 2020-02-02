@@ -28,6 +28,36 @@ namespace ComicEngine.Api.Marvel {
             _marvelApiSettings = marvelApiSettings;
         }
 
+        // todo: move to service layer
+        /// <summary>
+        /// Helper method to take care of repeat mapping logic.
+        /// </summary>
+        /// <param name="marvelComic"></param>
+        /// <returns>Comic POCO</returns>
+        public Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
+            try {
+                return new Comic () {
+                    Id = marvelComic.Id,
+                        Copyright = copyright,
+                        IssueNumber = marvelComic.IssueNumber,
+                        Title = marvelComic.Title,
+                        Upc = marvelComic.Upc,
+                        Description = marvelComic.Description,
+                        Characters = marvelComic.Characters.Items.ToList (),
+                        Creators = marvelComic.Creators.Items.ToList (),
+                        Series = marvelComic.ComicSeries,
+                        PublishDates = marvelComic.Dates.ToList (),
+                        PageCount = marvelComic.PageCount,
+                        ResourceUri = marvelComic.ResourceUri,
+                        Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
+                        RelevantLinks = marvelComic.Urls
+                };
+                // todo: implement custom error handling
+            } catch (Exception ex) {
+                throw new Exception ("An error occured mapping marvel comic");
+            }
+        }
+
         // todo: Move to service layer
 
         /// <summary>
@@ -47,9 +77,9 @@ namespace ComicEngine.Api.Marvel {
                 using (var jsonTextReader = new JsonTextReader (reader)) {
                     return serializer.Deserialize<MarvelResponse> (jsonTextReader);
                 }
-            } else {
-                return new MarvelResponse ();
             }
+
+            return new MarvelResponse ();
         }
 
         // todo: Move to service layer
@@ -59,50 +89,43 @@ namespace ComicEngine.Api.Marvel {
         /// </summary>
         /// <param name="isbn"></param>
         /// <returns></returns>
-        public async Task<BasicComic> GetByCode (string upc) {
+        public async Task<Comic> GetByCode (string upc) {
             HttpRequestMessage request = CreateRequestMessage ("/comics", $"upc={upc}");
 
             MarvelResponse comicResponse = await RequestComic (request, "marvelByCode");
-            MarvelComic comicData = comicResponse?
-                .Data?
-                .Results?
+            MarvelComic comicData = comicResponse
+                .Data
+                .Results
                 .FirstOrDefault ();
 
             if (comicData is null) {
-                return new BasicComic ();
+                return new Comic ();
             }
 
-            BasicComic comic = new BasicComic () {
-                Title = comicData?.Title,
-                Upc = comicData?.Upc,
-                IssueNumber = (double) comicData?.IssueNumber,
-                Description = comicData?.Description
-            };
+            Comic comic = MapResponseToComic (comicData, comicResponse.Copyright);
 
             return comic;
         }
 
         // todo: Move to service layer.
-        async public Task<IList<BasicComic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
+        async public Task<IList<Comic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
             var request = CreateRequestMessage (
                 "/comics", $"title={title}&issueNumber={issueNumber}"
             );
 
-            MarvelResponse comicResponse = await RequestComic (request, "marvelByCode");
-            IEnumerable<MarvelComic> comicData = comicResponse?
-                .Data?
+            MarvelResponse comicResponse = await RequestComic (request, "marvelByTitleIssueNumber");
+            IEnumerable<MarvelComic> comicData = comicResponse
+                .Data
                 .Results.AsEnumerable ();
 
             if (comicData is null) {
-                return new List<BasicComic> ();;
+                return new List<Comic> ();;
             }
 
-            var comics = comicData.Select (marvelComic => new BasicComic () {
-                Title = marvelComic?.Title,
-                    Upc = marvelComic?.Upc,
-                    IssueNumber = (double) marvelComic?.IssueNumber,
-                    Description = marvelComic?.Description
-            }).ToList ();
+            var comics = comicData
+                .Select (marvelComic =>
+                    MapResponseToComic (marvelComic, comicResponse.Copyright))
+                .ToList ();
 
             return comics;
         }

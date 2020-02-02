@@ -58,10 +58,10 @@ namespace ComicEngine.Api.Controllers {
         /// <param name="upc"></param>
         /// <returns></returns>
         [HttpGet ("/marvel/comic")]
-        public async Task<BasicComic> GetComicByUpc ([FromQuery] string upc) {
+        public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
 
-            BasicComic comicResponse = await _marvelHttpClient.GetByCode (upc);
+            Comic comicResponse = await _marvelHttpClient.GetByCode (upc);
 
             _logger.LogDebug ("Returning comic: {marvelResponse}", comicResponse?.Title);
 
@@ -69,10 +69,10 @@ namespace ComicEngine.Api.Controllers {
         }
 
         [HttpGet ("/marvel/comic/search")]
-        public async Task<List<BasicComic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
+        public async Task<List<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
-            var comicResponse = await _marvelHttpClient.GetByTitleAndIssueNumber (title, issueNumber) as List<BasicComic>;
+            var comicResponse = await _marvelHttpClient.GetByTitleAndIssueNumber (title, issueNumber) as List<Comic>;
 
             _logger.LogDebug ("Found {number} comics", comicResponse.Count ());
 

@@ -18,17 +18,17 @@ namespace ComicEngine.Client.Graphql {
             _comicApiService = comicApiService;
         }
 
-        public async Task<BasicComic> BasicComic (string upc) {
+        public async Task<Comic> Comic (string upc) {
             _logger.LogDebug ("Executing query with parameter: {param}", upc);
 
             // todo: Add exception handling / custom errors.
             string parameters = $"upc={upc}";
-            BasicComic response = await _comicApiService.RequestComicByParameters (parameters);
+            Comic response = await _comicApiService.RequestComicByParameters (parameters);
 
             return response;
         }
 
-        public async Task<IList<BasicComic>> ComicsByTitleAndIssueNumber (
+        public async Task<IList<Comic>> ComicsByTitleAndIssueNumber (
             string title,
             string issueNumber
         ) {

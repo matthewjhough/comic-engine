@@ -22,12 +22,12 @@ namespace ComicEngine.Client.ComicEngineApi {
         /// <param name="parameters"></param>
         /// <param name="endpoint"></param>
         /// <returns></returns>
-        async public Task<BasicComic> RequestComicByParameters (
+        async public Task<Comic> RequestComicByParameters (
             string parameters,
             string endpoint = ""
         ) {
             var serializedComicString = await _apiClient.RequestSerializedComics (parameters, endpoint);
-            BasicComic deserializedComic = JsonConvert.DeserializeObject<BasicComic> (serializedComicString);
+            Comic deserializedComic = JsonConvert.DeserializeObject<Comic> (serializedComicString);
 
             return deserializedComic;
         }
@@ -38,12 +38,12 @@ namespace ComicEngine.Client.ComicEngineApi {
         /// <param name="parameters"></param>
         /// <param name="endpoint"></param>
         /// <returns></returns>
-        async public Task<IList<BasicComic>> RequestComicsByParameters (
+        async public Task<IList<Comic>> RequestComicsByParameters (
             string parameters,
             string endpoint = ""
         ) {
             var serializedComicString = await _apiClient.RequestSerializedComics (parameters, endpoint);
-            List<BasicComic> deserializedComicList = JsonConvert.DeserializeObject<List<BasicComic>> (serializedComicString);
+            List<Comic> deserializedComicList = JsonConvert.DeserializeObject<List<Comic>> (serializedComicString);
 
             return deserializedComicList;
         }
