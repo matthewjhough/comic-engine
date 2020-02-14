@@ -2,7 +2,7 @@ using System.Net.Http;
 using ComicEngine.Client.ComicEngineApi;
 using ComicEngine.Client.Data;
 using ComicEngine.Client.Graphql;
-using ComicEngine.Client.Models;
+using ComicEngine.Client.IdentityServer;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;

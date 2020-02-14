@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BarcodeScannerReader } from '../BarcodeScannerReader/BarcodeScannerReader';
+import { BarcodeReader } from '../BarcodeReader/BarcodeReader';
 import './BarcodeScanner.css';
 
 export class BarcodeScanner extends Component {
@@ -14,7 +14,7 @@ export class BarcodeScanner extends Component {
     return (
       <div className="barcodeScannerWrapper">
         {isMobileDevice ? (
-          <BarcodeScannerReader />
+          <BarcodeReader />
         ) : (
           'Feature only available on mobile devices.'
         )}
