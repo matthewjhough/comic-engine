@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Marvel {
-    public class MarvelHttpClientV1 : IMarvelHttpClient {
+    public class MarvelHttpClientV1 {
         private MarvelApiConfig _marvelApiSettings;
 
         private readonly ILogger _logger;
@@ -28,13 +28,12 @@ namespace ComicEngine.Api.Marvel {
             _marvelApiSettings = marvelApiSettings;
         }
 
-        // todo: move to service layer
         /// <summary>
         /// Helper method to take care of repeat mapping logic.
         /// </summary>
         /// <param name="marvelComic"></param>
         /// <returns>Comic POCO</returns>
-        private Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
+        public Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
             try {
                 return new Comic () {
                     Id = marvelComic.Id,
@@ -52,82 +51,9 @@ namespace ComicEngine.Api.Marvel {
                         Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
                         RelevantLinks = marvelComic.Urls
                 };
-                // todo: implement custom error handling
             } catch (Exception ex) {
-                throw new Exception ("An error occured mapping marvel comic");
+                throw ex;
             }
-        }
-
-        // todo: Move to service layer
-
-        /// <summary>
-        /// Fetches all comics from marvels api with pagination.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<MarvelResponse> GetAllComics () {
-            HttpRequestMessage request = CreateRequestMessage ("/comics", "");
-            var client = _clientFactory.CreateClient ("marvel");
-            var response = await client.SendAsync (request);
-
-            if (response.IsSuccessStatusCode) {
-                var responseStream = await response.Content.ReadAsStreamAsync ();
-                var serializer = new JsonSerializer ();
-
-                using (StreamReader reader = new StreamReader (responseStream))
-                using (var jsonTextReader = new JsonTextReader (reader)) {
-                    return serializer.Deserialize<MarvelResponse> (jsonTextReader);
-                }
-            }
-
-            return new MarvelResponse ();
-        }
-
-        // todo: Move to service layer
-
-        /// <summary>
-        /// Fetches matching comic based on barcode isbn number.
-        /// </summary>
-        /// <param name="isbn"></param>
-        /// <returns></returns>
-        public async Task<Comic> GetByCode (string upc) {
-            HttpRequestMessage request = CreateRequestMessage ("/comics", $"upc={upc}");
-
-            MarvelResponse comicResponse = await RequestComic (request, "marvelByCode");
-            MarvelComic comicData = comicResponse
-                .Data
-                .Results
-                .FirstOrDefault ();
-
-            if (comicData is null) {
-                return new Comic ();
-            }
-
-            Comic comic = MapResponseToComic (comicData, comicResponse.Copyright);
-
-            return comic;
-        }
-
-        // todo: Move to service layer.
-        async public Task<IList<Comic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
-            var request = CreateRequestMessage (
-                "/comics", $"title={title}&issueNumber={issueNumber}"
-            );
-
-            MarvelResponse comicResponse = await RequestComic (request, "marvelByTitleIssueNumber");
-            IEnumerable<MarvelComic> comicData = comicResponse
-                .Data
-                .Results.AsEnumerable ();
-
-            if (comicData is null) {
-                return new List<Comic> ();;
-            }
-
-            var comics = comicData
-                .Select (marvelComic =>
-                    MapResponseToComic (marvelComic, comicResponse.Copyright))
-                .ToList ();
-
-            return comics;
         }
 
         /// <summary>
@@ -157,7 +83,7 @@ namespace ComicEngine.Api.Marvel {
         /// <param name="route">The marvel api route intended to send a request</param>
         /// <param name="query">The search/query parameters to filter by (query string param format)</param>
         /// <returns></returns>
-        private HttpRequestMessage CreateRequestMessage (string route, string query) {
+        public HttpRequestMessage CreateRequestMessage (string route, string query) {
             string ts = "1";
             string apiHashSource = ts + _marvelApiSettings.PrivateKey + _marvelApiSettings.PublicKey;
             string marvelHash = "1234";
