@@ -6,50 +6,23 @@ using ComicEngine.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-/// <summary>
-/// TODO:
-/// Phase 1:
-/// /// Add Graphql (Client) - DONE
-/// /// Add Barcode Scanner (Client) - DONE
-/// /// Refactor and cleanup API controller - DONE
-/// /// Style barcode reader (Client) - DONE
-/// Move API keys to configuration, remove from git (API)
-/// /// Make/Add Request with barcode (API) - DONE
-/// /// Display response data (Client) - DONE
-/// /// Add filterBy UPC (API)
-/// /// Add Logging (API)
-/// 
-/// Phase 2:
-/// Add authentication (API)
-/// Setup Package for individual comic management (API)
-///     > Add SavedComic model class
-///     > GET all stored comics from user
-/// Take Response data from marvel, store in database w/ user id (API)
-/// Display stored & scanned comics (Client)
-/// Add Logging (Client)
-/// </summary>
-
 namespace ComicEngine.Api.Controllers {
     [ApiController]
     public class MarvelControllerV1 : ControllerBase {
-
-        private MarvelHttpClientV1 _marvelHttpClient;
         private readonly ILogger _logger;
-
-        public MarvelControllerV1 (MarvelHttpClientV1 marvelHttpClient, ILogger<MarvelControllerV1> logger) {
-            _marvelHttpClient = marvelHttpClient;
-            _logger = logger;
-        }
+        private IMarvelService _marvelService;
 
         /// <summary>
-        /// Returns a marvel response containing #### of comics
+        /// Constructor for <see cref="MarvelControllerV1" />
         /// </summary>
-        /// <returns></returns>
-        [HttpGet ("/marvel")]
-        public async Task<MarvelResponse> GetComics () {
-            var marvelResponse = await _marvelHttpClient.GetAllComics ();
+        /// <param name="logger"></param>
+        /// <param name="marvelService"></param>
+        public MarvelControllerV1 (
+            ILogger<MarvelControllerV1> logger,
+            IMarvelService marvelService) {
 
-            return marvelResponse;
+            _marvelService = marvelService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -61,7 +34,7 @@ namespace ComicEngine.Api.Controllers {
         public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
 
-            Comic comicResponse = await _marvelHttpClient.GetByCode (upc);
+            Comic comicResponse = await _marvelService.GetByCode (upc);
 
             _logger.LogDebug ("Returning comic: {marvelResponse}", comicResponse?.Title);
 
@@ -72,7 +45,7 @@ namespace ComicEngine.Api.Controllers {
         public async Task<List<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
-            var comicResponse = await _marvelHttpClient.GetByTitleAndIssueNumber (title, issueNumber) as List<Comic>;
+            var comicResponse = await _marvelService.GetByTitleAndIssueNumber (title, issueNumber) as List<Comic>;
 
             _logger.LogDebug ("Found {number} comics", comicResponse.Count ());
 

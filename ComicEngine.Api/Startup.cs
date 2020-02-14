@@ -25,12 +25,14 @@ namespace ComicEngine.Api {
         public void ConfigureServices (IServiceCollection services) {
             services.AddControllers ();
             services.AddHttpClient ();
-            services.AddScoped<MarvelHttpClientV1> (sp =>
+            services.AddSingleton<MarvelHttpClientV1> (sp =>
                 new MarvelHttpClientV1 (
                     sp.GetRequiredService<IHttpClientFactory> (),
                     sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
                     Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                 ));
+
+            services.AddSingleton<IMarvelService, MarvelService> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

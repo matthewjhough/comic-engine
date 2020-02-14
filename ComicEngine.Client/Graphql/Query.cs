@@ -8,9 +8,7 @@ using Newtonsoft.Json;
 
 namespace ComicEngine.Client.Graphql {
     public class Query {
-
         private readonly ILogger _logger;
-
         private IComicEngineApiService _comicApiService;
 
         public Query (ILogger<Query> logger, IComicEngineApiService comicApiService) {

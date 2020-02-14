@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Quagga from 'quagga';
-import './BarcodeScannerReader.css';
+import './BarcodeReader.css';
 
 function throttle(f, t) {
   return function(args) {
@@ -16,7 +16,7 @@ function throttle(f, t) {
   };
 }
 
-export class BarcodeScannerReader extends Component {
+export class BarcodeReader extends Component {
   state = {
     isScannerActive: false
   };
@@ -79,7 +79,7 @@ export class BarcodeScannerReader extends Component {
   }
 
   componentWillUnmount() {
-    Quagga.stop();
+    // Quagga.stop();
   }
 
   toggleScanner = () =>

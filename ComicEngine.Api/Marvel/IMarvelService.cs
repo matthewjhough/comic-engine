@@ -3,13 +3,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 
 namespace ComicEngine.Api.Marvel {
-    public interface IMarvelHttpClient {
-        /// <summary>
-        /// Returns a marvel response object containing marvel comic data.
-        /// </summary>
-        /// <returns>Large marvel-format response object</returns>
-        Task<MarvelResponse> GetAllComics ();
-
+    public interface IMarvelService {
         /// <summary>
         /// Accepts barcode number, and returns basic comic object response.
         /// </summary>
