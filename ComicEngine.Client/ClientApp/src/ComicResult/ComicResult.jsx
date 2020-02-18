@@ -1,5 +1,5 @@
 import React from 'react';
-import './ComicResult.css';
+import styles from './ComicResult.module.scss';
 
 export function ComicResult({ comic, ...rest }) {
   if (!comic) {
@@ -11,22 +11,24 @@ export function ComicResult({ comic, ...rest }) {
   }
 
   return (
-    <div className="comicResult" {...rest}>
+    <div className={styles.comicResult} {...rest}>
       <h3>{comic.title}</h3>
-      <div className="contentContainer">
-        <div className="imageContainer">
+      <div className={styles.contentContainer}>
+        <div className={styles.imageContainer}>
           <img
-            className="comicResultImage"
+            className={styles.comicResultImage}
             src={comic.thumbnail}
             alt={`${comic.title} thumbnail`}
           />
         </div>
-        <div className="textContainer">
+        <div className={styles.textContainer}>
           <p>
-            <span className="bold-font">Description:</span> {comic.description}
+            <span className={styles.boldFont}>Description:</span>{' '}
+            {comic.description}
           </p>
           <p>
-            <span className="bold-font">Copyright:</span> {comic.copyright}
+            <span className={styles.boldFont}>Copyright:</span>
+            {comic.copyright}
           </p>
         </div>
       </div>

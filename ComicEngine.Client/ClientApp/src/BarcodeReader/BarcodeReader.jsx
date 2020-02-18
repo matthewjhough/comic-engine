@@ -6,7 +6,7 @@ import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
 import { barcodeReaderMockData } from './barcodeReaderMockData';
 import { MobileDeviceCheck } from '../MobileDeviceCheck/MobileDeviceCheck';
 
-import './BarcodeReader.css';
+import styles from './BarcodeReader.module.scss';
 
 export class BarcodeReader extends Component {
   state = {
@@ -43,19 +43,22 @@ export class BarcodeReader extends Component {
     return (
       <>
         <ScrollContainer>
-          <ComicResult comic={comic} />
+          {data.map(comic => (
+            <ComicResult comic={comic} />
+          ))}
+          {/* <ComicResult comic={comic} /> */}
           {isScannerActive ? (
             <>
-              <div className="scannerHeader">
-                <p className="barcodeInstructionFeed">
+              <div className={styles.scannerHeader}>
+                <p className={styles.barcodeInstructionFeed}>
                   Point the camera feed below at the barcode.
                 </p>
-                <button className="closeScanner" onClick={toggleScanner}>
+                <button className={styles.closeScanner} onClick={toggleScanner}>
                   X
                 </button>
               </div>
 
-              <div className="barcodeReader" id="barcode_reader" />
+              <div className={styles.barcodeReader} id="barcode_reader" />
             </>
           ) : (
             <MobileDeviceCheck>

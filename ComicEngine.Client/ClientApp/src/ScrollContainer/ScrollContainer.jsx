@@ -1,6 +1,6 @@
 import React from 'react';
-import './ScrollContainer.css';
+import styles from './ScrollContainer.module.scss';
 
 export function ScrollContainer({ children }) {
-  return <div className="scrollContainer">{children}</div>;
+  return <div className={styles.scrollContainer}>{children}</div>;
 }
