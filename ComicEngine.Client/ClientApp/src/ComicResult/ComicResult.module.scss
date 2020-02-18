@@ -1,0 +1,61 @@
+.comicResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 100%;
+
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.comicResultImage {
+  width: 100%;
+  border: 1px solid #999;
+}
+
+.boldFont {
+  font-weight: 800;
+}
+
+.contentContainer {
+  display: flex;
+  width: 100%;
+}
+
+.imageContainer {
+  width: 20%;
+  min-width: 20%;
+}
+
+.textContainer {
+  font-size: 1.3rem;
+}
+
+.imageContainer,
+.textContainer {
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .comicResult,
+  .contentContainer {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    width: 50%;
+    min-width: unset;
+  }
+
+  .contentContainer,
+  .comicResult h3 {
+    align-items: center;
+  }
+
+  .textContainer {
+    width: 100%;
+  }
+}

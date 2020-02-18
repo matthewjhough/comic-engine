@@ -1,0 +1,31 @@
+.barcodeReader canvas {
+  width: 100%;
+}
+
+.barcodeReader video {
+  width: 100%;
+  position: absolute;
+}
+
+.scannerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+}
+
+.closeScanner {
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+}
+
+.barcodeReader {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.barcodeInstructionFeed {
+  font-size: 1.15rem;
+}

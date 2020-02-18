@@ -6,8 +6,8 @@ import AuthorizeRoute from './Authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';
 
+import { BarcodeReader } from './BarcodeReader/BarcodeReader';
 import './custom.css';
-import { BarcodeScanner } from './BarcodeScanner/BarcodeScanner';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -16,7 +16,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path="/" component={Home} />
-        <AuthorizeRoute path="/barcode" component={BarcodeScanner} />
+        <AuthorizeRoute path="/barcode" component={BarcodeReader} />
         <Route
           path={ApplicationPaths.ApiAuthorizationPrefix}
           component={ApiAuthorizationRoutes}

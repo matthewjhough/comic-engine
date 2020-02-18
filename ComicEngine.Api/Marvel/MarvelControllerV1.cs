@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,11 @@ namespace ComicEngine.Api.Controllers {
         [HttpGet ("/marvel/comic")]
         public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
+
+            if (upc is null) {
+                _logger.LogDebug ("UPC cannot be a null value.", upc);
+                throw new ArgumentNullException ();
+            }
 
             Comic comicResponse = await _marvelService.GetByCode (upc);
 
