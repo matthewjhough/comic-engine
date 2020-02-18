@@ -61,3 +61,5 @@ export const initQuagga = callback =>
       );
     }
   );
+
+export const deactivateQuagga = () => Quagga.stop();

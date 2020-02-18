@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { initQuagga } from './initQuagga';
+import { initQuagga, deactivateQuagga } from './initQuagga';
 import { ComicResult } from '../ComicResult/ComicResult';
 import { BarcodeScanButton } from '../BarcodeScanButton/BarcodeScanButton';
 import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
@@ -13,30 +13,26 @@ export class BarcodeReader extends Component {
     isScannerActive: false
   };
 
-  componentDidUpdate() {
-    const { isScannerActive } = this.state;
+  onScannedCallback = ({ data }) => {
+    const { comic } = data;
+    this.setState({
+      comic,
+      isScannerActive: this.toggleScanner()
+    });
+  };
 
-    if (isScannerActive) {
-      try {
-        initQuagga(({ data }) => {
-          const { comic } = data;
-          this.setState({
-            comic,
-            isScannerActive: this.toggleScanner()
-          });
-        });
-      } catch (error) {
-        console.error('Error was caught: ', error);
-      }
-    }
-  }
+  toggleScanner = () => {
+    const { onScannedCallback } = this;
 
-  toggleScanner = () =>
     this.setState({ isScannerActive: !this.state.isScannerActive }, () => {
       if (this.state.isScannerActive) {
         this.setState({ comic: undefined });
+        initQuagga(onScannedCallback);
+      } else {
+        deactivateQuagga();
       }
     });
+  };
 
   render() {
     const { toggleScanner } = this;
@@ -47,10 +43,7 @@ export class BarcodeReader extends Component {
     return (
       <>
         <ScrollContainer>
-          <ComicResult isScannerActive={isScannerActive} comic={comic} />
-          {/* {data.map(comic => (
-            <ComicResult comic={comic} />
-          ))} */}
+          <ComicResult comic={comic} />
           {isScannerActive ? (
             <>
               <div className="scannerHeader">
@@ -61,6 +54,7 @@ export class BarcodeReader extends Component {
                   X
                 </button>
               </div>
+
               <div className="barcodeReader" id="barcode_reader" />
             </>
           ) : (
