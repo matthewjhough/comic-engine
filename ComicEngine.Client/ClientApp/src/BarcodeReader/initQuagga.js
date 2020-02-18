@@ -1,5 +1,5 @@
 import Quagga from 'quagga';
-import { fetchComicFromBarcode } from './fetchApi';
+import { fetchComicFromBarcode } from '../graphqlClient/graphqlClient';
 
 function throttle(f, t) {
   return function(args) {

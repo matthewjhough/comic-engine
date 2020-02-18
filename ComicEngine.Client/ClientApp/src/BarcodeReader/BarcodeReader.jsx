@@ -44,7 +44,7 @@ export class BarcodeReader extends Component {
       <>
         <ScrollContainer>
           {data.map(comic => (
-            <ComicResult comic={comic} />
+            <ComicResult key={comic.id} comic={comic} />
           ))}
           {/* <ComicResult comic={comic} /> */}
           {isScannerActive ? (
