@@ -1,4 +1,5 @@
 import { comicByUpcQuery } from './queries/comicByUpc.query';
+import { comicByTitleAndIssueNumber } from './queries/comicByTitleAndIssueNumber.query';
 
 export const fetchComicFromBarcode = codeResult =>
   fetch('/graphql', {
@@ -10,6 +11,21 @@ export const fetchComicFromBarcode = codeResult =>
       query: comicByUpcQuery,
       variables: {
         upc: codeResult
+      }
+    })
+  });
+
+export const fetchComicFromTitleAndIssueNumber = ({ title, issueNumber }) =>
+  fetch('/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: comicByTitleAndIssueNumber,
+      variables: {
+        title,
+        issueNumber
       }
     })
   });

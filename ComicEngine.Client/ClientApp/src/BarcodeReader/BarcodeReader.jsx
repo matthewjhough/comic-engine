@@ -3,7 +3,6 @@ import { initQuagga, deactivateQuagga } from './initQuagga';
 import { ComicResult } from '../ComicResult/ComicResult';
 import { BarcodeScanButton } from '../BarcodeScanButton/BarcodeScanButton';
 import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
-import { barcodeReaderMockData } from './barcodeReaderMockData';
 import { MobileDeviceCheck } from '../MobileDeviceCheck/MobileDeviceCheck';
 
 import styles from './BarcodeReader.module.scss';
@@ -38,15 +37,10 @@ export class BarcodeReader extends Component {
     const { toggleScanner } = this;
     const { isScannerActive, comic } = this.state;
 
-    const data = barcodeReaderMockData();
-
     return (
       <>
         <ScrollContainer>
-          {data.map(comic => (
-            <ComicResult key={comic.id} comic={comic} />
-          ))}
-          {/* <ComicResult comic={comic} /> */}
+          <ComicResult comic={comic} />
           {isScannerActive ? (
             <>
               <div className={styles.scannerHeader}>
