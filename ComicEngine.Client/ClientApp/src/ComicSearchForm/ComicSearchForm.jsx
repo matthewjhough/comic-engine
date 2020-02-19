@@ -1,13 +1,16 @@
 import React from 'react';
 import { ComicResult } from '../ComicResult/ComicResult';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import styles from './ComicSearchForm.module.scss';
 
 export function ComicSearchForm({
   updateIssueNumberInput,
   updateTitleInput,
   updateResultsFromForm,
+  toggleComicSearchLoadingTrue,
   title,
   issueNumber,
+  isLoading,
   results
 }) {
   return (
@@ -16,7 +19,7 @@ export function ComicSearchForm({
         onSubmit={e => {
           e.preventDefault();
 
-          console.log('Form submitted.');
+          toggleComicSearchLoadingTrue();
           updateResultsFromForm({ title, issueNumber });
         }}>
         <div className={styles.block}>
@@ -37,9 +40,12 @@ export function ComicSearchForm({
         </div>
         <button type="submit">Search</button>
       </form>
-      {results.map(comic => (
-        <ComicResult comic={comic} />
-      ))}
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        results.map(comic => <ComicResult key={comic.id} comic={comic} />)
+      )}
+      {}
     </>
   );
 }

@@ -4,6 +4,8 @@ body,
 #root,
 .container {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -16,7 +18,6 @@ code {
 
 .container,
 #root {
-  padding: 0;
   overflow: hidden;
 }
 

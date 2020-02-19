@@ -1,7 +1,8 @@
 import {
   UPDATE_TITLE_INPUT,
   UPDATE_ISSUE_NUMBER_INPUT,
-  SET_COMIC_FORM_RESULTS
+  SET_COMIC_FORM_RESULTS,
+  TOGGLE_COMIC_SEARCH_LOADING
 } from './comicSearchFormActionTypes';
 import { fetchComicFromTitleAndIssueNumber } from '../graphqlClient/graphqlClient';
 
@@ -12,16 +13,23 @@ export function setComicFetchResults({ comicsByTitleAndIssueNumber }) {
   };
 }
 
+export function toggleComicSearchLoading(isLoading) {
+  return {
+    type: TOGGLE_COMIC_SEARCH_LOADING,
+    isLoading
+  };
+}
+
 /**
  *
  * @param {object} comicForm
  */
 export function updateResultsFromForm(dispatch) {
   return function(comicForm) {
-    // send http request
     return fetchComicFromTitleAndIssueNumber(comicForm)
       .then(res => res.json())
-      .then(({ data }) => dispatch(setComicFetchResults(data)));
+      .then(({ data }) => dispatch(setComicFetchResults(data)))
+      .then(() => dispatch(toggleComicSearchLoading(false)));
   };
 }
 
