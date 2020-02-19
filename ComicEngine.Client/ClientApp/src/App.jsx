@@ -5,8 +5,8 @@ import { Home } from './Home/Home';
 import AuthorizeRoute from './Authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';
+import { ComicSearch } from './ComicSearch/ComicSearch';
 
-import { BarcodeReader } from './BarcodeReader/BarcodeReader';
 import './custom.css';
 
 export default class App extends Component {
@@ -16,7 +16,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path="/" component={Home} />
-        <AuthorizeRoute path="/barcode" component={BarcodeReader} />
+        <AuthorizeRoute path="/comic-search" component={ComicSearch} />
         <Route
           path={ApplicationPaths.ApiAuthorizationPrefix}
           component={ApiAuthorizationRoutes}

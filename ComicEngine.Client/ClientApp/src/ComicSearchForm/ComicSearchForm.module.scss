@@ -1,0 +1,17 @@
+.formRow {
+  padding: 0.5rem;
+  display: table-row;
+  label {
+    padding: 0.5rem;
+  }
+}
+
+.block {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+label {
+  display: table-cell;
+}
