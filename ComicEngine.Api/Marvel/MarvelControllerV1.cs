@@ -11,6 +11,7 @@ namespace ComicEngine.Api.Controllers {
     [ApiController]
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
+
         private IMarvelService _marvelService;
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace ComicEngine.Api.Controllers {
         /// </summary>
         /// <param name="upc"></param>
         /// <returns></returns>
-        [HttpGet ("/marvel/comic")]
+        [HttpGet ("/v1/marvel/comic")]
         public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
 
@@ -47,7 +48,7 @@ namespace ComicEngine.Api.Controllers {
             return comicResponse;
         }
 
-        [HttpGet ("/marvel/comic/search")]
+        [HttpGet ("/v1/marvel/comic/search")]
         public async Task<List<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
