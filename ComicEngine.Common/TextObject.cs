@@ -1,5 +1,11 @@
-﻿namespace ComicEngine.Common {
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ComicEngine.Common {
+    [Table ("TextObjects")]
     public class TextObject {
+        [Key]
+        public int Id { get; set; }
 
         /// <summary>
         /// 

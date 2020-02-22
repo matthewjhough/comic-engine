@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Api.Marvel;
+using ComicEngine.Api.SavedComics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,19 +27,24 @@ namespace ComicEngine.Api {
             services.AddControllers ();
             services.AddHttpClient ();
             services.AddSingleton<MarvelHttpClientV1> (sp =>
-                new MarvelHttpClientV1 (
-                    sp.GetRequiredService<IHttpClientFactory> (),
-                    sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
-                    Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
-                ));
-
-            services.AddSingleton<IMarvelService, MarvelService> ();
+                    new MarvelHttpClientV1 (
+                        sp.GetRequiredService<IHttpClientFactory> (),
+                        sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
+                        Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
+                    ))
+                .AddSingleton<IMarvelService, MarvelService> ()
+                .AddSingleton<SavedComicContext> (sp => new SavedComicContext (Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory> ().CreateScope ()) {
+                var context = serviceScope.ServiceProvider.GetRequiredService<SavedComicContext> ();
+                context.Database.EnsureCreated ();
             }
 
             app.UseHttpsRedirection ();

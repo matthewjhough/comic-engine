@@ -1,16 +1,14 @@
-﻿namespace ComicEngine.Common {
-    public class ComicUrl {
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <value></value>
+namespace ComicEngine.Common {
+    [Table ("ComicUrls")]
+    public class ComicUrl {
+        [Key]
+        public int Id { get; set; }
+
         public string Type { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <value></value>
         public string Url { get; set; }
     }
 }

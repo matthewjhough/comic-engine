@@ -1,16 +1,26 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicEngine.Common {
+    [Table ("Comics")]
     public class Comic {
+
         /// <summary>
         /// Issue id (ideally taken from data source)
         /// </summary>
         /// <value></value>
+        [Key]
         public int Id { get; set; }
+
         public string Copyright { get; set; }
+
         public double IssueNumber { get; set; }
+
         public string Title { get; set; }
+
         public string Upc { get; set; }
+
         public string Description { get; set; }
 
         public List<ProfileItem> Characters { get; set; }
