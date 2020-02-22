@@ -1,0 +1,20 @@
+version: '3'
+services:
+  comic.engine.db:
+    image: 'mcr.microsoft.com/mssql/server'
+    environment:
+      SA_PASSWORD: 'Your_password123'
+      ACCEPT_EULA: 'Y'
+  comic.engine.api:
+    build: '.'
+    ports:
+      - '6002:6002'
+    depends_on:
+      - comic.engine.db
+  # comic.engine.client:
+  #   build: ./ComicEngine.Client/.
+  #   ports:
+  #     - '5002:5002'
+  #   depends_on:
+  #     - comic.engine.db
+  #     - comic.engine.common
