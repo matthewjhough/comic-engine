@@ -8,6 +8,10 @@
 
  <PropertyGroup>
   <MicrosoftNetCoreVersion>2.2.0</MicrosoftNetCoreVersion>
-  <MicrosoftSpaServicesVersion>3.0.0-preview8.19405.7</MicrosoftSpaServicesVersion>
+  <MicrosoftIdentityServerVersion>3.0.0</MicrosoftIdentityServerVersion>
+  <MicrosoftEntityVersion>3.0.0</MicrosoftEntityVersion>
+  <MicrosoftSpaServicesVersion>3.0.0</MicrosoftSpaServicesVersion>
+  <HotChocolateVersion>12.2.0</HotChocolateVersion>
+  <NewtonSoftVersion>12.0.3</NewtonSoftVersion>
  </PropertyGroup>
 </Project>

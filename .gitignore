@@ -16,6 +16,8 @@ test-results/
 ComicEngine.Api/appsettings.json
 ComicEngine.Client/app.db
 
+./ComicEngine.Client/app.db
+
 # Mac bundle stuff
 *.dmg
 *.app
