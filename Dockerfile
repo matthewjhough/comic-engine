@@ -9,7 +9,7 @@ RUN dotnet restore ComicEngine.Api/*.csproj
 RUN dotnet publish ComicEngine.Api/*.csproj -c Release -o out
 
 # build runtime image
-FROM microsoft/aspnetcore
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY --from=build-env /app/out ./
-ENTRYPOINT ["dotnet", "ComicEngine.Api.dll"]
+ENTRYPOINT ["dotnet", "ComicEngineApi.dll"]
