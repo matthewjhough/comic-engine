@@ -28,7 +28,15 @@ export function updateResultsFromForm(dispatch) {
   return function(comicForm) {
     return fetchComicFromTitleAndIssueNumber(comicForm)
       .then(res => res.json())
-      .then(({ data }) => dispatch(setComicFetchResults(data)))
+      .then(({ data, errors }) => {
+        if (errors && errors.length > 0) {
+          return dispatch(
+            setComicFetchResults({ comicsByTitleAndIssueNumber: [] })
+          );
+        }
+
+        return dispatch(setComicFetchResults(data));
+      })
       .then(() => dispatch(toggleComicSearchLoading(false)));
   };
 }
