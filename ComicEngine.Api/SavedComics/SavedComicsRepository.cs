@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ namespace ComicEngine.Api.SavedComics {
         }
 
         public async Task CreateSavedComic (Comic comic) {
+            // Todo: add logging.
             try {
                 await _savedComicContext.AddAsync (comic);
                 await _savedComicContext.SaveChangesAsync ();
@@ -21,8 +23,13 @@ namespace ComicEngine.Api.SavedComics {
             }
         }
 
-        public Task<IEnumerable<Comic>> GetSavedComics () {
-            throw new NotImplementedException ();
+        public IEnumerable<Comic> GetSavedComics () {
+            // Todo: add logging.
+            var savedComics = _savedComicContext.Comics
+                .Select (x => x)
+                .ToList ();
+
+            return savedComics;
         }
     }
 }

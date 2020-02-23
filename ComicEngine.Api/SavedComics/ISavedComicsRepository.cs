@@ -10,7 +10,7 @@ namespace ComicEngine.Api.SavedComics {
         /// Gets all stored comics by current user's id.
         /// </summary>
         /// <returns>A list of user's saved <see cref="Comic"/>.</returns>
-        Task<IEnumerable<Comic>> GetSavedComics ();
+        IEnumerable<Comic> GetSavedComics ();
 
         /// <summary>
         /// Gets comic by stored id of comic.
