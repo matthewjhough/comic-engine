@@ -33,7 +33,11 @@ namespace ComicEngine.Api {
                         Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                     ))
                 .AddSingleton<IMarvelService, MarvelService> ()
-                .AddSingleton<SavedComicContext> (sp => new SavedComicContext (Configuration));
+                .AddSingleton<ISavedComicsService, SavedComicsService> ()
+                .AddSingleton<SavedComicContext> (sp =>
+                    new SavedComicContext (Configuration))
+                .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
+                    new SavedComicsRepository (Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

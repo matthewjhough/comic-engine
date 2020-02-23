@@ -6,11 +6,13 @@ namespace ComicEngine.Common {
     [Table ("Comics")]
     public class Comic {
 
+        [Key]
+        public int StoredId { get; set; }
+
         /// <summary>
         /// Issue id (ideally taken from data source)
         /// </summary>
         /// <value></value>
-        [Key]
         public int Id { get; set; }
 
         public string Copyright { get; set; }
