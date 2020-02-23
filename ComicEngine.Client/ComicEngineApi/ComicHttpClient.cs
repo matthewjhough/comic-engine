@@ -35,8 +35,9 @@ namespace ComicEngine.Client.ComicEngineApi {
             try {
                 _logger.LogDebug ("Fetching marvel comic with parameters: {parameters}", parameters);
 
+                // TODO: Get version from configuration
                 HttpRequestMessage request = new HttpRequestMessage (HttpMethod.Get,
-                    $"{_comicEngineApiUri}/marvel/comic{endpoint}?{parameters}");
+                    $"{_comicEngineApiUri}/v1/marvel/comic{endpoint}?{parameters}");
 
                 HttpClient client = _clientFactory.CreateClient ("comics");
                 request.Headers.Add ("Accept", "*/*");
