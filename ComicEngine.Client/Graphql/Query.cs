@@ -16,7 +16,7 @@ namespace ComicEngine.Client.Graphql {
             _comicApiService = comicApiService;
         }
 
-        public async Task<Comic> Comic (string upc) {
+        public async Task<Comic> ComicByUpc (string upc) {
             _logger.LogDebug ("Executing query with parameter: {param}", upc);
 
             // todo: Add exception handling / custom errors.
