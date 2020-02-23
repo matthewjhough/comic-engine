@@ -11,7 +11,7 @@ namespace ComicEngine.Api.SavedComics {
         }
 
         [HttpPost ("/v1/saved/comic")]
-        public async Task<Comic> GetComicByTitleAndIssue ([FromBody] Comic comic) {
+        public async Task<Comic> Save ([FromBody] Comic comic) {
             var saveComic = await _savedComicsService.AddComicAsync (comic);
 
             return comic;
