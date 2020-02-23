@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,10 @@ namespace ComicEngine.Api.SavedComics {
             } catch (Exception ex) {
                 throw ex;
             }
+        }
+
+        public Task<IEnumerable<Comic>> GetSavedComics () {
+            throw new NotImplementedException ();
         }
     }
 }
