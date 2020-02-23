@@ -10,10 +10,10 @@ namespace ComicEngine.Api.SavedComics {
             _savedComicsRepository = savedComicsRepository;
         }
 
-        public async Task<Comic> AddComicAsync (Comic comic) {
+        public async Task<Comic> CreateSavedComicAsync (Comic comic) {
 
             try {
-                await _savedComicsRepository.SaveComic (comic);
+                await _savedComicsRepository.CreateSavedComic (comic);
                 return comic;
             } catch (Exception exceptionFromAdding) {
                 throw exceptionFromAdding;

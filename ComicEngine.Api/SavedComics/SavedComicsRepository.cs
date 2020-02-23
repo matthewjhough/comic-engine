@@ -11,7 +11,7 @@ namespace ComicEngine.Api.SavedComics {
             _savedComicContext = new SavedComicContext (configuration);
         }
 
-        public async Task SaveComic (Comic comic) {
+        public async Task CreateSavedComic (Comic comic) {
             try {
                 await _savedComicContext.AddAsync (comic);
                 await _savedComicContext.SaveChangesAsync ();
