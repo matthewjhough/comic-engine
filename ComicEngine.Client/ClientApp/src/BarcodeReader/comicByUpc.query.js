@@ -1,5 +1,5 @@
 export const comicByUpcQuery = `query($upc: String){ 
-    comic(upc:$upc) { 
+    comicByUpc(upc:$upc) { 
       id
       title
       copyright
