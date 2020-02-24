@@ -11,7 +11,7 @@ namespace ComicEngine.Api.SavedComics {
             _savedComicsService = savedComicsService;
         }
 
-        [HttpPost ("/v1/saved/comic")]
+        [HttpPost ("/v1/saved/comics")]
         public async Task<Comic> Create ([FromBody] Comic comic) {
             // Todo: add logging/exception handling
             var saveComic = await _savedComicsService.CreateSavedComicAsync (comic);
@@ -19,7 +19,7 @@ namespace ComicEngine.Api.SavedComics {
             return comic;
         }
 
-        [HttpGet ("/v1/saved/comic")]
+        [HttpGet ("/v1/saved/comics")]
         public async Task<IEnumerable<Comic>> Get () {
             // Todo: add logging / exception handling
             var comicList = await _savedComicsService.GetSavedComics ();

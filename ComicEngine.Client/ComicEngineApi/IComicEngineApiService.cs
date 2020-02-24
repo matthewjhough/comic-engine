@@ -21,5 +21,7 @@ namespace ComicEngine.Client.ComicEngineApi {
             string parameters,
             string endpoint = ""
         );
+
+        Task<IEnumerable<Comic>> RequestAllSavedComics ();
     }
 }

@@ -30,6 +30,6 @@ namespace ComicEngine.Api.Marvel {
         /// <summary>
         /// Various items included in the list returned by Marvel API.
         /// </summary>
-        public List<MarvelComic> Results { get; set; }
+        public IEnumerable<MarvelComic> Results { get; set; }
     }
 }

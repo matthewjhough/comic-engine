@@ -7,7 +7,7 @@ namespace ComicEngine.Common {
     public class Comic {
 
         [Key]
-        public int StoredId { get; set; }
+        public int StorageId { get; set; }
 
         /// <summary>
         /// Issue id (ideally taken from data source)
@@ -25,13 +25,15 @@ namespace ComicEngine.Common {
 
         public string Description { get; set; }
 
-        public List<ProfileItem> Characters { get; set; }
+        [ForeignKey ("ComicStorageId")]
+        public CharacterProfile Characters { get; set; }
 
         /// <summary>
         /// List of all authors/artists involved with creation of comic.
         /// </summary>
         /// <value></value>
-        public List<ProfileItem> Creators { get; set; }
+        [ForeignKey ("ComicStorageId")]
+        public CreatorProfile Creators { get; set; }
 
         /// <summary>
         /// Which series the issue is a member of.
@@ -43,7 +45,7 @@ namespace ComicEngine.Common {
         /// Dates of publication for comic issue.
         /// </summary>
         /// <value></value>
-        public List<ComicDate> PublishDates { get; set; }
+        public IEnumerable<ComicDate> PublishDates { get; set; }
 
         /// <summary>
         /// Number of pages in comic issue.
@@ -68,6 +70,6 @@ namespace ComicEngine.Common {
         /// in addition to a link to the source material.
         /// </summary>
         /// <value></value>
-        public List<ComicUrl> RelevantLinks { get; set; }
+        public IEnumerable<ComicUrl> RelevantLinks { get; set; }
     }
 }

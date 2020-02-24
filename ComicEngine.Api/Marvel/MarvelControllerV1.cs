@@ -49,10 +49,10 @@ namespace ComicEngine.Api.Controllers {
         }
 
         [HttpGet ("/v1/marvel/comic/search")]
-        public async Task<List<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
+        public async Task<IEnumerable<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
-            var comicResponse = await _marvelService.GetByTitleAndIssueNumber (title, issueNumber) as List<Comic>;
+            var comicResponse = await _marvelService.GetByTitleAndIssueNumber (title, issueNumber) as IEnumerable<Comic>;
 
             _logger.LogDebug ("Found {number} comics", comicResponse.Count ());
 
