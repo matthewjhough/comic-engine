@@ -12,7 +12,8 @@ namespace ComicEngine.Api.SavedComics {
             _configuration = configuration;
         }
 
-        protected override void OnConfiguring (DbContextOptionsBuilder options) =>
-            options.UseSqlServer (_configuration.GetConnectionString ("DefaultConnection"));
+        protected override void OnConfiguring (DbContextOptionsBuilder builder) {
+            builder.UseSqlServer (_configuration.GetConnectionString ("DefaultConnection"));
+        }
     }
 }

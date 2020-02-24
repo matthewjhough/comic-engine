@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace ComicEngine.Api.SavedComics {
@@ -23,11 +24,17 @@ namespace ComicEngine.Api.SavedComics {
             }
         }
 
-        public IEnumerable<Comic> GetSavedComics () {
+        public async Task<IEnumerable<Comic>> GetSavedComics () {
             // Todo: add logging.
-            var savedComics = _savedComicContext.Comics
-                .Select (x => x)
-                .ToList ();
+            var savedComics = await _savedComicContext.Comics
+                .Include (x => x.Characters)
+                .ThenInclude (c => c.Items)
+                .Include (x => x.Creators)
+                .ThenInclude (c => c.Items)
+                .Include ("Series")
+                .Include ("PublishDates")
+                .Include ("RelevantLinks")
+                .ToListAsync ();
 
             return savedComics;
         }

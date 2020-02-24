@@ -16,12 +16,14 @@ namespace ComicEngine.Client.ComicEngineApi {
             _apiClient = apiClient;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="endpoint"></param>
-        /// <returns></returns>
+        public async Task<IEnumerable<Comic>> RequestAllSavedComics () {
+            string endpoint = "v1/saved/comics";
+            string serializedComicString = await _apiClient.RequestComicFromApi (endpoint);
+            IEnumerable<Comic> deserializedComic = JsonConvert.DeserializeObject<IEnumerable<Comic>> (serializedComicString);
+
+            return deserializedComic;
+        }
+
         async public Task<Comic> RequestComicByParameters (
             string parameters,
             string endpoint = ""
@@ -32,12 +34,6 @@ namespace ComicEngine.Client.ComicEngineApi {
             return deserializedComic;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="endpoint"></param>
-        /// <returns></returns>
         async public Task<IList<Comic>> RequestComicsByParameters (
             string parameters,
             string endpoint = ""

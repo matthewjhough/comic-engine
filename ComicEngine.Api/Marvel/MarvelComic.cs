@@ -94,7 +94,7 @@ namespace ComicEngine.Api.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public List<TextObject> TextObjects { get; set; }
+        public IEnumerable<TextObject> TextObjects { get; set; }
 
         /// <summary>
         /// 
@@ -106,7 +106,7 @@ namespace ComicEngine.Api.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicUrl> Urls { get; set; }
+        public IEnumerable<ComicUrl> Urls { get; set; }
 
         /// <summary>
         /// 
@@ -118,31 +118,31 @@ namespace ComicEngine.Api.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicResource> Variants { get; set; }
+        public IEnumerable<ComicResource> Variants { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicResource> Collections { get; set; }
+        public IEnumerable<ComicResource> Collections { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicResource> CollectedIssues { get; set; }
+        public IEnumerable<ComicResource> CollectedIssues { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicDate> Dates { get; set; }
+        public IEnumerable<ComicDate> Dates { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicPrice> Prices { get; set; }
+        public IEnumerable<ComicPrice> Prices { get; set; }
 
         /// <summary>
         /// 
@@ -154,30 +154,30 @@ namespace ComicEngine.Api.Marvel {
         /// 
         /// </summary>
         /// <value></value>
-        public List<ComicImageResource> Images { get; set; }
+        public IEnumerable<ComicImageResource> Images { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public Profile Creators { get; set; }
+        public CreatorProfile Creators { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public Profile Characters { get; set; }
+        public CharacterProfile Characters { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public Profile Stories { get; set; }
+        public StoryProfile Stories { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <value></value>
-        public Profile Events { get; set; }
+        public EventProfile Events { get; set; }
     }
 }

@@ -16,5 +16,7 @@ namespace ComicEngine.Client.ComicEngineApi {
         /// <param name="endpoint"></param>
         /// <returns>Serialized json string with results</returns>
         Task<string> RequestSerializedComics (string parameters, string endpoint = "");
+
+        Task<string> RequestComicFromApi (string endpoint, string parameters = "");
     }
 }

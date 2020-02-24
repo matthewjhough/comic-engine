@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicEngine.Common {
-    [Table ("Profiles")]
-    public class Profile {
+    public abstract class Profile {
         [Key]
         public int Id { get; set; }
 
@@ -13,7 +12,5 @@ namespace ComicEngine.Common {
         public int Returned { get; set; }
 
         public string CollectionUri { get; set; }
-
-        public List<ProfileItem> Items { get; set; }
     }
 }

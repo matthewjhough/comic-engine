@@ -1,8 +1,8 @@
 ﻿<Project>
 
  <PropertyGroup>
-    <Version>0.0.1-snapshot</Version>
-    <Authors>Matt Hough</Authors>
+   <Version>0.0.1-snapshot</Version>
+   <Authors>Matt Hough</Authors>
    <Deterministic>true</Deterministic>
    <MicrosoftFrameworkVersion>netcoreapp3.0</MicrosoftFrameworkVersion>
  </PropertyGroup>

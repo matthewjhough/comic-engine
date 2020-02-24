@@ -23,7 +23,7 @@ namespace ComicEngine.Api.SavedComics {
 
         public async Task<IEnumerable<Comic>> GetSavedComics () {
             // Todo: add logging.
-            var savedComics = _savedComicsRepository.GetSavedComics ();
+            var savedComics = await _savedComicsRepository.GetSavedComics ();
 
             return savedComics;
         }

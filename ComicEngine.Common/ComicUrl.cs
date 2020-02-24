@@ -2,10 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicEngine.Common {
-    [Table ("ComicUrls")]
     public class ComicUrl {
-        [Key]
-        public int Id { get; set; }
+        [ForeignKey ("Comic")]
+        public int ComicUrlId { get; set; }
 
         public string Type { get; set; }
 

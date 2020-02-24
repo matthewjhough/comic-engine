@@ -8,7 +8,9 @@ using Newtonsoft.Json;
 
 namespace ComicEngine.Client.Graphql {
     public class Query {
+
         private readonly ILogger _logger;
+
         private IComicEngineApiService _comicApiService;
 
         public Query (ILogger<Query> logger, IComicEngineApiService comicApiService) {
@@ -41,6 +43,12 @@ namespace ComicEngine.Client.Graphql {
                 parameters,
                 "/search"
             );
+
+            return response;
+        }
+
+        public async Task<IEnumerable<Comic>> SavedComics () {
+            var response = await _comicApiService.RequestAllSavedComics ();
 
             return response;
         }

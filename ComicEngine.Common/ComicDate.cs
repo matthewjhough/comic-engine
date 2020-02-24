@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComicEngine.Common {
-    [Table ("ComicDates")]
     public class ComicDate {
-        [Key]
-        public int Id { get; set; }
+        [ForeignKey ("Comic")]
+        public int ComicDateId { get; set; }
 
         public DateTime _Date { get; set; }
 
