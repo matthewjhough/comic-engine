@@ -42,14 +42,14 @@ namespace ComicEngine.Api.Marvel {
                         Title = marvelComic.Title,
                         Upc = marvelComic.Upc,
                         Description = marvelComic.Description,
-                        Characters = marvelComic.Characters.Items.Select (x => x as CharacterProfileItem),
-                        Creators = marvelComic.Creators.Items.Select (x => x as CreatorProfileItem),
+                        Characters = marvelComic.Characters as CharacterProfile,
+                        Creators = marvelComic.Creators as CreatorProfile,
                         Series = marvelComic.ComicSeries,
-                        PublishDates = marvelComic.Dates.ToList (),
+                        // PublishDates = marvelComic.Dates.ToList (),
                         PageCount = marvelComic.PageCount,
                         ResourceUri = marvelComic.ResourceUri,
                         Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
-                        RelevantLinks = marvelComic.Urls
+                        // RelevantLinks = marvelComic.Urls
                 };
             } catch (Exception ex) {
                 throw ex;
