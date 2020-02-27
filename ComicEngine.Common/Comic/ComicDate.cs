@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ComicEngine.Common {
+namespace ComicEngine.Common.Comic {
     public class ComicDate {
         [ForeignKey ("Comic")]
         public int ComicDateId { get; set; }

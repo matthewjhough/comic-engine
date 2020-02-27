@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ComicEngine.Api.Marvel {
+namespace ComicEngine.Common.Marvel {
     public class MarvelResponse {
 
         /// <summary>

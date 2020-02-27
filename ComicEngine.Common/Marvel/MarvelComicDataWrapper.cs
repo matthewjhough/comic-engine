@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ComicEngine.Api.Marvel {
+namespace ComicEngine.Common.Marvel {
     /// <summary>
     /// Gemeral Pagination wrapper around Marvel Comic Results.
     /// </summary>

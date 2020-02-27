@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.SavedComics {
-    public interface ISavedComicsService {
-        Task<Comic> CreateSavedComicAsync (Comic comic);
-
+namespace ComicEngine.Api.SavedComics.Commands {
+    public interface IGetSavedComicCommand {
         /// <summary>
         /// Gets all saved <see cref="Comic">s.!--
         /// 

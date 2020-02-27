@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.Marvel {
+namespace ComicEngine.Common.Marvel {
     public class MarvelComic {
 
         /// <summary>

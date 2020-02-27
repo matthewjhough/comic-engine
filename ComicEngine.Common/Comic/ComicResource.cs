@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ComicEngine.Common {
+namespace ComicEngine.Common.Comic {
     public class ComicResource {
         [ForeignKey ("Comic")]
         public int ComicResourceId { get; set; }

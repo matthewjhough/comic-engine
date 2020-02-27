@@ -1,4 +1,4 @@
-namespace ComicEngine.Api.Marvel {
+namespace ComicEngine.Api {
     public class MarvelApiConfig {
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }

@@ -1,4 +1,5 @@
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

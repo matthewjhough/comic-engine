@@ -3,16 +3,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
+using ComicEngine.Common.Marvel;
 
-namespace ComicEngine.Api.Marvel {
-    /// <summary>
-    /// Implements <see cref="IMarvelService" />
-    /// </summary>
-    public class MarvelService : IMarvelService {
+namespace ComicEngine.Api.Marvel.Commands {
+    public class MarvelCommands : IGetMarvelCommand {
 
         private MarvelHttpClientV1 _marvelClient;
 
-        public MarvelService (MarvelHttpClientV1 marvelClient) {
+        public MarvelCommands (MarvelHttpClientV1 marvelClient) {
             _marvelClient = marvelClient;
         }
 

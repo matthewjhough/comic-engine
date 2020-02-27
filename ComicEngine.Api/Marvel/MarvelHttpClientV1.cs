@@ -6,7 +6,8 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ComicEngine.Common;
-using Microsoft.AspNetCore.Mvc;
+using ComicEngine.Common.Comic;
+using ComicEngine.Common.Marvel;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 

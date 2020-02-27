@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ComicEngine.Common {
+namespace ComicEngine.Common.Comic {
     public abstract class ProfileItem {
         [Key]
         public int Id { get; set; }

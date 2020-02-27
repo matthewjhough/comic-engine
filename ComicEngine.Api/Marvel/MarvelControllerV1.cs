@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Marvel;
+using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +14,7 @@ namespace ComicEngine.Api.Controllers {
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
 
-        private IMarvelService _marvelService;
+        private IGetMarvelCommand _getMarvel;
 
         /// <summary>
         /// Constructor for <see cref="MarvelControllerV1" />
@@ -21,9 +23,9 @@ namespace ComicEngine.Api.Controllers {
         /// <param name="marvelService"></param>
         public MarvelControllerV1 (
             ILogger<MarvelControllerV1> logger,
-            IMarvelService marvelService) {
+            IGetMarvelCommand getMarvelCommand) {
 
-            _marvelService = marvelService;
+            _getMarvel = getMarvelCommand;
             _logger = logger;
         }
 
@@ -41,7 +43,7 @@ namespace ComicEngine.Api.Controllers {
                 throw new ArgumentNullException ();
             }
 
-            Comic comicResponse = await _marvelService.GetByCode (upc);
+            Comic comicResponse = await _getMarvel.GetByCode (upc);
 
             _logger.LogDebug ("Returning comic: {marvelResponse}", comicResponse?.Title);
 
@@ -52,7 +54,7 @@ namespace ComicEngine.Api.Controllers {
         public async Task<IEnumerable<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
-            var comicResponse = await _marvelService.GetByTitleAndIssueNumber (title, issueNumber) as IEnumerable<Comic>;
+            var comicResponse = await _getMarvel.GetByTitleAndIssueNumber (title, issueNumber) as IEnumerable<Comic>;
 
             _logger.LogDebug ("Found {number} comics", comicResponse.Count ());
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Client.ComicEngineApi;
 using ComicEngine.Common;
+using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 

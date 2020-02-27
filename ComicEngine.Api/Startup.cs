@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Api.Marvel;
+using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Api.SavedComics;
+using ComicEngine.Api.SavedComics.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,8 +34,9 @@ namespace ComicEngine.Api {
                         sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
                         Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                     ))
-                .AddSingleton<IMarvelService, MarvelService> ()
-                .AddSingleton<ISavedComicsService, SavedComicsService> ()
+                .AddSingleton<IGetMarvelCommand, MarvelCommands> ()
+                .AddSingleton<IGetSavedComicCommand, SavedComicCommands> ()
+                .AddSingleton<ICreateSavedComicCommand, SavedComicCommands> ()
                 .AddSingleton<SavedComicContext> (sp =>
                     new SavedComicContext (Configuration))
                 .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
