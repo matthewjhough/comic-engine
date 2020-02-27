@@ -1,4 +1,5 @@
 using ComicEngine.Client.ComicEngineApi;
+using ComicEngine.Client.ComicEngineApi.HttpClient;
 
 namespace ComicEngine.Client {
     public class ApplicationConfiguration {
