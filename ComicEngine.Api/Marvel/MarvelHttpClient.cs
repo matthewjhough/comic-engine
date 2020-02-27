@@ -12,16 +12,16 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Marvel {
-    public class MarvelHttpClientV1 {
+    public class MarvelHttpClient {
         private MarvelApiConfig _marvelApiSettings;
 
         private readonly ILogger _logger;
 
         private readonly IHttpClientFactory _clientFactory;
 
-        public MarvelHttpClientV1 (
+        public MarvelHttpClient (
             IHttpClientFactory clientFactory,
-            ILogger<MarvelHttpClientV1> logger,
+            ILogger<MarvelHttpClient> logger,
             MarvelApiConfig marvelApiSettings
         ) {
             _clientFactory = clientFactory;

@@ -28,10 +28,10 @@ namespace ComicEngine.Api {
         public void ConfigureServices (IServiceCollection services) {
             services.AddControllers ();
             services.AddHttpClient ();
-            services.AddSingleton<MarvelHttpClientV1> (sp =>
-                    new MarvelHttpClientV1 (
+            services.AddSingleton<MarvelHttpClient> (sp =>
+                    new MarvelHttpClient (
                         sp.GetRequiredService<IHttpClientFactory> (),
-                        sp.GetRequiredService<ILogger<MarvelHttpClientV1>> (),
+                        sp.GetRequiredService<ILogger<MarvelHttpClient>> (),
                         Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                     ))
                 .AddSingleton<IGetMarvelCommand, MarvelCommands> ()

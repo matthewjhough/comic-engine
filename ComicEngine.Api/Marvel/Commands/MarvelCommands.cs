@@ -9,9 +9,9 @@ using ComicEngine.Common.Marvel;
 namespace ComicEngine.Api.Marvel.Commands {
     public class MarvelCommands : IGetMarvelCommand {
 
-        private MarvelHttpClientV1 _marvelClient;
+        private MarvelHttpClient _marvelClient;
 
-        public MarvelCommands (MarvelHttpClientV1 marvelClient) {
+        public MarvelCommands (MarvelHttpClient marvelClient) {
             _marvelClient = marvelClient;
         }
 
