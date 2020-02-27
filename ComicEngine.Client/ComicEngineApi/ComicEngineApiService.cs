@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Client.ComicEngineApi;
-using ComicEngine.Common;
+using ComicEngine.Client.ComicEngineApi.HttpClient;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ComicEngine.Client.ComicEngineApi {
     public class ComicEngineApiService : IComicEngineApiService {
-
+        private readonly string _marvelEndpoint = "v1/marvel/comic";
+        private readonly string _savedComicsEndpoint = "v1/saved/comics";
         private ILogger _logger;
         private IComicHttpClient _apiClient;
 
@@ -18,31 +17,36 @@ namespace ComicEngine.Client.ComicEngineApi {
         }
 
         public async Task<IEnumerable<Comic>> RequestAllSavedComics () {
-            string endpoint = "v1/saved/comics";
-            string serializedComicString = await _apiClient.RequestComicFromApi (endpoint);
-            IEnumerable<Comic> deserializedComic = JsonConvert.DeserializeObject<IEnumerable<Comic>> (serializedComicString);
+            _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
+            var comicResponse = await _apiClient.RequestComicFromApi<IEnumerable<Comic>> (_savedComicsEndpoint);
+            _logger.LogDebug ("Response returned: {response}", comicResponse);
 
-            return deserializedComic;
+            return comicResponse;
         }
 
-        async public Task<Comic> RequestComicByParameters (
-            string parameters,
-            string endpoint = ""
+        async public Task<Comic> RequestMarvelComicByUpc (
+            string upc
         ) {
-            var serializedComicString = await _apiClient.RequestSerializedComics (parameters, endpoint);
-            Comic deserializedComic = JsonConvert.DeserializeObject<Comic> (serializedComicString);
+            string parameters = $"upc={upc}";
 
-            return deserializedComic;
+            _logger.LogDebug ("Making request to: {endpoint}, with parameters: {parameters}", _marvelEndpoint, parameters);
+            var comcResponse = await _apiClient.RequestComicFromApi<Comic> (_marvelEndpoint, parameters);
+            _logger.LogDebug ("Response returned: {response}", comcResponse);
+
+            return comcResponse;
         }
 
-        async public Task<IList<Comic>> RequestComicsByParameters (
-            string parameters,
-            string endpoint = ""
+        public async Task<IEnumerable<Comic>> RequestMarvelComicsByParameters (
+            string title, string issueNumber
         ) {
-            var serializedComicString = await _apiClient.RequestSerializedComics (parameters, endpoint);
-            List<Comic> deserializedComicList = JsonConvert.DeserializeObject<List<Comic>> (serializedComicString);
+            string endpoint = $"{_marvelEndpoint}/search";
+            string parameters = $"title={title}&issueNumber={issueNumber}";
 
-            return deserializedComicList;
+            _logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
+            var comicResponse = await _apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);
+            _logger.LogDebug ("Response returned: {response}", comicResponse);
+
+            return comicResponse;
         }
 
     }

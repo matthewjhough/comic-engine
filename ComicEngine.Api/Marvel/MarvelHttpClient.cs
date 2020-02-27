@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Marvel {
-    public class MarvelHttpClient {
+    public class MarvelHttpClient : BaseHttpClient {
         private MarvelApiConfig _marvelApiSettings;
 
         private readonly ILogger _logger;
@@ -20,71 +20,31 @@ namespace ComicEngine.Api.Marvel {
         private readonly IHttpClientFactory _clientFactory;
 
         public MarvelHttpClient (
-            IHttpClientFactory clientFactory,
             ILogger<MarvelHttpClient> logger,
             MarvelApiConfig marvelApiSettings
         ) {
-            _clientFactory = clientFactory;
             _logger = logger;
             _marvelApiSettings = marvelApiSettings;
-        }
-
-        /// <summary>
-        /// Helper method to take care of repeat mapping logic.
-        /// </summary>
-        /// <param name="marvelComic"></param>
-        /// <returns>Comic POCO</returns>
-        public Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
-            try {
-                return new Comic () {
-                    Id = marvelComic.Id,
-                        Copyright = copyright,
-                        IssueNumber = marvelComic.IssueNumber,
-                        Title = marvelComic.Title,
-                        Upc = marvelComic.Upc,
-                        Description = marvelComic.Description,
-                        Characters = marvelComic.Characters as CharacterProfile,
-                        Creators = marvelComic.Creators as CreatorProfile,
-                        Series = marvelComic.ComicSeries,
-                        // PublishDates = marvelComic.Dates.ToList (),
-                        PageCount = marvelComic.PageCount,
-                        ResourceUri = marvelComic.ResourceUri,
-                        Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
-                        // RelevantLinks = marvelComic.Urls
-                };
-            } catch (Exception ex) {
-                throw ex;
-            }
         }
 
         /// <summary>
         /// Sends an HTTP request to get comic(s)
         /// </summary>
         /// <returns></returns>
-        public async Task<MarvelResponse> RequestComic (HttpRequestMessage request, string clientName) {
-            var client = _clientFactory.CreateClient (clientName);
-            var response = await client.SendAsync (request);
+        public async Task<MarvelResponse> RequestComic (string route, string query) {
+            string url = CreateRequestUrl (route, query);
+            MarvelResponse response = await base.MakeRequest<MarvelResponse> (HttpMethod.Get, url);
 
-            if (response.IsSuccessStatusCode) {
-                var responseStream = await response.Content.ReadAsStreamAsync ();
-                var serializer = new JsonSerializer ();
-
-                using (StreamReader reader = new StreamReader (responseStream))
-                using (var jsonTextReader = new JsonTextReader (reader)) {
-                    return serializer.Deserialize<MarvelResponse> (jsonTextReader);
-                }
-            } else {
-                return new MarvelResponse ();
-            }
+            return response;
         }
 
         /// <summary>
-        /// Helper method to reduce duplicate logic when creating a marvel request.
+        /// Helper method to create the marvel hash string
         /// </summary>
         /// <param name="route">The marvel api route intended to send a request</param>
         /// <param name="query">The search/query parameters to filter by (query string param format)</param>
         /// <returns></returns>
-        public HttpRequestMessage CreateRequestMessage (string route, string query) {
+        private string CreateRequestUrl (string route, string query) {
             string ts = "1";
             string apiHashSource = ts + _marvelApiSettings.PrivateKey + _marvelApiSettings.PublicKey;
             string marvelHash = "1234";
@@ -97,14 +57,9 @@ namespace ComicEngine.Api.Marvel {
                 throw exception;
             }
 
-            var requestMessage = new HttpRequestMessage (HttpMethod.Get,
-                $"{_marvelApiSettings.BaseUrl}{route}?{query}&ts={ts}&apikey={_marvelApiSettings.PublicKey}&hash={marvelHash}");
+            var url = $"{_marvelApiSettings.BaseUrl}{route}?{query}&ts={ts}&apikey={_marvelApiSettings.PublicKey}&hash={marvelHash}";
 
-            requestMessage.Headers.Add ("Accept", "*/*");
-            requestMessage.Headers.Add ("Sec-Fetch-Mode", "cors");
-
-            return requestMessage;
+            return url;
         }
-
     }
 }

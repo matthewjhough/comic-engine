@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -21,9 +22,7 @@ namespace ComicEngine.Api.Marvel.Commands {
         /// <param name="isbn"></param>
         /// <returns></returns>
         public async Task<Comic> GetByCode (string upc) {
-            HttpRequestMessage request = _marvelClient.CreateRequestMessage ("/comics", $"upc={upc}");
-
-            MarvelResponse comicResponse = await _marvelClient.RequestComic (request, "marvelByCode");
+            MarvelResponse comicResponse = await _marvelClient.RequestComic ("/comics", $"upc={upc}");
             MarvelComic comicData = comicResponse
                 .Data
                 .Results
@@ -33,17 +32,17 @@ namespace ComicEngine.Api.Marvel.Commands {
                 return new Comic ();
             }
 
-            Comic comic = _marvelClient.MapResponseToComic (comicData, comicResponse.Copyright);
+            Comic comic = MapResponseToComic (comicData, comicResponse.Copyright);
 
             return comic;
         }
 
         async public Task<IList<Comic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
-            var request = _marvelClient.CreateRequestMessage (
-                "/comics", $"title={title}&issueNumber={issueNumber}"
+            MarvelResponse comicResponse = await _marvelClient.RequestComic (
+                "/comics",
+                $"title={title}&issueNumber={issueNumber}"
             );
 
-            MarvelResponse comicResponse = await _marvelClient.RequestComic (request, "marvelByTitleIssueNumber");
             IEnumerable<MarvelComic> comicData = comicResponse
                 .Data
                 .Results.AsEnumerable ();
@@ -54,10 +53,38 @@ namespace ComicEngine.Api.Marvel.Commands {
 
             var comics = comicData
                 .Select (marvelComic =>
-                    _marvelClient.MapResponseToComic (marvelComic, comicResponse.Copyright))
+                    MapResponseToComic (marvelComic, comicResponse.Copyright))
                 .ToList ();
 
             return comics;
+        }
+
+        /// <summary>
+        /// Helper method to take care of repeat mapping logic.
+        /// </summary>
+        /// <param name="marvelComic"></param>
+        /// <returns>Comic POCO</returns>
+        private Comic MapResponseToComic (MarvelComic marvelComic, string copyright) {
+            try {
+                return new Comic () {
+                    Id = marvelComic.Id,
+                        Copyright = copyright,
+                        IssueNumber = marvelComic.IssueNumber,
+                        Title = marvelComic.Title,
+                        Upc = marvelComic.Upc,
+                        Description = marvelComic.Description,
+                        Characters = marvelComic.Characters as CharacterProfile,
+                        Creators = marvelComic.Creators as CreatorProfile,
+                        Series = marvelComic.ComicSeries,
+                        // PublishDates = marvelComic.Dates.ToList (),
+                        PageCount = marvelComic.PageCount,
+                        ResourceUri = marvelComic.ResourceUri,
+                        Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
+                        // RelevantLinks = marvelComic.Urls
+                };
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
     }
 }

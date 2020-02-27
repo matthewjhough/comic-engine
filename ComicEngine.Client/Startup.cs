@@ -1,5 +1,6 @@
 using System.Net.Http;
 using ComicEngine.Client.ComicEngineApi;
+using ComicEngine.Client.ComicEngineApi.HttpClient;
 using ComicEngine.Client.Data;
 using ComicEngine.Client.Graphql;
 using ComicEngine.Client.IdentityServer;

@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using ComicEngine.Api.Marvel;
 using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Api.SavedComics;
 using ComicEngine.Api.SavedComics.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +23,6 @@ namespace ComicEngine.Api {
             services.AddHttpClient ();
             services.AddSingleton<MarvelHttpClient> (sp =>
                     new MarvelHttpClient (
-                        sp.GetRequiredService<IHttpClientFactory> (),
                         sp.GetRequiredService<ILogger<MarvelHttpClient>> (),
                         Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
                     ))
