@@ -4,7 +4,7 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { ComicResult } from '../ComicResult/ComicResult';
 import styles from './ComicResults.module.scss';
 
-export function ComicResults({ results, isLoading, ...restState }) {
+export function ComicResults({ results = [], isLoading }) {
   return (
     <div className={styles.comicResults}>
       <ScrollContainer>

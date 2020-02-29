@@ -1,7 +1,4 @@
-import {
-  SET_COMIC_FORM_RESULTS,
-  TOGGLE_COMIC_SEARCH_LOADING
-} from '../actionTypes';
+import { SET_COMIC_RESULTS, TOGGLE_COMIC_SEARCH_LOADING } from '../actionTypes';
 
 const defaultState = {
   results: [],
@@ -12,7 +9,7 @@ export function comicResultsReducer(state = defaultState, action) {
   switch (action.type) {
     case TOGGLE_COMIC_SEARCH_LOADING:
       return { ...state, isLoading: action.isLoading };
-    case SET_COMIC_FORM_RESULTS:
+    case SET_COMIC_RESULTS:
       console.log('Results: ', action);
       return { ...state, results: action.results };
     default:

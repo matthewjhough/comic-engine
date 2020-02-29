@@ -8,9 +8,7 @@ export function ComicSearchForm({
   updateResultsFromForm,
   toggleComicSearchLoadingTrue,
   title,
-  issueNumber,
-  isLoading,
-  results
+  issueNumber
 }) {
   return (
     <div className={styles.comicSearchForm}>
