@@ -38,7 +38,7 @@ namespace ComicEngine.Api.Marvel.Commands {
             return comic;
         }
 
-        async public Task<IList<Comic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
+        public async Task<IList<Comic>> GetByTitleAndIssueNumber (string title, string issueNumber) {
             MarvelResponse comicResponse = await _marvelClient.RequestComic (
                 "/comics",
                 $"title={title}&issueNumber={issueNumber}"
