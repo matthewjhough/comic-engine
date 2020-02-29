@@ -35,6 +35,12 @@ export function updateResultsFromForm(dispatch) {
           );
         }
 
+        if (data.comicsByTitleAndIssueNumber == null) {
+          return dispatch(
+            setComicFetchResults({ comicsByTitleAndIssueNumber: [] })
+          );
+        }
+
         return dispatch(setComicFetchResults(data));
       })
       .then(() => dispatch(toggleComicSearchLoading(false)));

@@ -1,5 +1,17 @@
-$spinner-color: #ccc;
+$spinner-color: red;
 $spinner-background: #fff;
+
+.spinnerBackground {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  background: $spinner-background;
+  opacity: 0.6;
+}
 
 .loader,
 .loader:before,
@@ -7,6 +19,7 @@ $spinner-background: #fff;
   border-radius: 50%;
 }
 .loader {
+  top: 30%;
   color: $spinner-color;
   font-size: 11px;
   text-indent: -99999em;
