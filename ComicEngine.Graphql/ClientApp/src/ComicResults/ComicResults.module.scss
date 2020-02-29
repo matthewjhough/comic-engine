@@ -1,0 +1,19 @@
+// FIXME: Centralize variables
+$comicSearchBackground: #f1f1f1;
+
+.comicResults {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+
+  margin: 1rem;
+  background: $comicSearchBackground;
+  border: 3px solid $comicSearchBackground;
+}
+
+// FIXME: Make function for media queries
+@media only screen and (max-width: 1000px) {
+  .comicResults {
+    overflow: hidden;
+  }
+}

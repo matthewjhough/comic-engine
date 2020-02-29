@@ -5,7 +5,7 @@ import {
   updateIssueNumberInput,
   updateResultsFromForm,
   toggleComicSearchLoading
-} from './comicSearchFormActionCreators';
+} from './comicSearchFormActions';
 
 const mapStateToProps = ({ comicSearchForm }) => ({
   ...comicSearchForm

@@ -1,8 +1,6 @@
 import React from 'react';
-import { ComicResult } from '../ComicResult/ComicResult';
-import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import styles from './ComicSearchForm.module.scss';
-import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
+import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
 export function ComicSearchForm({
   updateIssueNumberInput,
@@ -53,15 +51,7 @@ export function ComicSearchForm({
           </button>
         </div>
       </form>
-      <div className={styles.comicResults}>
-        <ScrollContainer>
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : (
-            results.map(comic => <ComicResult key={comic.id} comic={comic} />)
-          )}
-        </ScrollContainer>
-      </div>
+      <ComicResultsContainer />
     </div>
   );
 }

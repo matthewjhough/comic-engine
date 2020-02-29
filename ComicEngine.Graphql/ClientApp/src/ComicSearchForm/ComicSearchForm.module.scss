@@ -1,3 +1,4 @@
+// FIXME: centralize variables
 $comicSearchBackground: #f1f1f1;
 
 .comicSearchForm {
@@ -15,16 +16,6 @@ $comicSearchBackground: #f1f1f1;
     margin-top: 0.85rem;
     flex: 0 1 auto;
     min-width: 30%;
-  }
-
-  .comicResults {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-
-    margin: 1rem;
-    background: $comicSearchBackground;
-    border: 3px solid $comicSearchBackground;
   }
 }
 
@@ -54,8 +45,5 @@ label {
       border: 1px solid #ccc;
       width: 100%;
     }
-  }
-  .comicResults {
-    overflow: hidden;
   }
 }

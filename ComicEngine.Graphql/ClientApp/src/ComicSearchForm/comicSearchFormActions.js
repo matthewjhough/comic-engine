@@ -3,7 +3,7 @@ import {
   UPDATE_ISSUE_NUMBER_INPUT,
   SET_COMIC_FORM_RESULTS,
   TOGGLE_COMIC_SEARCH_LOADING
-} from './comicSearchFormActionTypes';
+} from '../actionTypes';
 import { fetchComicFromTitleAndIssueNumber } from '../graphqlClient/graphqlClient';
 
 export function setComicFetchResults({ comicsByTitleAndIssueNumber }) {
