@@ -1,5 +1,5 @@
 using ComicEngine.Graphql.ComicEngineApi;
-using ComicEngine.Graphql.ComicEngineApi.HttpClient;
+using ComicEngine.Graphql.HttpClients;
 
 namespace ComicEngine.Graphql {
     public class ApplicationConfiguration {

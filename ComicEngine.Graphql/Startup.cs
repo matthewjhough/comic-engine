@@ -1,8 +1,8 @@
 using System.Net.Http;
 using ComicEngine.Graphql.ComicEngineApi;
-using ComicEngine.Graphql.ComicEngineApi.HttpClient;
 using ComicEngine.Graphql.Data;
 using ComicEngine.Graphql.Graphql;
+using ComicEngine.Graphql.HttpClients;
 using ComicEngine.Graphql.IdentityServer;
 using HotChocolate;
 using HotChocolate.AspNetCore;

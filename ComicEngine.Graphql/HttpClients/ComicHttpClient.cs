@@ -7,7 +7,7 @@ using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Graphql.ComicEngineApi.HttpClient {
+namespace ComicEngine.Graphql.HttpClients {
     public class ComicHttpClient : BaseHttpClient, IComicHttpClient {
         private readonly string _comicEngineApiUri;
         private readonly ILogger _logger;
