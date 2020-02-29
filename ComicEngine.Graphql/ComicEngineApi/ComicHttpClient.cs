@@ -7,13 +7,13 @@ using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Graphql.HttpClients {
+namespace ComicEngine.Graphql.ComicEngineApi {
     public class ComicHttpClient : BaseHttpClient, IComicHttpClient {
         private readonly string _comicEngineApiUri;
         private readonly ILogger _logger;
 
         public ComicHttpClient (
-            ILogger<ComicHttpClient> logger,
+            ILogger<IComicHttpClient> logger,
             IHttpClientFactory clientFactory,
             ComicHttpClientConfig apiConfig
         ) {

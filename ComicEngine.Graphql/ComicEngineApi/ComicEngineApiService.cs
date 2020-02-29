@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.HttpClients;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.ComicEngineApi {

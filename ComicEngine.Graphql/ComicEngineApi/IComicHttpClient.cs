@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 
-namespace ComicEngine.Graphql.HttpClients {
+namespace ComicEngine.Graphql.ComicEngineApi {
     /// <summary>
     /// The ComicHttpClient is intended to be a helper class to handle a lot of the repeat logic
     /// when making an Http request to the comic api endpoint.
