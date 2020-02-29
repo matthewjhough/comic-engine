@@ -2,7 +2,6 @@ using System.Net.Http;
 using ComicEngine.Graphql.ComicEngineApi;
 using ComicEngine.Graphql.Data;
 using ComicEngine.Graphql.Graphql;
-using ComicEngine.Graphql.HttpClients;
 using ComicEngine.Graphql.IdentityServer;
 using HotChocolate;
 using HotChocolate.AspNetCore;
@@ -53,15 +52,16 @@ namespace ComicEngine.Graphql {
 
             services.AddSingleton<ICorsPolicyService> (cors);
 
+            #endregion cors
+
             services.AddSingleton<IComicHttpClient> (sp =>
                 new ComicHttpClient (
-                    sp.GetRequiredService<ILogger<ComicHttpClient>> (),
+                    sp.GetRequiredService<ILogger<IComicHttpClient>> (),
                     sp.GetRequiredService<IHttpClientFactory> (),
                     Configuration
                     .GetSection ("ComicHttpClientConfig")
                     .Get<ComicHttpClientConfig> ()
                 ));
-            #endregion cors
 
             services.AddSingleton<IComicEngineApiService, ComicEngineApiService> ();
 

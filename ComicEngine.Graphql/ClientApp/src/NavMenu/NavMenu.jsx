@@ -38,7 +38,7 @@ export class NavMenu extends Component {
           light>
           <Container>
             <NavbarBrand tag={Link} to="/">
-              ComicEngine.Graphql
+              ComicEngine
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse

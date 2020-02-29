@@ -2,6 +2,7 @@ import React from 'react';
 import { ComicResult } from '../ComicResult/ComicResult';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import styles from './ComicSearchForm.module.scss';
+import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
 
 export function ComicSearchForm({
   updateIssueNumberInput,
@@ -14,8 +15,9 @@ export function ComicSearchForm({
   results
 }) {
   return (
-    <>
+    <div className={styles.comicSearchForm}>
       <form
+        className={styles.comicSearchFormElement}
         onSubmit={e => {
           e.preventDefault();
 
@@ -26,6 +28,7 @@ export function ComicSearchForm({
           <div className={styles.formRow}>
             <label>Title</label>
             <input
+              value={title}
               onChange={e => updateTitleInput(e.target.value)}
               name="title"
             />
@@ -33,19 +36,32 @@ export function ComicSearchForm({
           <div className={styles.formRow}>
             <label>Issue Number</label>
             <input
+              value={issueNumber}
               onChange={e => updateIssueNumberInput(e.target.value)}
               name="issueNumber"
             />
           </div>
         </div>
-        <button type="submit">Search</button>
+        <div className={styles.buttonWrapper}>
+          <button type="submit">Search</button>
+          <button
+            onClick={() => {
+              updateIssueNumberInput('');
+              updateTitleInput('');
+            }}>
+            Clear
+          </button>
+        </div>
       </form>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        results.map(comic => <ComicResult key={comic.id} comic={comic} />)
-      )}
-      {}
-    </>
+      <div className={styles.comicResults}>
+        <ScrollContainer>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            results.map(comic => <ComicResult key={comic.id} comic={comic} />)
+          )}
+        </ScrollContainer>
+      </div>
+    </div>
   );
 }

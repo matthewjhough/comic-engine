@@ -1,6 +1,19 @@
 import { comicByUpcQuery } from '../BarcodeReader/comicByUpc.query';
 import { comicByTitleAndIssueNumber } from '../ComicSearchForm/comicByComicSearchForm.query';
 
+export const makeGraphqlRequest = (query, variables) =>
+  fetch('/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query,
+      variables
+    })
+  });
+
+// TODO: Refactor barcode scanner to use generic graphql client
 export const fetchComicFromBarcode = codeResult =>
   fetch('/graphql', {
     method: 'POST',
@@ -15,6 +28,7 @@ export const fetchComicFromBarcode = codeResult =>
     })
   });
 
+// TODO: Refactor form to use generic graphql client
 export const fetchComicFromTitleAndIssueNumber = ({ title, issueNumber }) =>
   fetch('/graphql', {
     method: 'POST',
@@ -29,5 +43,3 @@ export const fetchComicFromTitleAndIssueNumber = ({ title, issueNumber }) =>
       }
     })
   });
-
-// TODO: create a more reusable http client to make graphql requests
