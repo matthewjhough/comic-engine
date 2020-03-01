@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './ComicSearchForm.module.scss';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
@@ -15,6 +15,16 @@ export function ComicSearchForm({
   const isComicSelected = (currentComicId, savedComicId) => {
     return currentComicId === savedComicId;
   };
+
+  const clearForm = () => {
+    updateIssueNumberInput('');
+    updateTitleInput('');
+    setSelectedComic({});
+  };
+
+  useEffect(() => {
+    setSelectedComic({});
+  }, [setSelectedComic]);
 
   return (
     <div className={styles.comicSearchForm}>
@@ -46,13 +56,7 @@ export function ComicSearchForm({
         </div>
         <div className={styles.buttonWrapper}>
           <button type="submit">Search</button>
-          <button
-            onClick={() => {
-              updateIssueNumberInput('');
-              updateTitleInput('');
-            }}>
-            Clear
-          </button>
+          <button onClick={() => clearForm()}>Clear</button>
         </div>
       </form>
       <ComicResultsContainer
