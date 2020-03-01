@@ -11,7 +11,9 @@ export function ComicResults({ results = [], isLoading }) {
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          results.map(comic => <ComicResult key={comic.id} comic={comic} />)
+          results.map((comic, i) => (
+            <ComicResult key={`${comic.id}-${i}`} comic={comic} />
+          ))
         )}
       </ScrollContainer>
     </div>

@@ -1,4 +1,4 @@
-import { SavedComics } from './SavedComics/SavedComics';
+import { SavedComicsContainer } from './SavedComics/SavedComicsContainer';
 import { ComicSearch } from './ComicSearch/ComicSearch';
 
 export const routeConfig = {
@@ -10,6 +10,6 @@ export const routeConfig = {
   myComics: {
     text: 'My Comics',
     url: '/my-comics',
-    component: SavedComics
+    component: SavedComicsContainer
   }
 };
