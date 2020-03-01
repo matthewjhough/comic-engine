@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ComicSearchForm.module.scss';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
@@ -10,6 +10,17 @@ export function ComicSearchForm({
   title,
   issueNumber
 }) {
+  const [selectedComicId, setComicId] = useState('');
+
+  const selectComic = comic => {
+    const resolvedComicId = comic.id === selectedComicId ? '' : comic.id;
+    setComicId(resolvedComicId);
+  };
+
+  const isComicSelected = (currentComicId, savedComicId) => {
+    return currentComicId === savedComicId;
+  };
+
   return (
     <div className={styles.comicSearchForm}>
       <form
@@ -49,7 +60,11 @@ export function ComicSearchForm({
           </button>
         </div>
       </form>
-      <ComicResultsContainer />
+      <ComicResultsContainer
+        selectComic={selectComic}
+        isComicSelected={isComicSelected}
+        selectedComicId={selectedComicId}
+      />
     </div>
   );
 }

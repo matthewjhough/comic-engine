@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ComicResult.module.scss';
 
-export function ComicResult({ comic, ...rest }) {
+export function ComicResult({ comic, isSelected, ...rest }) {
   if (!comic) {
     return <div />;
   }
@@ -11,7 +11,9 @@ export function ComicResult({ comic, ...rest }) {
   }
 
   return (
-    <div className={styles.comicResult} {...rest}>
+    <div
+      className={`${styles.comicResult} ${isSelected ? styles.isSelected : ''}`}
+      {...rest}>
       <h3>{comic.title}</h3>
       <div className={styles.contentContainer}>
         <div className={styles.imageContainer}>

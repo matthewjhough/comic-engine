@@ -8,11 +8,11 @@ export function ComicSearch() {
   return (
     <ContentWrapper>
       <h5>Search for comics by Title and Issue number</h5>
-      <MobileDeviceCheck>
+      {/* <MobileDeviceCheck>
         , or scan a barcode by clicking the scan button at the bottom of the
         screen.
         <BarcodeReader />
-      </MobileDeviceCheck>
+      </MobileDeviceCheck> */}
       <ComicSearchFormContainer />
     </ContentWrapper>
   );
