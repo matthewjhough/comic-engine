@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../Authorization/LoginMenu';
+import { routeConfig } from '../routeConfig';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -52,13 +53,19 @@ export class NavMenu extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/comic-search">
-                    Comic Search
+                  <NavLink
+                    tag={Link}
+                    className="text-dark"
+                    to={routeConfig.comicSearch.url}>
+                    {routeConfig.comicSearch.text}
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/my-comics">
-                    My Comics
+                  <NavLink
+                    tag={Link}
+                    className="text-dark"
+                    to={routeConfig.myComics.url}>
+                    {routeConfig.myComics.text}
                   </NavLink>
                 </NavItem>
                 <LoginMenu></LoginMenu>

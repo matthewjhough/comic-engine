@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using ComicEngine.Api.HttpClients;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using ComicEngine.Common.Marvel;
 

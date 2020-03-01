@@ -1,4 +1,4 @@
-using ComicEngine.Api.HttpClients;
+using ComicEngine.Api.Marvel;
 using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Api.SavedComics;
 using ComicEngine.Api.SavedComics.Commands;
