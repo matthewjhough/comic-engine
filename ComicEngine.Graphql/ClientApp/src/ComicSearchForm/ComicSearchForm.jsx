@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './ComicSearchForm.module.scss';
+import { StickyButton } from '../StickyButton/StickyButton';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
 export function ComicSearchForm({
@@ -62,8 +63,13 @@ export function ComicSearchForm({
       <ComicResultsContainer
         selectComic={setSelectedComic}
         isComicSelected={isComicSelected}
-        selectedComicId={selectedComic.id}
-      />
+        selectedComicId={selectedComic.id}>
+        {selectedComic.id ? (
+          <StickyButton type="button">Save Comic</StickyButton>
+        ) : (
+          ''
+        )}
+      </ComicResultsContainer>
     </div>
   );
 }

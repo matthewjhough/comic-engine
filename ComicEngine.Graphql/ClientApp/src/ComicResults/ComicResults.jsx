@@ -9,13 +9,15 @@ export function ComicResults({
   isLoading,
   selectedComicId,
   selectComic,
-  isComicSelected
+  isComicSelected,
+  children
 }) {
   const selectComicMethod = selectComic ? selectComic : () => {};
 
   return (
     <div className={styles.comicResults}>
       <ScrollContainer>
+        {children}
         {isLoading ? (
           <LoadingSpinner />
         ) : (

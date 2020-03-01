@@ -6,8 +6,8 @@ $comicSearchBackground: #f1f1f1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 
-  margin: 1rem;
   background: $comicSearchBackground;
   border: 3px solid $comicSearchBackground;
 }
@@ -16,5 +16,6 @@ $comicSearchBackground: #f1f1f1;
 @media only screen and (max-width: 1000px) {
   .comicResults {
     overflow: hidden;
+    position: unset;
   }
 }
