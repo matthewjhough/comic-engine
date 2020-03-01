@@ -6,18 +6,12 @@ export function ComicSearchForm({
   updateIssueNumberInput,
   updateTitleInput,
   updateResultsFromForm,
+  setSelectedComic,
   toggleComicSearchLoadingTrue,
+  selectedComic,
   title,
   issueNumber
 }) {
-  // TODO: Move to redux state
-  const [selectedComicId, setComicId] = useState('');
-
-  const selectComic = comic => {
-    const resolvedComicId = comic.id === selectedComicId ? '' : comic.id;
-    setComicId(resolvedComicId);
-  };
-
   const isComicSelected = (currentComicId, savedComicId) => {
     return currentComicId === savedComicId;
   };
@@ -62,9 +56,9 @@ export function ComicSearchForm({
         </div>
       </form>
       <ComicResultsContainer
-        selectComic={selectComic}
+        selectComic={setSelectedComic}
         isComicSelected={isComicSelected}
-        selectedComicId={selectedComicId}
+        selectedComicId={selectedComic.id}
       />
     </div>
   );

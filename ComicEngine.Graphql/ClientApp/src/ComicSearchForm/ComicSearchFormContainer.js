@@ -5,10 +5,14 @@ import {
   updateIssueNumberInput,
   updateResultsFromForm
 } from './comicSearchFormActions';
-import { toggleLoading } from '../ComicResults/comicResultsActions';
+import {
+  toggleLoading,
+  setSelectedComic
+} from '../ComicResults/comicResultsActions';
 
-const mapStateToProps = ({ comicSearchForm }) => ({
-  ...comicSearchForm
+const mapStateToProps = ({ comicSearchForm, comicResults }) => ({
+  ...comicSearchForm,
+  ...comicResults
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,7 +20,8 @@ const mapDispatchToProps = dispatch => ({
   updateIssueNumberInput: issueNumber =>
     dispatch(updateIssueNumberInput(issueNumber)),
   updateResultsFromForm: dispatch(updateResultsFromForm),
-  toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true))
+  toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true)),
+  setSelectedComic: comic => dispatch(setSelectedComic(comic))
 });
 
 export const ComicSearchFormContainer = connect(
