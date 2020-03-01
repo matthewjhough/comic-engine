@@ -10,6 +10,7 @@ export function ComicSearchForm({
   title,
   issueNumber
 }) {
+  // TODO: Move to redux state
   const [selectedComicId, setComicId] = useState('');
 
   const selectComic = comic => {
