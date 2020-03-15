@@ -8,6 +8,7 @@ export function ComicSearchForm({
   updateTitleInput,
   updateResultsFromForm,
   setSelectedComic,
+  makeSaveComicRequest,
   toggleComicSearchLoadingTrue,
   selectedComic,
   title,
@@ -34,6 +35,7 @@ export function ComicSearchForm({
         onSubmit={e => {
           e.preventDefault();
 
+          setSelectedComic({});
           toggleComicSearchLoadingTrue();
           updateResultsFromForm({ title, issueNumber });
         }}>
@@ -50,6 +52,7 @@ export function ComicSearchForm({
             <label>Issue Number</label>
             <input
               value={issueNumber}
+              onFocus={() => updateIssueNumberInput('')}
               onChange={e => updateIssueNumberInput(e.target.value)}
               name="issueNumber"
             />
@@ -65,7 +68,14 @@ export function ComicSearchForm({
         isComicSelected={isComicSelected}
         selectedComicId={selectedComic.id}>
         {selectedComic.id ? (
-          <StickyButton type="button">Save Comic</StickyButton>
+          <StickyButton
+            onClick={() => {
+              makeSaveComicRequest(selectedComic);
+              setSelectedComic({});
+            }}
+            type="button">
+            Save Comic
+          </StickyButton>
         ) : (
           ''
         )}

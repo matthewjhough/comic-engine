@@ -1,3 +1,4 @@
+import { NotificationManager } from 'react-notifications';
 import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
 import { getSavedComicsQuery } from './getSavedComicsQuery';
@@ -19,4 +20,11 @@ export function getSavedComics() {
       })
       .then(() => dispatch(toggleLoading(false)));
   };
+}
+
+export function makeSaveComicRequest(selectedComic) {
+  NotificationManager.success(
+    'Success message',
+    `${selectedComic.title} added to My Comics`
+  );
 }
