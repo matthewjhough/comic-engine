@@ -9,5 +9,9 @@ namespace ComicEngine.Graphql.ComicEngineApi {
     /// </summary>
     public interface IComicHttpClient {
         Task<T> RequestComicFromApi<T> (string endpoint, string parameters = "");
+
+        Task<T> PostComicToApi<T> (string endpoint, string parameters);
+
+        string GetQueryString (object obj);
     }
 }

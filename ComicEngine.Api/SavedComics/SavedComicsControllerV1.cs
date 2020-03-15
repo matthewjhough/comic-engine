@@ -19,7 +19,7 @@ namespace ComicEngine.Api.SavedComics {
         }
 
         [HttpPost ("/v1/saved/comics")]
-        public async Task<Comic> Create ([FromBody] Comic comic) {
+        public async Task<Comic> Create ([FromQuery] Comic comic) {
             // Todo: add logging/exception handling
             var saveComic = await _createCommand.CreateSavedComicAsync (comic);
 

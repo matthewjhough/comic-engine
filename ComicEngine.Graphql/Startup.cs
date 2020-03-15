@@ -89,6 +89,7 @@ namespace ComicEngine.Graphql {
                 SchemaBuilder.New ()
                 .AddServices (services)
                 .AddQueryType<Query> ()
+                .AddMutationType<Mutation> ()
                 .Create ());
         }
 

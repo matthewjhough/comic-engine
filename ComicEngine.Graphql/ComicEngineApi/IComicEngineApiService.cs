@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
+using ComicEngine.Graphql.Graphql.Types;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
     public interface IComicEngineApiService {
@@ -23,5 +24,7 @@ namespace ComicEngine.Graphql.ComicEngineApi {
         );
 
         Task<IEnumerable<Comic>> RequestAllSavedComics ();
+
+        Task<Comic> SaveComicToApi (ComicInputType comic);
     }
 }

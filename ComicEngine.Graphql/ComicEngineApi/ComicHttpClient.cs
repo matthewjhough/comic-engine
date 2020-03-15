@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
@@ -32,11 +34,36 @@ namespace ComicEngine.Graphql.ComicEngineApi {
             if (string.IsNullOrWhiteSpace (_comicEngineApiUri)) {
                 throw new Exception ("Api Url was null or whitespace.");
             }
-
             var response = await base.MakeRequest<T> (HttpMethod.Get, $"{_comicEngineApiUri}/{endpoint}?{parameters}");
             _logger.LogDebug ("RequestComicFromApi response: ", response);
 
             return response;
+        }
+
+        /// <summary>
+        /// Creates an Http request to the Api server.
+        /// </summary>
+        /// <param name="endpoint">Full path of Api preffered route</param>
+        /// <param name="parameters">(OPTIONAL) Query string parameters to send to Api</param>
+        /// <returns><see cref="string" /></returns>
+        public async Task<T> PostComicToApi<T> (string endpoint, string parameters) {
+            // TODO: Add logging
+            if (string.IsNullOrWhiteSpace (_comicEngineApiUri)) {
+                throw new Exception ("Api Url was null or whitespace.");
+            }
+
+            var response = await base.MakeRequest<T> (HttpMethod.Post, $"{_comicEngineApiUri}/{endpoint}?{parameters}");
+            _logger.LogDebug ("PostComicToApi response: ", response);
+
+            return response;
+        }
+
+        public string GetQueryString (object obj) {
+            var properties = from p in obj.GetType ().GetProperties ()
+            where p.GetValue (obj, null) != null
+            select p.Name + "=" + HttpUtility.UrlEncode (p.GetValue (obj, null).ToString ());
+
+            return String.Join ("&", properties.ToArray ());
         }
     }
 }
