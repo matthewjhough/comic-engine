@@ -2,6 +2,7 @@ import { NotificationManager } from 'react-notifications';
 import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
 import { getSavedComicsQuery } from './getSavedComicsQuery';
+import { createSavedComicMutation } from './createSavedComicMutation';
 
 export function getSavedComics() {
   return function(dispatch) {
@@ -23,8 +24,33 @@ export function getSavedComics() {
 }
 
 export function makeSaveComicRequest(selectedComic) {
-  NotificationManager.success(
-    'Success message',
-    `${selectedComic.title} added to My Comics`
-  );
+  console.log('making saved comic request...', selectedComic);
+  return function(dispatch) {
+    console.log('dispatching selected comic...');
+    return makeGraphqlRequest(createSavedComicMutation, {
+      comicInput: selectedComic
+    })
+      .then(res => res.json())
+      .then(({ data, errors }) => {
+        if (errors && errors.length > 0) {
+          console.error('something went wrong saving comic.', selectedComic);
+          return dispatch(setResults({ results: [] }));
+        }
+
+        console.log('Comic saved to database.', data);
+
+        NotificationManager.success(
+          'Success message',
+          `${selectedComic.title} added to My Comics`
+        );
+
+        // TODO: do something with saved comic result
+        if (data.createSavedComic == null) {
+          return dispatch(setResults({ results: [] }));
+        }
+
+        // TODO: do something with saved comic result
+        return dispatch(setResults({ results: [] }));
+      });
+  };
 }

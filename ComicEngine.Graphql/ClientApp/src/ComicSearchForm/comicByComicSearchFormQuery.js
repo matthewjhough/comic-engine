@@ -6,5 +6,21 @@ query getMatchingComics($title: String, $issueNumber: String) {
       copyright
       thumbnail
       description
+      issueNumber
+      pageCount
+      publishDates {
+        type
+        _Date
+      }
+      relevantLinks {
+        url
+        type
+      }
+      resourceUri
+      series {
+        name
+        resourceUri
+      }
+      thumbnail
     }
   }`;

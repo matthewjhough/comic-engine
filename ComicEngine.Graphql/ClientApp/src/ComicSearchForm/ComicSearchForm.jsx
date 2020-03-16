@@ -70,6 +70,7 @@ export function ComicSearchForm({
         {selectedComic.id ? (
           <StickyButton
             onClick={() => {
+              console.log(selectedComic);
               makeSaveComicRequest(selectedComic);
               setSelectedComic({});
             }}

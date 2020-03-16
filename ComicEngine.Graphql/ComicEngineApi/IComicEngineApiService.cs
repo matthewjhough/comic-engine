@@ -25,6 +25,6 @@ namespace ComicEngine.Graphql.ComicEngineApi {
 
         Task<IEnumerable<Comic>> RequestAllSavedComics ();
 
-        Task<Comic> SaveComicToApi (ComicInputType comic);
+        Task<Comic> SaveComicToApi (ComicInput comic);
     }
 }

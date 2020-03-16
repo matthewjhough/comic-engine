@@ -23,7 +23,8 @@ const mapDispatchToProps = dispatch => ({
   updateResultsFromForm: dispatch(updateResultsFromForm),
   toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true)),
   setSelectedComic: comic => dispatch(setSelectedComic(comic)),
-  makeSaveComicRequest
+  makeSaveComicRequest: selectedComic =>
+    dispatch(makeSaveComicRequest(selectedComic))
 });
 
 export const ComicSearchFormContainer = connect(

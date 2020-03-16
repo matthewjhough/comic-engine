@@ -51,7 +51,7 @@ namespace ComicEngine.Graphql.ComicEngineApi {
             return comicResponse;
         }
 
-        public async Task<Comic> SaveComicToApi (ComicInputType comic) {
+        public async Task<Comic> SaveComicToApi (ComicInput comic) {
             _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
             var parameters = _apiClient.GetQueryString (comic);
 

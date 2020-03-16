@@ -15,7 +15,7 @@ namespace ComicEngine.Graphql.Graphql {
             _comicApiService = comicApiService;
         }
 
-        public async Task<Comic> CreateSavedComic (ComicInputType comic) {
+        public async Task<Comic> CreateSavedComic (ComicInput comic) {
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comic.Title);
 
             Comic response = await _comicApiService.SaveComicToApi (comic);
