@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { initQuagga, deactivateQuagga } from './initQuagga';
 import { ComicResult } from '../ComicResult/ComicResult';
 import { BarcodeScanButton } from '../BarcodeScanButton/BarcodeScanButton';
-import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
+import { ScrollDiv } from '../ScrollDiv/ScrollDiv';
 import { MobileDeviceCheck } from '../MobileDeviceCheck/MobileDeviceCheck';
 
 import styles from './BarcodeReader.module.scss';
@@ -39,7 +39,7 @@ export class BarcodeReader extends Component {
 
     return (
       <>
-        <ScrollContainer>
+        <ScrollDiv>
           <ComicResult comic={comic} />
           {isScannerActive ? (
             <>
@@ -62,7 +62,7 @@ export class BarcodeReader extends Component {
               />
             </MobileDeviceCheck>
           )}
-        </ScrollContainer>
+        </ScrollDiv>
       </>
     );
   }

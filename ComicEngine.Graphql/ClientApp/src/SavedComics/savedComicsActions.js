@@ -33,14 +33,22 @@ export function makeSaveComicRequest(selectedComic) {
       .then(res => res.json())
       .then(({ data, errors }) => {
         if (errors && errors.length > 0) {
-          console.error('something went wrong saving comic.', selectedComic);
+          console.error(
+            'something went wrong saving comic.',
+            errors,
+            selectedComic
+          );
+          NotificationManager.error(
+            'Save failed.',
+            `${selectedComic.title} was not added to My Comics`
+          );
           return dispatch(setResults({ results: [] }));
         }
 
         console.log('Comic saved to database.', data);
 
         NotificationManager.success(
-          'Success message',
+          'Success',
           `${selectedComic.title} added to My Comics`
         );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
+import { ScrollDiv } from '../ScrollDiv/ScrollDiv';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { ComicResult } from '../ComicResult/ComicResult';
 import styles from './ComicResults.module.scss';
@@ -16,7 +16,7 @@ export function ComicResults({
 
   return (
     <div className={styles.comicResults}>
-      <ScrollContainer>
+      <ScrollDiv>
         {children}
         {isLoading ? (
           <LoadingSpinner />
@@ -32,7 +32,7 @@ export function ComicResults({
             />
           ))
         )}
-      </ScrollContainer>
+      </ScrollDiv>
     </div>
   );
 }

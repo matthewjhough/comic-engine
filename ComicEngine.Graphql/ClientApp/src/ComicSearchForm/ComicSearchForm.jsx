@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import styles from './ComicSearchForm.module.scss';
 import { StickyButton } from '../StickyButton/StickyButton';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
+import { AbstractInput } from '../AbstractInput/AbstractInput';
+import { AbstractButton } from '../AbstractButton/AbstractButton';
 
 export function ComicSearchForm({
   updateIssueNumberInput,
@@ -42,7 +44,7 @@ export function ComicSearchForm({
         <div className={styles.block}>
           <div className={styles.formRow}>
             <label>Title</label>
-            <input
+            <AbstractInput
               value={title}
               onChange={e => updateTitleInput(e.target.value)}
               name="title"
@@ -50,7 +52,7 @@ export function ComicSearchForm({
           </div>
           <div className={styles.formRow}>
             <label>Issue Number</label>
-            <input
+            <AbstractInput
               value={issueNumber}
               onFocus={() => updateIssueNumberInput('')}
               onChange={e => updateIssueNumberInput(e.target.value)}
@@ -59,8 +61,8 @@ export function ComicSearchForm({
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          <button type="submit">Search</button>
-          <button onClick={() => clearForm()}>Clear</button>
+          <AbstractButton type="submit">Search</AbstractButton>
+          <AbstractButton onClick={() => clearForm()}>Clear</AbstractButton>
         </div>
       </form>
       <ComicResultsContainer

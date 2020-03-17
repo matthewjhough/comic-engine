@@ -16,6 +16,30 @@ query getMatchingComics($title: String, $issueNumber: String) {
         url
         type
       }
+      characters {
+        id
+        available
+        collectionUri
+        items {
+          id
+          name
+          role
+          resourceUri
+          characterProfileId
+        }
+      }
+      creators {
+        id
+        returned
+        available
+        items {
+          id
+          name
+          role
+          resourceUri
+          creatorProfileId
+        }
+      }
       resourceUri
       series {
         name
