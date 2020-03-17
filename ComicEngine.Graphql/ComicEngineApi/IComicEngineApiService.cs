@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.Graphql.Types;
+using ComicEngine.Graphql.Inputs;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
     public interface IComicEngineApiService {

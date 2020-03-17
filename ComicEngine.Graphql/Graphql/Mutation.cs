@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using ComicEngine.Graphql.ComicEngineApi;
-using ComicEngine.Graphql.Graphql.Types;
+using ComicEngine.Graphql.Inputs;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.Graphql {
