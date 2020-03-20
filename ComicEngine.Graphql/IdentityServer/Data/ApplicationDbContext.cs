@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace ComicEngine.Graphql.Data {
+namespace ComicEngine.Graphql.IdentityServer.Data {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser> {
         public ApplicationDbContext (
             DbContextOptions options,

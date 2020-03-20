@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ComicEngine.Graphql.Data.Migrations {
+namespace ComicEngine.Graphql.IdentityServer.Data.Migrations {
     public partial class CreateIdentitySchema : Migration {
         protected override void Up (MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable (
