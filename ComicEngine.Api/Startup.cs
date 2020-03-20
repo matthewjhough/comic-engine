@@ -28,6 +28,7 @@ namespace ComicEngine.Api {
                     ))
                 .AddSingleton<IGetMarvelCommand, MarvelCommands> ()
                 .AddSingleton<IGetSavedComicCommand, SavedComicCommands> ()
+                .AddSingleton<ILoggerFactory, LoggerFactory> ()
                 .AddSingleton<ICreateSavedComicCommand, SavedComicCommands> ()
                 .AddSingleton<SavedComicContext> (sp =>
                     new SavedComicContext (Configuration))

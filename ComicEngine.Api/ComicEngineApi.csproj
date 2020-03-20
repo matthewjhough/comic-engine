@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
+    <ProjectReference Include="../ComicEngine.Data/ComicEngine.Data.csproj" />
   </ItemGroup>
     
 </Project>
