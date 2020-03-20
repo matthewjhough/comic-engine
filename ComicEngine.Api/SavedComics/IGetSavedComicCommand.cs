@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.SavedComics.Commands {
+namespace ComicEngine.Api.SavedComics {
     public interface IGetSavedComicCommand {
         /// <summary>
         /// Gets all saved <see cref="Comic">s.!--

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Api.SavedComics.Commands;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;

@@ -1,9 +1,8 @@
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace ComicEngine.Api.SavedComics {
+namespace ComicEngine.Data.SavedComics {
     public class SavedComicContext : DbContext {
         public DbSet<Comic> Comics { get; set; }
 

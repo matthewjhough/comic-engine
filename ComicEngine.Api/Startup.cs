@@ -1,7 +1,7 @@
 using ComicEngine.Api.Marvel;
 using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Api.SavedComics;
-using ComicEngine.Api.SavedComics.Commands;
+using ComicEngine.Data.SavedComics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.SavedComics.Commands {
+namespace ComicEngine.Api.SavedComics {
     // FIXME: Update to single execution commands.
     public class SavedComicCommands : IGetSavedComicCommand, ICreateSavedComicCommand {
         private readonly ISavedComicsRepository _savedComicsRepository;
