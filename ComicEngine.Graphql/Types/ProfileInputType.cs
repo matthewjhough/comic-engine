@@ -8,7 +8,7 @@ namespace ComicEngine.Graphql.Types {
             descriptor.Field (t => t.Returned).Type<NonNullType<IntType>> ();
             descriptor.Field (t => t.CollectionUri).Type<NonNullType<StringType>> ();
             // Add 'Items' field because EF doesn't support hiding methods at current time (3/21/2020)
-            descriptor.Field (t => "Items").Type<ProfileItemInputType> ();
+            descriptor.Field (t => "Items").Type<ListType<ProfileItemInputType>> ();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ComicEngine.Graphql.Types {
 
             descriptor.Field (t => t.PublishDates).Type<ListType<PublishDateInputType>> ();
 
-            descriptor.Field (t => t.RelevantLinks).Type<RelevantLinksInputType> ();
+            descriptor.Field (t => t.RelevantLinks).Type<ListType<RelevantLinksInputType>> ();
         }
     }
 }
