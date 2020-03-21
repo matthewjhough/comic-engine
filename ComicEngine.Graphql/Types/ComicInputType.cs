@@ -16,9 +16,9 @@ namespace ComicEngine.Graphql.Types {
             descriptor.Field (t => t.ResourceUri).Type<StringType> ();
             descriptor.Field (t => t.Thumbnail).Type<StringType> ();
 
-            descriptor.Field (t => t.Characters).Type<ProfileInputType> ();
+            descriptor.Field (t => t.Characters).Type<CharacterProfileInputType> ();
 
-            descriptor.Field (t => t.Creators).Type<ProfileInputType> ();
+            descriptor.Field (t => t.Creators).Type<CreatorProfileInputType> ();
 
             descriptor.Field (t => t.Series).Type<SeriesInputType> ();
 

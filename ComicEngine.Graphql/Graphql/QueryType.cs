@@ -1,3 +1,4 @@
+using System;
 using ComicEngine.Graphql.Types;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
@@ -13,11 +14,24 @@ namespace ComicEngine.Graphql.Graphql {
 
             descriptor
                 .Field (t => t.ComicsByTitleAndIssueNumber (default, default))
-                .Type<ComicType> ();
+                .Type<ListType<ComicType>> ()
+                .Use (next => async context => {
+                    try {
+                        await next (context);
+
+                        if (context.Result is string s) {
+                            context.Result = s.ToUpper ();
+                        }
+                    } catch (Exception ex) {
+                        _logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
+                        context.ReportError (ex.Message);
+                        throw;
+                    }
+                });
 
             descriptor
                 .Field (t => t.SavedComics ())
-                .Type<ComicType> ();
+                .Type<ListType<ComicType>> ();
         }
     }
 }

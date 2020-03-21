@@ -22,6 +22,8 @@ namespace ComicEngine.Graphql {
     public class Startup {
         private ILoggerFactory _loggerFactory;
 
+        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (Startup));
+
         public Startup (IConfiguration configuration, ILoggerFactory loggerFactory) {
             Configuration = configuration;
             _loggerFactory = loggerFactory;
@@ -94,6 +96,15 @@ namespace ComicEngine.Graphql {
                 .AddQueryType<QueryType> ()
                 .AddMutationType<MutationType> ()
                 .Create ());
+
+            services.AddErrorFilter (error => {
+                _logger.LogDebug ("Error received... {err}", error.Exception?.Message);
+                _logger.LogDebug ("Error message: {msg}", error.Message);
+                if (error.Exception is NullReferenceException) {
+                    return error.WithCode ("NullRef");
+                }
+                return error;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
