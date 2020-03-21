@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.Inputs;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
@@ -51,7 +48,7 @@ namespace ComicEngine.Graphql.ComicEngineApi {
             return comicResponse;
         }
 
-        public async Task<Comic> SaveComicToApi (ComicInput comic) {
+        public async Task<Comic> SaveComicToApi (Comic comic) {
             _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
             var parameters = _apiClient.GetQueryString (comic);
 

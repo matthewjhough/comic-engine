@@ -4,6 +4,9 @@ using HotChocolate.Types;
 namespace ComicEngine.Graphql.Types {
     public class ComicInputType : InputObjectType<Comic> {
         protected override void Configure (IInputObjectTypeDescriptor<Comic> descriptor) {
+            descriptor.Field (t => t.StorageId).Ignore ();
+
+            descriptor.Field (t => t.Id).Type<IntType> ();
             descriptor.Field (t => t.Title).Type<NonNullType<StringType>> ();
             descriptor.Field (t => t.Copyright).Type<StringType> ();
             descriptor.Field (t => t.IssueNumber).Type<NonNullType<FloatType>> ();

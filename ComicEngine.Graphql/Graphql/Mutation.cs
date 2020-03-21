@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using ComicEngine.Graphql.ComicEngineApi;
-using ComicEngine.Graphql.Inputs;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.Graphql {
@@ -15,7 +14,11 @@ namespace ComicEngine.Graphql.Graphql {
             _comicApiService = comicApiService;
         }
 
-        public async Task<Comic> CreateSavedComic (ComicInput comic) {
+        public async Task<Comic> CreateSavedComic (Comic comic) {
+            if (comic is null) {
+                throw new System.ArgumentNullException (nameof (comic));
+            }
+
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comic.Title);
 
             Comic response = await _comicApiService.SaveComicToApi (comic);

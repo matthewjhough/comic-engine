@@ -1,4 +1,6 @@
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using ComicEngine.Graphql.ComicEngineApi;
 using ComicEngine.Graphql.Graphql;
 using ComicEngine.Graphql.IdentityServer;
@@ -23,6 +25,7 @@ namespace ComicEngine.Graphql {
         public Startup (IConfiguration configuration, ILoggerFactory loggerFactory) {
             Configuration = configuration;
             _loggerFactory = loggerFactory;
+            ApplicationLogging.LoggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
@@ -89,7 +92,7 @@ namespace ComicEngine.Graphql {
                 SchemaBuilder.New ()
                 .AddServices (services)
                 .AddQueryType<Query> ()
-                .AddMutationType<Mutation> ()
+                .AddMutationType<MutationType> ()
                 .Create ());
         }
 

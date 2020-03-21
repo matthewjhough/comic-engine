@@ -13,4 +13,8 @@ namespace ComicEngine.Common.Comic {
 
         public string CollectionUri { get; set; }
     }
+
+    public class GenericProfile : Profile {
+        public IEnumerable<ProfileItem> Items { get; set; }
+    }
 }

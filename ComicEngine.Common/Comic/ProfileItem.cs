@@ -13,4 +13,8 @@ namespace ComicEngine.Common.Comic {
 
         public string Role { get; set; }
     }
+
+    public class GenericProfileItem : ProfileItem {
+
+    }
 }
