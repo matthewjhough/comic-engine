@@ -91,7 +91,7 @@ namespace ComicEngine.Graphql {
             services.AddGraphQL (services =>
                 SchemaBuilder.New ()
                 .AddServices (services)
-                .AddQueryType<Query> ()
+                .AddQueryType<QueryType> ()
                 .AddMutationType<MutationType> ()
                 .Create ());
         }
