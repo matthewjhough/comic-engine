@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
@@ -7,12 +8,11 @@ namespace ComicEngine.Graphql.ComicEngineApi {
     public class ComicEngineApiService : IComicEngineApiService {
         private readonly string _marvelEndpoint = "v1/marvel/comic";
         private readonly string _savedComicsEndpoint = "v1/saved/comics";
-        private ILogger _logger;
-        private IComicHttpClient _apiClient;
+        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicEngineApiService));
+        private ComicHttpClient _apiClient;
 
-        public ComicEngineApiService (ILogger<ComicEngineApiService> logger, IComicHttpClient apiClient) {
-            _logger = logger;
-            _apiClient = apiClient;
+        public ComicEngineApiService (ComicHttpClientConfig config) {
+            _apiClient = new ComicHttpClient (config);
         }
 
         public async Task<IEnumerable<Comic>> RequestAllSavedComics () {
@@ -50,12 +50,14 @@ namespace ComicEngine.Graphql.ComicEngineApi {
 
         public async Task<Comic> SaveComicToApi (Comic comic) {
             _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
-            var parameters = _apiClient.GetQueryString (comic);
 
-            var comicResponse = await _apiClient.PostComicToApi<Comic> (_savedComicsEndpoint, parameters);
+            string fullUrl = $"{_apiClient._comicEngineApiUri}/{_savedComicsEndpoint}";
+
+            var comicResponse = await _apiClient.MakeRequestWithBody<Comic> (fullUrl, comic);
+
             _logger.LogDebug ("Response returned: {response}", comicResponse);
 
-            return comicResponse;
+            return null;
         }
     }
 }

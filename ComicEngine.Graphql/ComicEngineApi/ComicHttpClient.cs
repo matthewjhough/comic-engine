@@ -1,25 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using ComicEngine.Common;
-using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
-    public class ComicHttpClient : BaseHttpClient, IComicHttpClient {
-        private readonly string _comicEngineApiUri;
-        private readonly ILogger _logger;
+    public class ComicHttpClient : BaseHttpClient {
+        public readonly string _comicEngineApiUri;
+        private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicHttpClient));
 
         public ComicHttpClient (
-            ILogger<IComicHttpClient> logger,
-            IHttpClientFactory clientFactory,
             ComicHttpClientConfig apiConfig
         ) {
-            _logger = logger;
             _comicEngineApiUri = apiConfig?.ComicHttpClientUrl;
         }
 
@@ -29,7 +21,7 @@ namespace ComicEngine.Graphql.ComicEngineApi {
         /// <param name="endpoint">Full path of Api preffered route</param>
         /// <param name="parameters">(OPTIONAL) Query string parameters to send to Api</param>
         /// <returns><see cref="string" /></returns>
-        public async Task<T> RequestComicFromApi<T> (string endpoint, string parameters) {
+        public async Task<T> RequestComicFromApi<T> (string endpoint, string parameters = "") {
             // TODO: Add logging
             if (string.IsNullOrWhiteSpace (_comicEngineApiUri)) {
                 throw new Exception ("Api Url was null or whitespace.");
@@ -56,14 +48,6 @@ namespace ComicEngine.Graphql.ComicEngineApi {
             _logger.LogDebug ("PostComicToApi response: ", response);
 
             return response;
-        }
-
-        public string GetQueryString (object obj) {
-            var properties = from p in obj.GetType ().GetProperties ()
-            where p.GetValue (obj, null) != null
-            select p.Name + "=" + HttpUtility.UrlEncode (p.GetValue (obj, null).ToString ());
-
-            return String.Join ("&", properties.ToArray ());
         }
     }
 }

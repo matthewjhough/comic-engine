@@ -23,7 +23,8 @@ namespace ComicEngine.Api.SavedComics {
         }
 
         [HttpPost ("/v1/saved/comics")]
-        public async Task<Comic> Create ([FromQuery] Comic comic) {
+        public async Task<Comic> Create ([FromBody] Comic comic) {
+            var context = HttpContext;
             // TODO: Validation
             if (comic.Title is null) {
                 throw new Exception ("Title is required.");

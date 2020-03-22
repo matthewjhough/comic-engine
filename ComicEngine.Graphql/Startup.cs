@@ -59,16 +59,11 @@ namespace ComicEngine.Graphql {
 
             #endregion cors
 
-            services.AddSingleton<IComicHttpClient> (sp =>
-                new ComicHttpClient (
-                    sp.GetRequiredService<ILogger<IComicHttpClient>> (),
-                    sp.GetRequiredService<IHttpClientFactory> (),
-                    Configuration
+            services.AddSingleton<ComicHttpClient> ();
+            services.AddSingleton<IComicEngineApiService, ComicEngineApiService> (sp =>
+                new ComicEngineApiService (Configuration
                     .GetSection ("ComicHttpClientConfig")
-                    .Get<ComicHttpClientConfig> ()
-                ));
-
-            services.AddSingleton<IComicEngineApiService, ComicEngineApiService> ();
+                    .Get<ComicHttpClientConfig> ()));
 
             services.AddDefaultIdentity<ApplicationUser> ()
                 .AddEntityFrameworkStores<ApplicationDbContext> ();
