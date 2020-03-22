@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
@@ -23,6 +24,11 @@ namespace ComicEngine.Api.SavedComics {
 
         [HttpPost ("/v1/saved/comics")]
         public async Task<Comic> Create ([FromQuery] Comic comic) {
+            // TODO: Validation
+            if (comic.Title is null) {
+                throw new Exception ("Title is required.");
+            }
+            _logger.LogDebug ("**** Comic from body title: {title} ****", comic.Title);
             // Todo: add logging/exception handling
             var saveComic = await _createCommand.CreateSavedComicAsync (comic);
 

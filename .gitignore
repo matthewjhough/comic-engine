@@ -15,6 +15,7 @@ test-results/
 # Custom
 ComicEngine.Api/appsettings.json
 ComicEngine.Graphql/app.db
+ComicEngine.Graphql/exampleQuery.txt
 
 # Mac bundle stuff
 *.dmg
