@@ -12,8 +12,8 @@ namespace ComicEngine.Graphql.IdentityServer.Data.Migrations {
     partial class CreateIdentitySchema {
         protected override void BuildTargetModel (ModelBuilder modelBuilder) {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation ("ProductVersion", "3.0.0-rc1.19455.8");
+            // modelBuilder
+            //     .HasAnnotation ("ProductVersion", "3.0.0-rc1.19455.8");
 
             modelBuilder.Entity ("ComicEngine.Graphql.Models.ApplicationUser", b => {
                 b.Property<string> ("Id")

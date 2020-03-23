@@ -8,6 +8,7 @@ query getMatchingComics($title: String, $issueNumber: String) {
       description
       issueNumber
       pageCount
+      upc
       publishDates {
         type
         _Date
@@ -19,13 +20,13 @@ query getMatchingComics($title: String, $issueNumber: String) {
       characters {
         id
         available
+        returned
         collectionUri
         items {
           id
           name
           role
           resourceUri
-          characterProfileId
         }
       }
       creators {
@@ -37,7 +38,6 @@ query getMatchingComics($title: String, $issueNumber: String) {
           name
           role
           resourceUri
-          creatorProfileId
         }
       }
       resourceUri

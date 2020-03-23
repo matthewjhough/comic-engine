@@ -6,9 +6,9 @@ namespace ComicEngine.Graphql.Types {
         protected override void Configure (IInputObjectTypeDescriptor<CharacterProfile> descriptor) {
             descriptor.Field (t => t.Id).Type<IntType> ();
 
-            descriptor.Field (t => t.Available).Type<NonNullType<IntType>> ();
-            descriptor.Field (t => t.Returned).Type<NonNullType<IntType>> ();
-            descriptor.Field (t => t.CollectionUri).Type<NonNullType<StringType>> ();
+            descriptor.Field (t => t.Available).Type<IntType> ();
+            descriptor.Field (t => t.Returned).Type<IntType> ();
+            descriptor.Field (t => t.CollectionUri).Type<StringType> ();
 
             descriptor.Field (t => t.Items).Type<ListType<CharacterProfileItemInputType>> ();
         }

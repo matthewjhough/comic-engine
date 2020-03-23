@@ -1,5 +1,6 @@
 import { UPDATE_TITLE_INPUT, UPDATE_ISSUE_NUMBER_INPUT } from '../actionTypes';
-import { fetchComicFromTitleAndIssueNumber } from '../graphqlClient/graphqlClient';
+import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
+import { comicByTitleAndIssueNumber } from './comicByComicSearchFormQuery';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
 
 export function updateTitleInput(title) {
@@ -17,8 +18,11 @@ export function updateIssueNumberInput(issueNumber) {
 }
 
 export function updateResultsFromForm(dispatch) {
-  return function(comicForm) {
-    return fetchComicFromTitleAndIssueNumber(comicForm)
+  return function({ title, issueNumber }) {
+    return makeGraphqlRequest(comicByTitleAndIssueNumber, {
+      title,
+      issueNumber
+    })
       .then(res => res.json())
       .then(({ data, errors }) => {
         console.log('results returned from api: ', data, errors);

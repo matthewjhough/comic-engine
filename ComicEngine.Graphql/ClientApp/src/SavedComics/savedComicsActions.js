@@ -28,7 +28,7 @@ export function makeSaveComicRequest(selectedComic) {
   return function(dispatch) {
     console.log('dispatching selected comic...');
     return makeGraphqlRequest(createSavedComicMutation, {
-      comicInput: selectedComic
+      comic: selectedComic
     })
       .then(res => res.json())
       .then(({ data, errors }) => {

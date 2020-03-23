@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using HotChocolate;
 
 namespace ComicEngine.Common.Comic {
     public abstract class ProfileItem {
         [Key]
         public int Id { get; set; }
 
+        [GraphQLIgnore]
         public int ComicStorageId { get; set; }
 
         public string ResourceUri { get; set; }

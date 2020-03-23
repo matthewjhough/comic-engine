@@ -5,6 +5,7 @@ using ComicEngine.Graphql.ComicEngineApi;
 using ComicEngine.Graphql.Graphql;
 using ComicEngine.Graphql.IdentityServer;
 using ComicEngine.Graphql.IdentityServer.Data;
+using ComicEngine.Graphql.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;
@@ -85,11 +86,32 @@ namespace ComicEngine.Graphql {
             // Add dotnet HttpClient
             services.AddHttpClient ();
 
-            services.AddGraphQL (services =>
+            services.AddGraphQL (sp =>
                 SchemaBuilder.New ()
-                .AddServices (services)
+                .AddServices (sp)
                 .AddQueryType<QueryType> ()
                 .AddMutationType<MutationType> ()
+                // .AddType<ComicType> ()
+                // .AddType<CreatorProfileType> ()
+                // .AddType<CreatorProfileItemType> ()
+                // .AddType<CharacterProfileType> ()
+                // .AddType<CharacterProfileItemType> ()
+                // .AddInputObjectType<ComicInputType> ()
+                // .AddInputObjectType<CharacterProfileInputType> ()
+                // .AddInputObjectType<CharacterProfileItemInputType> ()
+                // .AddInputObjectType<CreatorProfileInputType> ()
+                // .AddInputObjectType<CreatorProfileItemInputType> ()
+                // .AddInputObjectType<PublishDateInputType> ()
+                // .AddInputObjectType<RelevantLinksInputType> ()
+                // .AddInputObjectType<SeriesInputType> ()
+                .Use (next => async context => {
+                    _logger.LogDebug ("Context info: {contextInfo}", context.Variables);
+                    await next (context);
+
+                    if (context.Result is string s) {
+                        context.Result = s.ToUpper ();
+                    }
+                })
                 .Create ());
 
             services.AddErrorFilter (error => {
