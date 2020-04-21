@@ -9,9 +9,9 @@ namespace ComicEngine.Graphql.Graphql {
     public class Query {
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (Query));
 
-        private IComicEngineApiService _comicApiService;
+        private IComicEngineApiRepository _comicApiService;
 
-        public Query (IComicEngineApiService comicApiService) {
+        public Query (IComicEngineApiRepository comicApiService) {
             _comicApiService = comicApiService;
         }
 

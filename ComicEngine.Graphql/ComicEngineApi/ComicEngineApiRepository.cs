@@ -5,13 +5,13 @@ using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
-    public class ComicEngineApiService : IComicEngineApiService {
+    public class ComicEngineApiRepository : IComicEngineApiRepository {
         private readonly string _marvelEndpoint = "v1/marvel/comic";
         private readonly string _savedComicsEndpoint = "v1/saved/comics";
-        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicEngineApiService));
+        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicEngineApiRepository));
         private ComicHttpClient _apiClient;
 
-        public ComicEngineApiService (ComicHttpClientConfig config) {
+        public ComicEngineApiRepository (ComicHttpClientConfig config) {
             _apiClient = new ComicHttpClient (config);
         }
 

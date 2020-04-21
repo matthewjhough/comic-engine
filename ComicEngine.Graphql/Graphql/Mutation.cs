@@ -1,27 +1,30 @@
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using ComicEngine.Graphql.ComicEngineApi;
+using HotChocolate.Resolvers;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.Graphql {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private IComicEngineApiService _comicApiService;
+        private IComicEngineApiRepository _comicApiService;
 
-        public Mutation (ILogger<Mutation> logger, IComicEngineApiService comicApiService) {
+        public Mutation (ILogger<Mutation> logger, IComicEngineApiRepository comicApiService) {
             _logger = logger;
             _comicApiService = comicApiService;
         }
 
-        public async Task<Comic> CreateSavedComic (Comic comic) {
-            if (comic is null) {
-                throw new System.ArgumentNullException (nameof (comic));
+        public async Task<Comic> CreateSavedComic (IResolverContext context) {
+            var comicInput = context.Argument<Comic> ("comic");
+
+            if (comicInput is null) {
+                throw new System.ArgumentNullException (nameof (comicInput));
             }
 
-            _logger.LogDebug ("Executing mutation with comic titled: {title}", comic.Title);
+            _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            Comic response = await _comicApiService.SaveComicToApi (comic);
+            Comic response = await _comicApiService.SaveComicToApi (comicInput);
 
             return response;
         }

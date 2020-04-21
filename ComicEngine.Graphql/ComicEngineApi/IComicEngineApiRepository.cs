@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 
 namespace ComicEngine.Graphql.ComicEngineApi {
-    public interface IComicEngineApiService {
+    public interface IComicEngineApiRepository {
         /// <summary>
         /// Method to initiate Http Request. This method handles a lot of repeat logic.
         /// </summary>

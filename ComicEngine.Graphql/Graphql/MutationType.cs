@@ -1,7 +1,7 @@
 using System;
 using ComicEngine.Common.Comic;
+using ComicEngine.Graphql.ComicEngineApi;
 using ComicEngine.Graphql.Types;
-using HotChocolate.Language;
 using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
@@ -16,15 +16,6 @@ namespace ComicEngine.Graphql.Graphql {
                 .Field (t => t.CreateSavedComic (default))
                 .Type<ComicType> ()
                 .Argument ("comic", a => a.Type<NonNullType<ComicInputType>> ())
-                .Resolver ((IResolverContext context) => {
-                    var comicInput = context.Argument<Comic> ("comic");
-                    // TODO: do mutation logic here
-                    // var comicInput = context.Argument<ComicInputType> ("comic");
-
-                    // _logger.LogDebug ("comic input field count: {comicInputFieldsCount}", comicInput?.Fields?.Count);
-
-                    return comicInput;
-                })
                 // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
                     // try and move on through context

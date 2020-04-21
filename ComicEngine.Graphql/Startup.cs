@@ -61,8 +61,8 @@ namespace ComicEngine.Graphql {
             #endregion cors
 
             services.AddSingleton<ComicHttpClient> ();
-            services.AddSingleton<IComicEngineApiService, ComicEngineApiService> (sp =>
-                new ComicEngineApiService (Configuration
+            services.AddSingleton<IComicEngineApiRepository, ComicEngineApiRepository> (sp =>
+                new ComicEngineApiRepository (Configuration
                     .GetSection ("ComicHttpClientConfig")
                     .Get<ComicHttpClientConfig> ()));
 
@@ -91,19 +91,6 @@ namespace ComicEngine.Graphql {
                 .AddServices (sp)
                 .AddQueryType<QueryType> ()
                 .AddMutationType<MutationType> ()
-                // .AddType<ComicType> ()
-                // .AddType<CreatorProfileType> ()
-                // .AddType<CreatorProfileItemType> ()
-                // .AddType<CharacterProfileType> ()
-                // .AddType<CharacterProfileItemType> ()
-                // .AddInputObjectType<ComicInputType> ()
-                // .AddInputObjectType<CharacterProfileInputType> ()
-                // .AddInputObjectType<CharacterProfileItemInputType> ()
-                // .AddInputObjectType<CreatorProfileInputType> ()
-                // .AddInputObjectType<CreatorProfileItemInputType> ()
-                // .AddInputObjectType<PublishDateInputType> ()
-                // .AddInputObjectType<RelevantLinksInputType> ()
-                // .AddInputObjectType<SeriesInputType> ()
                 .Use (next => async context => {
                     _logger.LogDebug ("Context info: {contextInfo}", context.Variables);
                     await next (context);
