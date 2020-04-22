@@ -91,13 +91,10 @@ namespace ComicEngine.Graphql {
                 .AddServices (sp)
                 .AddQueryType<QueryType> ()
                 .AddMutationType<MutationType> ()
+                // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
                     _logger.LogDebug ("Context info: {contextInfo}", context.Variables);
                     await next (context);
-
-                    if (context.Result is string s) {
-                        context.Result = s.ToUpper ();
-                    }
                 })
                 .Create ());
 
@@ -125,7 +122,7 @@ namespace ComicEngine.Graphql {
             // todo: Add Appsettings flag to enable/disable this.
             app.UseCors (DevelopmentCors);
 
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             app.UseStaticFiles ();
             app.UseSpaStaticFiles ();
 

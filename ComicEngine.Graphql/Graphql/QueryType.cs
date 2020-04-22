@@ -15,13 +15,11 @@ namespace ComicEngine.Graphql.Graphql {
             descriptor
                 .Field (t => t.ComicsByTitleAndIssueNumber (default, default))
                 .Type<ListType<ComicType>> ()
+                // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
                     try {
+                        // Log here
                         await next (context);
-
-                        if (context.Result is string s) {
-                            context.Result = s.ToUpper ();
-                        }
                     } catch (Exception ex) {
                         _logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
                         context.ReportError (ex.Message);

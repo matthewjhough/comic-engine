@@ -21,11 +21,8 @@ namespace ComicEngine.Graphql.Graphql {
                     // try and move on through context
                     _logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
                     try {
+                        // Log here
                         await next (context);
-
-                        if (context.Result is string s) {
-                            context.Result = s.ToUpper ();
-                        }
                     } catch (Exception ex) {
                         _logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
                         context.ReportError (ex.Message);

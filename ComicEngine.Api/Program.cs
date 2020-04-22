@@ -9,7 +9,7 @@ namespace ComicEngine.Api {
 
         public static IWebHostBuilder CreateHostBuilder (string[] args) =>
             WebHost.CreateDefaultBuilder (args)
-            .UseUrls ("https://0.0.0.0:6001", "http://0.0.0.0:6002")
+            .UseUrls ("http://0.0.0.0:6002") // "https://0.0.0.0:6001", 
             .UseStartup<Startup> ();
     }
 }
