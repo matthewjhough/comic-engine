@@ -74,11 +74,11 @@ namespace ComicEngine.Api.Marvel.Commands {
                         Characters = marvelComic.Characters as CharacterProfile,
                         Creators = marvelComic.Creators as CreatorProfile,
                         Series = marvelComic.ComicSeries,
-                        // PublishDates = marvelComic.Dates.ToList (),
+                        PublishDates = marvelComic.Dates.ToList (),
                         PageCount = marvelComic.PageCount,
                         ResourceUri = marvelComic.ResourceUri,
                         Thumbnail = $"{marvelComic.Thumbnail.Path}.{marvelComic.Thumbnail.Extension}",
-                        // RelevantLinks = marvelComic.Urls
+                        RelevantLinks = marvelComic.Urls
                 };
             } catch (Exception ex) {
                 throw ex;

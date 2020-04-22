@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
+import { NotificationContainer } from 'react-notifications';
 import { Layout } from './Layout/Layout';
 import { Home } from './Home/Home';
 import AuthorizeRoute from './Authorization/AuthorizeRoute';
@@ -7,6 +8,7 @@ import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';
 import { routeConfig } from './routeConfig';
 
+import 'react-notifications/lib/notifications.css';
 import './custom.css';
 
 export default class App extends Component {
@@ -28,6 +30,7 @@ export default class App extends Component {
           path={ApplicationPaths.ApiAuthorizationPrefix}
           component={ApiAuthorizationRoutes}
         />
+        <NotificationContainer />
       </Layout>
     );
   }

@@ -1,11 +1,8 @@
 import { UPDATE_TITLE_INPUT, UPDATE_ISSUE_NUMBER_INPUT } from '../actionTypes';
-import { fetchComicFromTitleAndIssueNumber } from '../graphqlClient/graphqlClient';
+import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
+import { comicByTitleAndIssueNumber } from './comicByComicSearchFormQuery';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
 
-/**
- *
- * @param {string} title
- */
 export function updateTitleInput(title) {
   return {
     type: UPDATE_TITLE_INPUT,
@@ -13,10 +10,6 @@ export function updateTitleInput(title) {
   };
 }
 
-/**
- *
- * @param {string} issueNumber
- */
 export function updateIssueNumberInput(issueNumber) {
   return {
     type: UPDATE_ISSUE_NUMBER_INPUT,
@@ -24,16 +17,17 @@ export function updateIssueNumberInput(issueNumber) {
   };
 }
 
-/**
- *
- * @param {object} comicForm
- */
 export function updateResultsFromForm(dispatch) {
-  return function(comicForm) {
-    return fetchComicFromTitleAndIssueNumber(comicForm)
+  return function({ title, issueNumber }) {
+    return makeGraphqlRequest(comicByTitleAndIssueNumber, {
+      title,
+      issueNumber
+    })
       .then(res => res.json())
       .then(({ data, errors }) => {
+        console.log('results returned from api: ', data, errors);
         if (errors && errors.length > 0) {
+          console.error('An error occured retreiving results.', errors);
           return dispatch(setResults({ results: [] }));
         }
 

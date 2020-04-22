@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
+import { ScrollDiv } from '../ScrollDiv/ScrollDiv';
 
 export class Home extends Component {
   static displayName = Home.name;
 
   render() {
     return (
-      <ScrollContainer>
+      <ScrollDiv>
         <div>
           <h1>Comic Engine App</h1>
           <p>
@@ -15,7 +15,7 @@ export class Home extends Component {
             inventory of it.
           </p>
         </div>
-      </ScrollContainer>
+      </ScrollDiv>
     );
   }
 }

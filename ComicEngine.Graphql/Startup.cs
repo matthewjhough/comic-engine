@@ -1,8 +1,11 @@
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using ComicEngine.Graphql.ComicEngineApi;
-using ComicEngine.Graphql.Data;
 using ComicEngine.Graphql.Graphql;
 using ComicEngine.Graphql.IdentityServer;
+using ComicEngine.Graphql.IdentityServer.Data;
+using ComicEngine.Graphql.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;
@@ -20,9 +23,12 @@ namespace ComicEngine.Graphql {
     public class Startup {
         private ILoggerFactory _loggerFactory;
 
+        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (Startup));
+
         public Startup (IConfiguration configuration, ILoggerFactory loggerFactory) {
             Configuration = configuration;
             _loggerFactory = loggerFactory;
+            ApplicationLogging.LoggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
@@ -54,16 +60,11 @@ namespace ComicEngine.Graphql {
 
             #endregion cors
 
-            services.AddSingleton<IComicHttpClient> (sp =>
-                new ComicHttpClient (
-                    sp.GetRequiredService<ILogger<IComicHttpClient>> (),
-                    sp.GetRequiredService<IHttpClientFactory> (),
-                    Configuration
+            services.AddSingleton<ComicHttpClient> ();
+            services.AddSingleton<IComicEngineApiRepository, ComicEngineApiRepository> (sp =>
+                new ComicEngineApiRepository (Configuration
                     .GetSection ("ComicHttpClientConfig")
-                    .Get<ComicHttpClientConfig> ()
-                ));
-
-            services.AddSingleton<IComicEngineApiService, ComicEngineApiService> ();
+                    .Get<ComicHttpClientConfig> ()));
 
             services.AddDefaultIdentity<ApplicationUser> ()
                 .AddEntityFrameworkStores<ApplicationDbContext> ();
@@ -85,11 +86,26 @@ namespace ComicEngine.Graphql {
             // Add dotnet HttpClient
             services.AddHttpClient ();
 
-            services.AddGraphQL (services =>
+            services.AddGraphQL (sp =>
                 SchemaBuilder.New ()
-                .AddServices (services)
-                .AddQueryType<Query> ()
+                .AddServices (sp)
+                .AddQueryType<QueryType> ()
+                .AddMutationType<MutationType> ()
+                // Move this out to reusable middleware for error reporting
+                .Use (next => async context => {
+                    _logger.LogDebug ("Context info: {contextInfo}", context.Variables);
+                    await next (context);
+                })
                 .Create ());
+
+            services.AddErrorFilter (error => {
+                _logger.LogDebug ("Error received... {err}", error.Exception?.Message);
+                _logger.LogDebug ("Error message: {msg}", error.Message);
+                if (error.Exception is NullReferenceException) {
+                    return error.WithCode ("NullRef");
+                }
+                return error;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,7 +122,7 @@ namespace ComicEngine.Graphql {
             // todo: Add Appsettings flag to enable/disable this.
             app.UseCors (DevelopmentCors);
 
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             app.UseStaticFiles ();
             app.UseSpaStaticFiles ();
 

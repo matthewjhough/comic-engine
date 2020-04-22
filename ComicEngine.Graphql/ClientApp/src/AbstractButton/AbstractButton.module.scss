@@ -1,0 +1,9 @@
+// FIXME: centralize variables
+$comicSearchBackground: #f1f1f1;
+
+.abstractButton {
+  margin: 1rem 0.35rem;
+  border: none;
+  background: darken($comicSearchBackground, 10%);
+  color: lighten(#010101, 5%);
+}

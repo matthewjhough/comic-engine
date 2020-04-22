@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="$(NewtonSoftVersion)" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="$(HotChocolateVersion)" />
   </ItemGroup>
 </Project>

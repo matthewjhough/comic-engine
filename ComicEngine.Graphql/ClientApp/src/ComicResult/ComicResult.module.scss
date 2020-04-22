@@ -11,6 +11,12 @@
   padding: 1rem;
   background: #fff;
   margin: 0.35rem;
+  cursor: pointer;
+}
+
+.isSelected {
+  background: lighten(green, 71%);
+  border: 1px solid green;
 }
 
 .comicResultImage {

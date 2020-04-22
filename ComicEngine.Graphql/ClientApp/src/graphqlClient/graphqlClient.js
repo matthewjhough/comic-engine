@@ -1,5 +1,5 @@
 import { comicByUpcQuery } from '../BarcodeReader/comicByUpc.query';
-import { comicByTitleAndIssueNumber } from '../ComicSearchForm/comicByComicSearchForm.query';
+import { comicByTitleAndIssueNumber } from '../ComicSearchForm/comicByComicSearchFormQuery';
 
 export const makeGraphqlRequest = (query, variables) =>
   fetch('/graphql', {

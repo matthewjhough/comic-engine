@@ -9,7 +9,7 @@ namespace ComicEngine.Graphql {
 
         public static IWebHostBuilder CreateWebHostBuilder (string[] args) =>
             WebHost.CreateDefaultBuilder (args)
-            .UseUrls ("https://0.0.0.0:5001", "http://0.0.0.0:5002")
+            .UseUrls ("http://0.0.0.0:5002") // "https://0.0.0.0:5001",
             .UseStartup<Startup> ();
     }
 }

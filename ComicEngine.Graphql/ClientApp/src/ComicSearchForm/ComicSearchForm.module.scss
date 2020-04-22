@@ -5,17 +5,11 @@ $comicSearchBackground: #f1f1f1;
   display: flex;
   height: 90%;
 
-  button {
-    margin: 1rem 0.35rem;
-    border: none;
-    background: darken($comicSearchBackground, 10%);
-    color: lighten(#010101, 5%);
-  }
-
   .comicSearchFormElement {
     margin-top: 0.85rem;
     flex: 0 1 auto;
     min-width: 25%;
+    margin-right: 1rem;
   }
 }
 

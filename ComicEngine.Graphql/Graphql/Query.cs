@@ -1,20 +1,17 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using ComicEngine.Graphql.ComicEngineApi;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ComicEngine.Graphql.Graphql {
     public class Query {
-        private readonly ILogger _logger;
+        private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (Query));
 
-        private IComicEngineApiService _comicApiService;
+        private IComicEngineApiRepository _comicApiService;
 
-        public Query (ILogger<Query> logger, IComicEngineApiService comicApiService) {
-            _logger = logger;
+        public Query (IComicEngineApiRepository comicApiService) {
             _comicApiService = comicApiService;
         }
 
