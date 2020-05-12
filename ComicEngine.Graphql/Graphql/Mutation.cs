@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.ComicEngineApi;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +7,9 @@ namespace ComicEngine.Graphql.Graphql {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private IComicEngineApiRepository _comicApiService;
+        private IComicRepository _comicApiService;
 
-        public Mutation (ILogger<Mutation> logger, IComicEngineApiRepository comicApiService) {
+        public Mutation (ILogger<Mutation> logger, IComicRepository comicApiService) {
             _logger = logger;
             _comicApiService = comicApiService;
         }

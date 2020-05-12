@@ -6,7 +6,7 @@ using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.SavedComics {
+namespace ComicEngine.Api.Server.SavedComics {
     public class SavedComicsControllerV1 : ControllerBase {
         private readonly ICreateSavedComicCommand _createCommand;
         private readonly IGetSavedComicCommand _getCommand;

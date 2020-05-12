@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ComicEngine.Api {
+namespace ComicEngine.Api.Server {
     public class Program {
         public static void Main (string[] args) {
             CreateHostBuilder (args).Build ().Run ();

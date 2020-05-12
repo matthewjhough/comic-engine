@@ -1,14 +1,13 @@
-using ComicEngine.Common.Comic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace ComicEngine.Data.SavedComics {
-    public class SavedComicContext : DbContext {
-        public DbSet<Comic> Comics { get; set; }
+namespace ComicEngine.Data.MsSql.Comics {
+    public class ComicContext : DbContext {
+        public DbSet<PersistedComic> PersistedComics { get; set; }
 
         private readonly IConfiguration _configuration;
 
-        public SavedComicContext (IConfiguration configuration) {
+        public ComicContext (IConfiguration configuration) {
             _configuration = configuration;
         }
 

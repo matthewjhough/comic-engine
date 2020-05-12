@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Graphql.ComicEngineApi {
+namespace ComicEngine.Api.Client {
     public class ComicHttpClient : BaseHttpClient {
         public readonly string _comicEngineApiUri;
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicHttpClient));

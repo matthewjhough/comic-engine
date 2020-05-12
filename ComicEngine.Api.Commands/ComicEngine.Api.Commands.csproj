@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
   </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
   </ItemGroup>

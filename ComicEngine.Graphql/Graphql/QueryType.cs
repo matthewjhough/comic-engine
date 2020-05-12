@@ -1,4 +1,5 @@
 using System;
+using ComicEngine.Common;
 using ComicEngine.Graphql.Types;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;

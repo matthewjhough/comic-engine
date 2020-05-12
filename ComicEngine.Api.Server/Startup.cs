@@ -1,7 +1,7 @@
 using ComicEngine.Api.Marvel;
 using ComicEngine.Api.Marvel.Commands;
 using ComicEngine.Api.SavedComics;
-using ComicEngine.Data.SavedComics;
+using ComicEngine.Data.MsSql.Comics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api {
+namespace ComicEngine.Api.Server {
     public class Startup {
         public Startup (IConfiguration configuration) {
             Configuration = configuration;
@@ -30,8 +30,8 @@ namespace ComicEngine.Api {
                 .AddSingleton<IGetSavedComicCommand, SavedComicCommands> ()
                 .AddSingleton<ILoggerFactory, LoggerFactory> ()
                 .AddSingleton<ICreateSavedComicCommand, SavedComicCommands> ()
-                .AddSingleton<SavedComicContext> (sp =>
-                    new SavedComicContext (Configuration))
+                .AddSingleton<ComicContext> (sp =>
+                    new ComicContext (Configuration))
                 .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
                     new SavedComicsRepository (Configuration));
         }
@@ -42,9 +42,13 @@ namespace ComicEngine.Api {
                 app.UseDeveloperExceptionPage ();
             }
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory> ().CreateScope ()) {
-                var context = serviceScope.ServiceProvider.GetRequiredService<SavedComicContext> ();
-                context.Database.EnsureCreated ();
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory> ()
+                .CreateScope ()) {
+                var context = serviceScope.ServiceProvider
+                    .GetRequiredService<ComicContext> ();
+                context
+                    .Database
+                    .EnsureCreated ();
             }
 
             app.UseHttpsRedirection ();

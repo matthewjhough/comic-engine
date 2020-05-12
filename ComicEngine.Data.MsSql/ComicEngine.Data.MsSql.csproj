@@ -1,8 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(MicrosoftEntityVersion)" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
+    <ProjectReference Include="../ComicEngine.Data/ComicEngine.Data.csproj" />
   </ItemGroup>
 </Project>

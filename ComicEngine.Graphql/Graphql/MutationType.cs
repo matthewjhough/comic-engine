@@ -1,8 +1,6 @@
 using System;
-using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.ComicEngineApi;
+using ComicEngine.Common;
 using ComicEngine.Graphql.Types;
-using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
 

@@ -11,7 +11,7 @@ using ComicEngine.Common.Marvel;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace ComicEngine.Api.Marvel {
+namespace ComicEngine.Api.Server.Marvel {
     public class MarvelHttpClient : BaseHttpClient {
         private MarvelApiConfig _marvelApiSettings;
 

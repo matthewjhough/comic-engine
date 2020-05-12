@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Marvel;
 using ComicEngine.Api.Marvel.Commands;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Controllers {
+namespace ComicEngine.Api.Server.Controllers {
     [ApiController]
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;

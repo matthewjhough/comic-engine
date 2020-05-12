@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using ComicEngine.Common.Marvel;
 
-namespace ComicEngine.Api.Marvel.Commands {
+namespace ComicEngine.Api.Server.Marvel.Commands {
     public class MarvelCommands : IGetMarvelCommand {
 
         private MarvelHttpClient _marvelClient;

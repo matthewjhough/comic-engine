@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
+using ComicEngine.Data;
 
-namespace ComicEngine.Api.SavedComics {
-    public interface ISavedComicsRepository {
+namespace ComicEngine.Api.Server.SavedComics {
+    public interface ISavedComicsRepository : IDataRepository {
         Task CreateSavedComic (Comic comic);
 
         /// <summary>
@@ -12,12 +12,5 @@ namespace ComicEngine.Api.SavedComics {
         /// </summary>
         /// <returns>A list of user's saved <see cref="Comic"/>.</returns>
         Task<IEnumerable<Comic>> GetSavedComics ();
-
-        /// <summary>
-        /// Gets comic by stored id of comic.
-        /// </summary>
-        /// <param name="storedId"></param>
-        /// <returns>a stored <see cref="Comic"/>.</returns>
-        // Task<Comic> GetSavedComicByStoredId (string storedId);
     }
 }

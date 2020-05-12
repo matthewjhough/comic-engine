@@ -24,7 +24,8 @@
 
   
   <ItemGroup>
-    <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
+    <ProjectReference Include="../ComicEngine.Api.Client/ComicEngine.Api.Client.csproj" />
+    <ProjectReference Include="../ComicEngine.Data.MsSql/ComicEngine.Data.MsSql.csproj" />
   </ItemGroup>
 
   <ItemGroup>
