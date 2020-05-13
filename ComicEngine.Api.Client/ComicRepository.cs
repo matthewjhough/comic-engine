@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
+using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
@@ -8,10 +8,10 @@ namespace ComicEngine.Api.Client {
     public class ComicRepository : IComicRepository {
         private readonly string _marvelEndpoint = "v1/marvel/comic";
         private readonly string _savedComicsEndpoint = "v1/saved/comics";
-        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicEngineApiRepository));
+        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicRepository));
         private ComicHttpClient _apiClient;
 
-        public ComicEngineApiRepository (ComicHttpClientConfig config) {
+        public ComicRepository (ComicHttpClientConfig config) {
             _apiClient = new ComicHttpClient (config);
         }
 

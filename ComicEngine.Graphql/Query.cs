@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ComicEngine.Api.Client;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Graphql.Graphql {
+namespace ComicEngine.Graphql {
     public class Query {
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (Query));
 
         private IComicRepository _comicRepository;
 
         public Query (IComicRepository comicApiService) {
-            _comicRepository = comicApiService;
+            _comicRepository = comicApiService ??
+                throw new System.ArgumentNullException (nameof (comicApiService));
         }
 
         public async Task<Comic> ComicByUpc (string upc) {

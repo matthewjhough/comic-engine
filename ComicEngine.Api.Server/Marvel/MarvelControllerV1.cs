@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Marvel.Commands;
+using ComicEngine.Api.Commands.Marvel;
 using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

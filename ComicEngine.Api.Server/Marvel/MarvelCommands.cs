@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicEngine.Api.Commands.Marvel;
 using ComicEngine.Common.Comic;
 using ComicEngine.Common.Marvel;
 
-namespace ComicEngine.Api.Server.Marvel.Commands {
+namespace ComicEngine.Api.Server.Marvel {
     public class MarvelCommands : IGetMarvelCommand {
 
         private MarvelHttpClient _marvelClient;

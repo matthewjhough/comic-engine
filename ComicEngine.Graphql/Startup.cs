@@ -1,8 +1,9 @@
 using System;
+using ComicEngine.Api.Client;
 using ComicEngine.Common;
-using ComicEngine.Graphql.Graphql;
 using ComicEngine.Graphql.IdentityServer;
 using ComicEngine.Graphql.IdentityServer.Data;
+using ComicEngine.Graphql.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;
@@ -32,7 +33,6 @@ namespace ComicEngine.Graphql {
 
         private string DevelopmentCors = "DevelopmentCors";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<ApplicationDbContext> (options =>
                 options.UseSqlite (

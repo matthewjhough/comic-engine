@@ -1,23 +1,22 @@
 using System;
 using ComicEngine.Common;
-using ComicEngine.Graphql.Types;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Graphql.Graphql {
-    public class MutationType : ObjectType<Mutation> {
+namespace ComicEngine.Graphql.Types {
+    public class QueryType : ObjectType<Query> {
+        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (QueryType));
 
-        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (MutationType));
-
-        protected override void Configure (IObjectTypeDescriptor<Mutation> descriptor) {
+        protected override void Configure (IObjectTypeDescriptor<Query> descriptor) {
             descriptor
-                .Field (t => t.CreateSavedComic (default))
-                .Type<ComicType> ()
-                .Argument ("comic", a => a.Type<NonNullType<ComicInputType>> ())
+                .Field (t => t.ComicByUpc (default))
+                .Type<ComicType> ();
+
+            descriptor
+                .Field (t => t.ComicsByTitleAndIssueNumber (default, default))
+                .Type<ListType<ComicType>> ()
                 // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
-                    // try and move on through context
-                    _logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
                     try {
                         // Log here
                         await next (context);
@@ -27,6 +26,10 @@ namespace ComicEngine.Graphql.Graphql {
                         throw;
                     }
                 });
+
+            descriptor
+                .Field (t => t.SavedComics ())
+                .Type<ListType<ComicType>> ();
         }
     }
 }

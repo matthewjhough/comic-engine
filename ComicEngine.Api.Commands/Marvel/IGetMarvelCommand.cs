@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.Commands.Marvel.Commands {
+namespace ComicEngine.Api.Commands.Marvel {
     public interface IGetMarvelCommand {
         /// <summary>
         /// Accepts barcode number, and returns basic comic object response.
