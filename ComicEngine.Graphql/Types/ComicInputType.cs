@@ -6,6 +6,7 @@ namespace ComicEngine.Graphql.Types {
         protected override void Configure (IInputObjectTypeDescriptor<Comic> descriptor) {
             descriptor.Field (t => t.StorageId).Type<IntType> ().Ignore ();
             descriptor.Field (t => t.Id).Type<IntType> ();
+            descriptor.Field (t => t.PersistedComicId).Type<IntType> ().Ignore ();
         }
     }
 }

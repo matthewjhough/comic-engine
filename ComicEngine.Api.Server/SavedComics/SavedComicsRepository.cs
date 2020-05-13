@@ -11,14 +11,21 @@ namespace ComicEngine.Api.Server.SavedComics {
     public class SavedComicsRepository : ISavedComicsRepository {
         private readonly ComicContext _comicContext;
 
+        private string _fakeUserId = "12345";
+
         public SavedComicsRepository (IConfiguration configuration) {
             _comicContext = new ComicContext (configuration);
         }
 
         public async Task CreateSavedComic (Comic comic) {
+            var persistedComic = new PersistedComic () {
+                Comic = comic,
+                UserId = _fakeUserId
+            };
+
             // Todo: add logging.
             try {
-                await _comicContext.AddAsync (comic);
+                await _comicContext.AddAsync (persistedComic);
                 await _comicContext.SaveChangesAsync ();
             } catch (Exception ex) {
                 // TODO: add logging
@@ -29,18 +36,26 @@ namespace ComicEngine.Api.Server.SavedComics {
         public async Task<IEnumerable<Comic>> GetSavedComics () {
             // Todo: add logging.
             // TODO: move to this to storage client, and convert within repo level
-            var persistedComic = await _comicContext.PersistedComics
+            var persistedComics = await _comicContext.PersistedComics
                 .Include (x => x.Comic)
-                // .ThenInclude (x => x.Characters)
-                // .ThenInclude (c => c.Items)
-                // .Include (x => x.Creators)
-                // .ThenInclude (c => c.Items)
-                // .Include ("Series")
-                // .Include ("PublishDates")
-                // .Include ("RelevantLinks")
+                .ThenInclude (x => x.Characters)
+                .ThenInclude (x => x.Items)
+                .Include (x => x.Comic)
+                .ThenInclude (x => x.Creators)
+                .ThenInclude (x => x.Items)
+                .Include (x => x.Comic)
+                .ThenInclude (x => x.PublishDates)
+                .Include (x => x.Comic)
+                .ThenInclude (x => x.RelevantLinks)
+                .Include (x => x.Comic)
+                .ThenInclude (x => x.Series)
+                .Include (x => x.Comic)
                 .ToListAsync ();
 
-            return new List<Comic> ();
+            return persistedComics
+                .Where (persistedComic =>
+                    string.Equals (persistedComic.UserId, _fakeUserId))
+                .Select (persistedComic => persistedComic.Comic);
         }
     }
 }

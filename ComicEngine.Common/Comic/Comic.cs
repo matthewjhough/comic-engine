@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using HotChocolate;
 
 namespace ComicEngine.Common.Comic {
     [Table ("Comics")]
     public class Comic {
         [Key]
         public int StorageId { get; set; }
+
+        [ForeignKey ("PersistedComic")]
+        public int PersistedComicId { get; set; }
 
         public int Id { get; set; }
 
