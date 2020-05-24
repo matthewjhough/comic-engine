@@ -2,12 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
+    <RootNamespace>ComicEngineApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
     <Folder Include="Marvel\" />
-    <Folder Include="Common\" />
   </ItemGroup>
 
   <ItemGroup>

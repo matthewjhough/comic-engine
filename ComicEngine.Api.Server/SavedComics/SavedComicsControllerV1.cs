@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Api.Commands.SavedComics;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -47,7 +47,9 @@ namespace ComicEngine.Api.Server.SavedComics {
         }
 
         [HttpGet ("/v1/saved/comics")]
-        public async Task<IEnumerable<Comic>> Get () {
+        [Authorize]
+        public async Task<IEnumerable<Comic>> Get () 
+        {
             // Todo: add logging / exception handling
             var comicList = await _getCommand.GetSavedComics ();
 

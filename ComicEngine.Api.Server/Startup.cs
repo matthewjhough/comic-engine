@@ -35,6 +35,13 @@ namespace ComicEngine.Api.Server {
                     new ComicContext (Configuration))
                 .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
                     new SavedComicsRepository (Configuration));
+
+            services.AddAuthentication ("Bearer")
+                .AddJwtBearer ("Bearer", options => {
+                    options.Authority = "http://localhost:5002";
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "comicapi";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +62,7 @@ namespace ComicEngine.Api.Server {
             app.UseHttpsRedirection ();
 
             app.UseRouting ();
-
+            app.UseAuthentication ();
             app.UseAuthorization ();
 
             app.UseEndpoints (endpoints => {
