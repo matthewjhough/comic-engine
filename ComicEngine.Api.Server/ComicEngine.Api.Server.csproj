@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
-    <RootNamespace>ComicEngineApi</RootNamespace>
+    <RootNamespace>ComicEngine.Api.Server</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

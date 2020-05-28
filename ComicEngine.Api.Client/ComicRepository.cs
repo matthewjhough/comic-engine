@@ -2,23 +2,39 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Client {
     public class ComicRepository : IComicRepository {
-        private readonly string _marvelEndpoint = "v1/marvel/comic";
-        private readonly string _savedComicsEndpoint = "v1/saved/comics";
-        private ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicRepository));
-        private ComicHttpClient _apiClient;
+        private const string MarvelEndpoint = "v1/marvel/comic";
+        private const string SavedComicsEndpoint = "v1/saved/comics";
+        private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (ComicRepository));
+        private readonly ComicHttpClientConfig _comicApiClientConfig;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ComicRepository (ComicHttpClientConfig config) {
-            _apiClient = new ComicHttpClient (config);
+        /// <summary>
+        /// Repository for interacting with the Comic Engine Comic API
+        /// </summary>
+        /// <param name="config"><see cref="ComicHttpClientConfig"/> pulled
+        /// from the appsettings.</param>
+        /// <param name="httpContextAccessor"></param>
+        public ComicRepository (ComicHttpClientConfig config, 
+            IHttpContextAccessor httpContextAccessor) {
+            _comicApiClientConfig = config;
+            _httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// Retrieves all comics associated with a user.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Comic>> RequestAllSavedComics () {
-            _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
-            var comicResponse = await _apiClient.RequestComicFromApi<IEnumerable<Comic>> (_savedComicsEndpoint);
-            _logger.LogDebug ("Response returned: {response}", comicResponse);
+            Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
+            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
+            
+            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (SavedComicsEndpoint);
+            Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return comicResponse;
         }
@@ -27,10 +43,10 @@ namespace ComicEngine.Api.Client {
             string upc
         ) {
             string parameters = $"upc={upc}";
-
-            _logger.LogDebug ("Making request to: {endpoint}, with parameters: {parameters}", _marvelEndpoint, parameters);
-            var comcResponse = await _apiClient.RequestComicFromApi<Comic> (_marvelEndpoint, parameters);
-            _logger.LogDebug ("Response returned: {response}", comcResponse);
+            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
+            Logger.LogDebug ("Making request to: {endpoint}, with parameters: {parameters}", MarvelEndpoint, parameters);
+            var comcResponse = await apiClient.RequestComicFromApi<Comic> (MarvelEndpoint, parameters);
+            Logger.LogDebug ("Response returned: {response}", comcResponse);
 
             return comcResponse;
         }
@@ -38,24 +54,24 @@ namespace ComicEngine.Api.Client {
         public async Task<IEnumerable<Comic>> RequestMarvelComicsByParameters (
             string title, string issueNumber
         ) {
-            string endpoint = $"{_marvelEndpoint}/search";
+            string endpoint = $"{MarvelEndpoint}/search";
             string parameters = $"title={title}&issueNumber={issueNumber}";
-
-            _logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
-            var comicResponse = await _apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);
-            _logger.LogDebug ("Response returned: {response}", comicResponse);
+            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
+            Logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
+            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);
+            Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return comicResponse;
         }
 
         public async Task<Comic> SaveComicToApi (Comic comic) {
-            _logger.LogDebug ("Making request to: {endpoint}", _savedComicsEndpoint);
+            Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
+            var apiClient = new ComicHttpClient (_comicApiClientConfig, _httpContextAccessor);
+            string fullUrl = $"{apiClient.ComicEngineApiUri}/{SavedComicsEndpoint}";
 
-            string fullUrl = $"{_apiClient._comicEngineApiUri}/{_savedComicsEndpoint}";
+            var comicResponse = await apiClient.MakeRequestWithBody<Comic> (fullUrl, comic);
 
-            var comicResponse = await _apiClient.MakeRequestWithBody<Comic> (fullUrl, comic);
-
-            _logger.LogDebug ("Response returned: {response}", comicResponse);
+            Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return null;
         }

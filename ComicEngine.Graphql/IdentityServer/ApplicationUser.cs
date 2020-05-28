@@ -5,5 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace ComicEngine.Graphql.IdentityServer {
-    public class ApplicationUser : IdentityUser { }
+    public class ApplicationUser : IdentityUser
+    { }
 }

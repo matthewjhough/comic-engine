@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +17,9 @@ namespace ComicEngine.Graphql.IdentityServer {
         [HttpGet ("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters ([FromRoute] string clientId) {
             var parameters = ClientRequestParametersProvider.GetClientParameters (HttpContext, clientId);
+            
+            _logger.LogDebug("Parameters found: {parameters}", parameters.Keys);
+            
             return Ok (parameters);
         }
     }

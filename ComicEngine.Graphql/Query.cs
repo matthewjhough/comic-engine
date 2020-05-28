@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
+using HotChocolate.Resolvers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql {
@@ -32,7 +34,10 @@ namespace ComicEngine.Graphql {
             return response;
         }
 
-        public async Task<IEnumerable<Comic>> SavedComics () {
+        public async Task<IEnumerable<Comic>> SavedComics (IResolverContext context)
+        {
+            // var token = IdentityTokenSupport.ResolveIdentityToken(context.ContextData["HttpContext"] as HttpContext);
+            var httpContext = context.ContextData["HttpContext"] as HttpContext;
             IEnumerable<Comic> response = await _comicRepository.RequestAllSavedComics ();
 
             return response;

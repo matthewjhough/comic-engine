@@ -1,10 +1,11 @@
 using ComicEngine.Api.Commands.Marvel;
-using ComicEngine.Api.Commands.SavedComics;
+using ComicEngine.Api.Commands.SavedComic;
 using ComicEngine.Api.Server.Marvel;
 using ComicEngine.Api.Server.SavedComics;
 using ComicEngine.Data.MsSql.Comics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,8 +26,12 @@ namespace ComicEngine.Api.Server {
             services.AddSingleton<MarvelHttpClient> (sp =>
                     new MarvelHttpClient (
                         sp.GetRequiredService<ILogger<MarvelHttpClient>> (),
-                        Configuration.GetSection ("marvelApi").Get<MarvelApiConfig> ()
+                        Configuration
+                            .GetSection ("marvelApi")
+                            .Get<MarvelApiConfig> (),
+                        sp.GetRequiredService<IHttpContextAccessor>()
                     ))
+                .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IGetMarvelCommand, MarvelCommands> ()
                 .AddSingleton<IGetSavedComicCommand, SavedComicCommands> ()
                 .AddSingleton<ILoggerFactory, LoggerFactory> ()
@@ -36,11 +41,12 @@ namespace ComicEngine.Api.Server {
                 .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
                     new SavedComicsRepository (Configuration));
 
+            // TODO: Setup correctly when access tokens enabled
             services.AddAuthentication ("Bearer")
                 .AddJwtBearer ("Bearer", options => {
                     options.Authority = "http://localhost:5002";
                     options.RequireHttpsMetadata = false;
-                    options.Audience = "comicapi";
+                    options.Audience = "comic_api";
                 });
         }
 

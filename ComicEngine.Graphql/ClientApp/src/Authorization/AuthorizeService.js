@@ -1,4 +1,4 @@
-import { UserManager, WebStorageStateStore } from 'oidc-client';
+import {UserManager, UserManagerSettings, WebStorageStateStore} from 'oidc-client';
 import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
 
 export class AuthorizeService {
@@ -24,6 +24,15 @@ export class AuthorizeService {
         await this.ensureUserManagerInitialized();
         const user = await this.userManager.getUser();
         return user && user.profile;
+    }
+
+    async getUserJson() {
+        if (this._user && this._user.profile) {
+            return this._user.profile;
+        }
+
+        await this.ensureUserManagerInitialized();
+        return await this.userManager.getUser();
     }
 
     async getAccessToken() {
