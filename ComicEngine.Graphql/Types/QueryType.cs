@@ -1,11 +1,18 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using ComicEngine.Common;
 using HotChocolate.Types;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.Types {
     public class QueryType : ObjectType<Query> {
-        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (QueryType));
+        private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (QueryType));
 
         protected override void Configure (IObjectTypeDescriptor<Query> descriptor) {
             descriptor
@@ -21,15 +28,26 @@ namespace ComicEngine.Graphql.Types {
                         // Log here
                         await next (context);
                     } catch (Exception ex) {
-                        _logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
+                        Logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
                         context.ReportError (ex.Message);
                         throw;
                     }
                 });
 
             descriptor
-                .Field (t => t.SavedComics ())
-                .Type<ListType<ComicType>> ();
+                .Field (t => t.SavedComics (default))
+                .Type<ListType<ComicType>> ()
+                .Use (next => async context =>
+                {
+                    try {
+                        // Log here
+                        await next (context);
+                    } catch (Exception ex) {
+                        Logger.LogError (ex, "An error occured while executing {mutationName}", context.Field.Name);
+                        context.ReportError (ex.Message);
+                        throw;
+                    }
+                });
         }
     }
 }

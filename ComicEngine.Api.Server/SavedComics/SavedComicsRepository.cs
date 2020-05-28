@@ -17,10 +17,10 @@ namespace ComicEngine.Api.Server.SavedComics {
             _comicContext = new ComicContext (configuration);
         }
 
-        public async Task CreateSavedComic (Comic comic) {
+        public async Task CreateSavedComic (Comic comic, string subject) {
             var persistedComic = new PersistedComic () {
                 Comic = comic,
-                UserId = _fakeUserId
+                UserId = subject
             };
 
             // Todo: add logging.
@@ -33,7 +33,7 @@ namespace ComicEngine.Api.Server.SavedComics {
             }
         }
 
-        public async Task<IEnumerable<Comic>> GetSavedComics () {
+        public async Task<IEnumerable<Comic>> GetSavedComics (string subject) {
             // Todo: add logging.
             // TODO: move to this to storage client, and convert within repo level
             var persistedComics = await _comicContext.PersistedComics
@@ -54,7 +54,7 @@ namespace ComicEngine.Api.Server.SavedComics {
 
             return persistedComics
                 .Where (persistedComic =>
-                    string.Equals (persistedComic.UserId, _fakeUserId))
+                    string.Equals (persistedComic.UserId, subject))
                 .Select (persistedComic => persistedComic.Comic);
         }
     }

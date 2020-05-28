@@ -2,17 +2,19 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Client {
     public class ComicHttpClient : BaseHttpClient {
-        public readonly string _comicEngineApiUri;
+        public readonly string ComicEngineApiUri;
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicHttpClient));
 
         public ComicHttpClient (
-            ComicHttpClientConfig apiConfig
-        ) {
-            _comicEngineApiUri = apiConfig?.ComicHttpClientUrl;
+            ComicHttpClientConfig apiConfig,
+            IHttpContextAccessor httpContextAccessor
+        ) : base(httpContextAccessor) {
+            ComicEngineApiUri = apiConfig?.ComicHttpClientUrl;
         }
 
         /// <summary>
@@ -23,10 +25,11 @@ namespace ComicEngine.Api.Client {
         /// <returns><see cref="string" /></returns>
         public async Task<T> RequestComicFromApi<T> (string endpoint, string parameters = "") {
             // TODO: Add logging
-            if (string.IsNullOrWhiteSpace (_comicEngineApiUri)) {
+            if (string.IsNullOrWhiteSpace (ComicEngineApiUri)) {
                 throw new Exception ("Api Url was null or whitespace.");
             }
-            var response = await base.MakeRequest<T> (HttpMethod.Get, $"{_comicEngineApiUri}/{endpoint}?{parameters}");
+            
+            var response = await base.MakeRequest<T> (HttpMethod.Get, $"{ComicEngineApiUri}/{endpoint}?{parameters}");
             _logger.LogDebug ("RequestComicFromApi response: ", response);
 
             return response;
@@ -40,11 +43,11 @@ namespace ComicEngine.Api.Client {
         /// <returns><see cref="string" /></returns>
         public async Task<T> PostComicToApi<T> (string endpoint, string parameters) {
             // TODO: Add logging
-            if (string.IsNullOrWhiteSpace (_comicEngineApiUri)) {
+            if (string.IsNullOrWhiteSpace (ComicEngineApiUri)) {
                 throw new Exception ("Api Url was null or whitespace.");
             }
 
-            var response = await base.MakeRequest<T> (HttpMethod.Post, $"{_comicEngineApiUri}/{endpoint}?{parameters}");
+            var response = await base.MakeRequest<T> (HttpMethod.Post, $"{ComicEngineApiUri}/{endpoint}?{parameters}");
             _logger.LogDebug ("PostComicToApi response: ", response);
 
             return response;

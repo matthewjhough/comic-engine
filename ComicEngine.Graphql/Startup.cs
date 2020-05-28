@@ -10,6 +10,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,8 +42,8 @@ namespace ComicEngine.Graphql {
             #region cors
             // todo: add appsettings flag for isDevelopment to enable this
             services.AddCors (options => options.AddPolicy (DevelopmentCors,
-                builder => {
-                    builder.AllowAnyOrigin ()
+                corsBuilder => {
+                    corsBuilder.AllowAnyOrigin ()
                         .AllowAnyMethod ()
                         .AllowAnyHeader ();
                 }));
@@ -57,18 +58,21 @@ namespace ComicEngine.Graphql {
 
             #endregion cors
 
-            services.AddSingleton<ComicHttpClient> ();
-            services.AddSingleton<IComicRepository, ComicRepository> (sp =>
+            services.AddSingleton<ComicHttpClient> ()
+                .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
+                .AddSingleton<IComicRepository, ComicRepository> (sp =>
                 new ComicRepository (Configuration
                     .GetSection ("ComicHttpClientConfig")
-                    .Get<ComicHttpClientConfig> ()));
+                    .Get<ComicHttpClientConfig> (),
+                    sp.GetRequiredService<IHttpContextAccessor>()));
 
-            services.AddDefaultIdentity<ApplicationUser> ()
-                .AddEntityFrameworkStores<ApplicationDbContext> ();
-
-            services.AddIdentityServer ()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext> ();
-
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            services
+                .AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                
             services.AddAuthentication ()
                 .AddIdentityServerJwt ();
 
@@ -116,7 +120,7 @@ namespace ComicEngine.Graphql {
                 app.UseHsts ();
             }
 
-            // todo: Add Appsettings flag to enable/disable this.
+            // TODO: Add Appsettings flag to enable/disable this.
             app.UseCors (DevelopmentCors);
 
             // app.UseHttpsRedirection ();
@@ -125,7 +129,6 @@ namespace ComicEngine.Graphql {
 
             app.UseRouting ();
 
-            app.UseAuthentication ();
             app.UseIdentityServer ();
             app.UseAuthorization ();
 

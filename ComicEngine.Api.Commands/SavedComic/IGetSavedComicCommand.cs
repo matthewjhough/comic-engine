@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.Commands.SavedComics {
+namespace ComicEngine.Api.Commands.SavedComic {
     public interface IGetSavedComicCommand {
         /// <summary>
         /// Gets all saved <see cref="Comic">s.!--
@@ -11,6 +10,6 @@ namespace ComicEngine.Api.Commands.SavedComics {
         /// This should grab all comics from the user's saved comics per ID of user sent in request.
         /// </summary>
         /// <returns>A list of the user's saved <see cref="Comic"/>s.</returns>
-        Task<IEnumerable<Comic>> GetSavedComics ();
+        Task<IEnumerable<Comic>> GetSavedComics (string subject);
     }
 }

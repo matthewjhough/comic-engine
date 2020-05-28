@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 
-namespace ComicEngine.Api.Commands.SavedComics {
+namespace ComicEngine.Api.Commands.SavedComic {
     public interface ICreateSavedComicCommand {
-        Task<Comic> CreateSavedComicAsync (Comic comic);
+        Task<Comic> CreateSavedComicAsync (Comic comic, string subject);
     }
 }

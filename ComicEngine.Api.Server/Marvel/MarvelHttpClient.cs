@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comic;
 using ComicEngine.Common.Marvel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -21,8 +22,9 @@ namespace ComicEngine.Api.Server.Marvel {
 
         public MarvelHttpClient (
             ILogger<MarvelHttpClient> logger,
-            MarvelApiConfig marvelApiSettings
-        ) {
+            MarvelApiConfig marvelApiSettings,
+            IHttpContextAccessor httpContextAccessor
+        ) : base(httpContextAccessor) {
             _logger = logger;
             _marvelApiSettings = marvelApiSettings;
         }
