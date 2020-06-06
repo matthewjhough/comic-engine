@@ -67,9 +67,8 @@ namespace ComicEngine.Api.Client {
         public async Task<Comic> SaveComicToApi (Comic comic) {
             Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
             var apiClient = new ComicHttpClient (_comicApiClientConfig, _httpContextAccessor);
-            string fullUrl = $"{apiClient.ComicEngineApiUri}/{SavedComicsEndpoint}";
-
-            var comicResponse = await apiClient.MakeRequestWithBody<Comic> (fullUrl, comic);
+            var fullUrl = $"{apiClient.ComicEngineApiUri}/{SavedComicsEndpoint}";
+            var comicResponse = await apiClient.PostToApiWithBody(fullUrl, comic);
 
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 

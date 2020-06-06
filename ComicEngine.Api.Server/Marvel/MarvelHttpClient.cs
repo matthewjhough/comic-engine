@@ -13,20 +13,19 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Server.Marvel {
-    public class MarvelHttpClient : BaseHttpClient {
-        private MarvelApiConfig _marvelApiSettings;
-
+    public class MarvelHttpClient {
+        private readonly MarvelApiConfig _marvelApiSettings;
         private readonly ILogger _logger;
-
-        private readonly IHttpClientFactory _clientFactory;
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        
         public MarvelHttpClient (
             ILogger<MarvelHttpClient> logger,
             MarvelApiConfig marvelApiSettings,
             IHttpContextAccessor httpContextAccessor
-        ) : base(httpContextAccessor) {
+        ) {
             _logger = logger;
             _marvelApiSettings = marvelApiSettings;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -35,7 +34,15 @@ namespace ComicEngine.Api.Server.Marvel {
         /// <returns></returns>
         public async Task<MarvelResponse> RequestComic (string route, string query) {
             string url = CreateRequestUrl (route, query);
-            MarvelResponse response = await base.MakeRequest<MarvelResponse> (HttpMethod.Get, url);
+            _logger.LogDebug("Making request to marvel url: {url}", url);
+            
+            var client = new HttpRequestClientBuilder<MarvelResponse>()
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithRequestMethod(HttpMethod.Get)
+                .WithAbsoluteUrl(url)
+                .Build();
+
+            var response = await client.Send();
 
             return response;
         }
