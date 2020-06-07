@@ -4,7 +4,7 @@ using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Http;
 
 namespace ComicEngine.Api.Client {
-    public interface IComicRepository {
+    public interface IComicHttpRepository {
         /// <summary>
         /// Method to initiate Http Request. This method handles a lot of repeat logic.
         /// </summary>

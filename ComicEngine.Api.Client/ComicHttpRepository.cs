@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Client {
-    public class ComicRepository : IComicRepository {
+    public class ComicHttpRepository : IComicHttpRepository {
         private const string MarvelEndpoint = "v1/marvel/comic";
         private const string SavedComicsEndpoint = "v1/saved/comics";
-        private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (ComicRepository));
+        private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (ComicHttpRepository));
         private readonly ComicHttpClientConfig _comicApiClientConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -19,7 +19,7 @@ namespace ComicEngine.Api.Client {
         /// <param name="config"><see cref="ComicHttpClientConfig"/> pulled
         /// from the appsettings.</param>
         /// <param name="httpContextAccessor"></param>
-        public ComicRepository (ComicHttpClientConfig config, 
+        public ComicHttpRepository (ComicHttpClientConfig config, 
             IHttpContextAccessor httpContextAccessor) {
             _comicApiClientConfig = config;
             _httpContextAccessor = httpContextAccessor;
@@ -39,6 +39,11 @@ namespace ComicEngine.Api.Client {
             return comicResponse;
         }
 
+        /// <summary>
+        /// Sends UPC barcode value to marvel api, and returns matching comic.
+        /// </summary>
+        /// <param name="upc">The value in upc format, obtained from barcode.</param>
+        /// <returns><see cref="Comic"/></returns>
         public async Task<Comic> RequestMarvelComicByUpc (
             string upc
         ) {
@@ -51,6 +56,12 @@ namespace ComicEngine.Api.Client {
             return comcResponse;
         }
 
+        /// <summary>
+        /// Makes a request to Marvel api, to find all comics matching title/issue number.
+        /// </summary>
+        /// <param name="title">The <see cref="Comic"/> title.</param>
+        /// <param name="issueNumber">The <see cref="Comic"/> issue number.</param>
+        /// <returns><see cref="IEnumerable{Comic}"/></returns>
         public async Task<IEnumerable<Comic>> RequestMarvelComicsByParameters (
             string title, string issueNumber
         ) {
@@ -64,6 +75,11 @@ namespace ComicEngine.Api.Client {
             return comicResponse;
         }
 
+        /// <summary>
+        /// Saves a <see cref="Comic"/> to the users saved comics.
+        /// </summary>
+        /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
+        /// <returns><see cref="Comic"/></returns>
         public async Task<Comic> SaveComicToApi (Comic comic) {
             Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
             var apiClient = new ComicHttpClient (_comicApiClientConfig, _httpContextAccessor);

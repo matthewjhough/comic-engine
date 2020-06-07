@@ -12,7 +12,9 @@ namespace ComicEngine.Data.MsSql.Comics {
         }
 
         protected override void OnConfiguring (DbContextOptionsBuilder builder) {
-            builder.UseSqlServer (_configuration.GetConnectionString ("DefaultConnection"));
+            builder.UseSqlServer (
+                _configuration
+                    .GetConnectionString ("DefaultConnection"));
         }
     }
 }

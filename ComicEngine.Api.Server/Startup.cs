@@ -1,7 +1,7 @@
 using ComicEngine.Api.Commands.Marvel;
 using ComicEngine.Api.Commands.SavedComic;
+using ComicEngine.Api.Server.Comics;
 using ComicEngine.Api.Server.Marvel;
-using ComicEngine.Api.Server.SavedComics;
 using ComicEngine.Data.MsSql.Comics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +17,7 @@ namespace ComicEngine.Api.Server {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
@@ -33,14 +33,22 @@ namespace ComicEngine.Api.Server {
                     ))
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IGetMarvelCommand, MarvelCommands> ()
-                .AddSingleton<IGetSavedComicCommand, SavedComicCommands> ()
+                .AddSingleton<IGetSavedComicCommand, ComicCommands> ()
                 .AddSingleton<ILoggerFactory, LoggerFactory> ()
-                .AddSingleton<ICreateSavedComicCommand, SavedComicCommands> ()
-                .AddSingleton<ComicContext> (sp =>
+                .AddSingleton<ICreateSavedComicCommand, ComicCommands> ()
+                .AddSingleton(sp =>
                     new ComicContext (Configuration))
-                .AddSingleton<ISavedComicsRepository, SavedComicsRepository> (sp =>
-                    new SavedComicsRepository (Configuration));
-
+                .AddSingleton<IComicsRepository, ComicsRepository> (sp =>
+                    new ComicsRepositoryBuilder()
+                        .WithLogger(
+                            sp.GetRequiredService<ILogger<ComicsRepository>>())
+                        .WithStorageClient(
+                            new EntityComicStorageClientBuilder()
+                                .WithComicContext(
+                                    sp.GetRequiredService<ComicContext>())
+                                .Build())
+                        .Build());
+            
             // TODO: Setup correctly when access tokens enabled
             services.AddAuthentication ("Bearer")
                 .AddJwtBearer ("Bearer", options => {

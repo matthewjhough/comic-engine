@@ -60,8 +60,8 @@ namespace ComicEngine.Graphql {
 
             services.AddSingleton<ComicHttpClient> ()
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
-                .AddSingleton<IComicRepository, ComicRepository> (sp =>
-                new ComicRepository (Configuration
+                .AddSingleton<IComicHttpRepository, ComicHttpRepository> (sp =>
+                new ComicHttpRepository (Configuration
                     .GetSection ("ComicHttpClientConfig")
                     .Get<ComicHttpClientConfig> (),
                     sp.GetRequiredService<IHttpContextAccessor>()));

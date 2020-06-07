@@ -10,13 +10,13 @@ namespace ComicEngine.Graphql {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private IComicRepository _comicApiService;
+        private IComicHttpRepository _comicHttpApiService;
 
-        public Mutation (ILogger<Mutation> logger, IComicRepository comicApiService) {
+        public Mutation (ILogger<Mutation> logger, IComicHttpRepository comicHttpApiService) {
             _logger = logger ??
                 throw new System.ArgumentNullException (nameof (logger));
-            _comicApiService = comicApiService ??
-                throw new System.ArgumentNullException (nameof (comicApiService));
+            _comicHttpApiService = comicHttpApiService ??
+                throw new System.ArgumentNullException (nameof (comicHttpApiService));
         }
 
         public async Task<Comic> CreateSavedComic (IResolverContext context)
@@ -32,7 +32,7 @@ namespace ComicEngine.Graphql {
 
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            Comic response = await _comicApiService.SaveComicToApi (comicInput);
+            Comic response = await _comicHttpApiService.SaveComicToApi (comicInput);
 
             return response;
         }

@@ -10,16 +10,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Server.SavedComics {
-    public class SavedComicsV1Controller : ControllerBase {
+namespace ComicEngine.Api.Server.Comics {
+    public class ComicsV1Controller : ControllerBase {
         private readonly ICreateSavedComicCommand _createCommand;
         private readonly IGetSavedComicCommand _getCommand;
         private readonly ILogger _logger;
 
-        public SavedComicsV1Controller (
+        public ComicsV1Controller (
             ICreateSavedComicCommand createSavedComicsCommand,
             IGetSavedComicCommand getSavedComicsCommand,
-            ILogger<SavedComicsV1Controller> logger
+            ILogger<ComicsV1Controller> logger
         ) {
             _createCommand = createSavedComicsCommand;
             _getCommand = getSavedComicsCommand;
@@ -44,6 +44,7 @@ namespace ComicEngine.Api.Server.SavedComics {
 
         [HttpPost ("/v1/saved/comics/temp")]
         public async Task<Comic> CreateFromBody ([FromBody] Comic comic) {
+            // TODO: This info should be included in access_token.
             var subject = TEMP_GetSubFromIdentityToken(HttpContext);
             _logger.LogDebug ("Comic from body title: {title}", comic.Title);
             
@@ -57,6 +58,7 @@ namespace ComicEngine.Api.Server.SavedComics {
         [Authorize]
         public async Task<IEnumerable<Comic>> Get ()
         {
+            // TODO: This info should be included in access_token.
             var subject = TEMP_GetSubFromIdentityToken(HttpContext);
             // Todo: add logging / exception handling
             var comicList = await _getCommand.GetSavedComics (subject);

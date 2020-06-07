@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using ComicEngine.Common.Comic;
 using ComicEngine.Data;
 
-namespace ComicEngine.Api.Server.SavedComics {
-    public interface ISavedComicsRepository : IDataRepository {
+namespace ComicEngine.Api.Server.Comics {
+    public interface IComicsRepository : IDataRepository {
         Task CreateSavedComic (Comic comic, string subject);
 
         /// <summary>
