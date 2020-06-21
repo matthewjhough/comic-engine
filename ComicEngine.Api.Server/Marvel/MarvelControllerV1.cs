@@ -7,7 +7,7 @@ using ComicEngine.Common.Comic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Server.Controllers {
+namespace ComicEngine.Api.Server.Marvel {
     [ApiController]
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
@@ -18,7 +18,7 @@ namespace ComicEngine.Api.Server.Controllers {
         /// Constructor for <see cref="MarvelControllerV1" />
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="marvelService"></param>
+        /// <param name="getMarvelCommand"></param>
         public MarvelControllerV1 (
             ILogger<MarvelControllerV1> logger,
             IGetMarvelCommand getMarvelCommand) {

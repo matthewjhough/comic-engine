@@ -50,12 +50,17 @@ namespace ComicEngine.Api.Server {
                         .Build());
             
             // TODO: Setup correctly when access tokens enabled
+            services.AddAuthentication("Bearer");
             services.AddAuthentication ("Bearer")
-                .AddJwtBearer ("Bearer", options => {
+                .AddJwtBearer ("Bearer", options =>
+                {
+                    options.ClaimsIssuer = "http://localhost:5002";
                     options.Authority = "http://localhost:5002";
                     options.RequireHttpsMetadata = false;
                     options.Audience = "comic_api";
-                });
+                    options.IncludeErrorDetails = true;
+                })
+                ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

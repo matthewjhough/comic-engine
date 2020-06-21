@@ -76,7 +76,7 @@ namespace ComicEngine.Api.Server.Comics {
         private string TEMP_GetSubFromIdentityToken(HttpContext httpContext)
         {
             // TODO: Don't do this here. Eventually this comes from access_token instead.
-            var requestToken = httpContext.Request.Headers["Authorization"]
+            var requestToken = httpContext?.Request?.Headers["Authorization"]
                 .ToString()
                 .Split(" ")
                 [1];
