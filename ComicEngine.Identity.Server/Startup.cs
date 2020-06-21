@@ -2,12 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using ComicEngine.Identity.Server.Data;
+using ComicEngine.Identity.Server.Models;
 using ComicEngine.Identity.Server.Quickstart;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -46,13 +49,16 @@ namespace ComicEngine.Identity.Server
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services
-                .AddEntityFrameworkSqlite()
-                .AddDbContext<ConfigurationDbContext>(options =>
-                {
-                    options.UseSqlite(connectionString);
-                })
-                ;
+            
+            //TODO: change UseSqlite to UseSqlServer
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(connectionString));
+                        
+            // Block 1: Add ASP.NET Identity
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
@@ -61,19 +67,24 @@ namespace ComicEngine.Identity.Server
                     options.Events.RaiseSuccessEvents = true;
                 })
                 .AddTestUsers(TestUsers.Users)
+                // TODO: Add in sql server configuration stores.
                 // this adds the config data from DB (clients, resources, CORS)
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = builder => builder.UseSqlite(connectionString);
-                })
-                // this adds the operational data from DB (codes, tokens, consents)
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = builder => builder.UseSqlite(connectionString);
-
-                    // this enables automatic token cleanup. this is optional.
-                    options.EnableTokenCleanup = true;
-                });
+                // .AddConfigurationStore(options =>
+                // {
+                //     options.ConfigureDbContext = build => build.UseSqlite(connectionString);
+                // })
+                // // this adds the operational data from DB (codes, tokens, consents)
+                // .AddOperationalStore(options =>
+                // {
+                //     options.ConfigureDbContext = build => build.UseSqlite(connectionString);
+                //
+                //     // this enables automatic token cleanup. this is optional.
+                //     options.EnableTokenCleanup = true;
+                // })
+                .AddInMemoryIdentityResources(Config.Ids)
+                .AddInMemoryApiResources(Config.Apis)
+                .AddInMemoryClients(Config.Clients)
+                ;
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -98,7 +109,7 @@ namespace ComicEngine.Identity.Server
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-            InitializeDatabase(app);
+            // InitializeDatabase(app);
 
             app.UseStaticFiles();
 
