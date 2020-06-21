@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Common;
+using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

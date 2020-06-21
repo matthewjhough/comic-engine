@@ -11,7 +11,7 @@ namespace ComicEngine.Graphql.Server {
     public class Query {
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (Query));
 
-        private IComicHttpRepository _comicHttpRepository;
+        private readonly IComicHttpRepository _comicHttpRepository;
 
         public Query (IComicHttpRepository comicHttpApiService) {
             _comicHttpRepository = comicHttpApiService ??

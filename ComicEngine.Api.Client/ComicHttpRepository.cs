@@ -47,13 +47,13 @@ namespace ComicEngine.Api.Client {
         public async Task<Comic> RequestMarvelComicByUpc (
             string upc
         ) {
-            string parameters = $"upc={upc}";
+            var parameters = $"upc={upc}";
             var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
             Logger.LogDebug ("Making request to: {endpoint}, with parameters: {parameters}", MarvelEndpoint, parameters);
-            var comcResponse = await apiClient.RequestComicFromApi<Comic> (MarvelEndpoint, parameters);
-            Logger.LogDebug ("Response returned: {response}", comcResponse);
+            var comicResponse = await apiClient.RequestComicFromApi<Comic> (MarvelEndpoint, parameters);
+            Logger.LogDebug ("Response returned: {response}", comicResponse);
 
-            return comcResponse;
+            return comicResponse;
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace ComicEngine.Api.Client {
         public async Task<IEnumerable<Comic>> RequestMarvelComicsByParameters (
             string title, string issueNumber
         ) {
-            string endpoint = $"{MarvelEndpoint}/search";
-            string parameters = $"title={title}&issueNumber={issueNumber}";
+            var endpoint = $"{MarvelEndpoint}/search";
+            var parameters = $"title={title}&issueNumber={issueNumber}";
             var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
             Logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
             var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);

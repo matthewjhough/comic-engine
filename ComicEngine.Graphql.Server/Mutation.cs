@@ -10,7 +10,7 @@ namespace ComicEngine.Graphql.Server {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private IComicHttpRepository _comicHttpApiService;
+        private readonly IComicHttpRepository _comicHttpApiService;
 
         public Mutation (ILogger<Mutation> logger, IComicHttpRepository comicHttpApiService) {
             _logger = logger ??
