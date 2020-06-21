@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 
-namespace ComicEngine.Common
+namespace ComicEngine.Identity.Client
 {
     /// <summary>
     /// Helper class to create an <see cref="HttpRequestClient{T}"/> instance.

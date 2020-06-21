@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace ComicEngine.Common
+namespace ComicEngine.Identity.Client
 {
     public class HttpRequestClient<T>
     {
