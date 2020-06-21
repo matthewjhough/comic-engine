@@ -2,14 +2,17 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using ComicEngine.Identity.Server.Quickstart;
 using IdentityServer4;
-using IdentityServer4.Quickstart.UI;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ComicEngine.Identity.Server
 {
@@ -43,7 +46,13 @@ namespace ComicEngine.Identity.Server
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            services
+                .AddEntityFrameworkSqlite()
+                .AddDbContext<ConfigurationDbContext>(options =>
+                {
+                    options.UseSqlite(connectionString);
+                })
+                ;
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
@@ -89,6 +98,7 @@ namespace ComicEngine.Identity.Server
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
+            InitializeDatabase(app);
 
             app.UseStaticFiles();
 
@@ -96,6 +106,41 @@ namespace ComicEngine.Identity.Server
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+        }
+        
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+            serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
+
+            var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+            if (!context.Clients.Any())
+            {
+                foreach (var client in Config.Clients)
+                {
+                    context.Clients.Add(client.ToEntity());
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.IdentityResources.Any())
+            {
+                foreach (var resource in Config.Ids)
+                {
+                    context.IdentityResources.Add(resource.ToEntity());
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.ApiResources.Any())
+            {
+                foreach (var resource in Config.Apis)
+                {
+                    context.ApiResources.Add(resource.ToEntity());
+                }
+                context.SaveChanges();
+            }
         }
     }
 }

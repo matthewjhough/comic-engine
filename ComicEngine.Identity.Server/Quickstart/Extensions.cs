@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
+using ComicEngine.Identity.Server.Quickstart.Account;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityServer4.Quickstart.UI
+namespace ComicEngine.Identity.Server.Quickstart
 {
     public static class Extensions
     {

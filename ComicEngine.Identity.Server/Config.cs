@@ -20,7 +20,7 @@ namespace ComicEngine.Identity.Server
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
             {
-                new ApiResource("api1", "My API #1")
+                new ApiResource("comic_api", "Comic engine api")
             };
 
 
@@ -60,9 +60,9 @@ namespace ComicEngine.Identity.Server
                 // SPA client using code flow + pkce
                 new Client
                 {
-                    ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientId = "ComicEngine.Graphql",
+                    ClientName = "ComicEngine.Graphql",
+                    ClientUri = "http://localhost:5002",
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
@@ -79,7 +79,7 @@ namespace ComicEngine.Identity.Server
                     PostLogoutRedirectUris = {"http://localhost:5002/index.html"},
                     AllowedCorsOrigins = {"http://localhost:5002"},
 
-                    AllowedScopes = {"openid", "profile", "api1"}
+                    AllowedScopes = {"openid", "profile", "comic_api"}
                 }
             };
     }
