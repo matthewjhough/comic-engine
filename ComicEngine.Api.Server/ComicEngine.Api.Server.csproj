@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="../ComicEngine.Api.Commands/ComicEngine.Api.Commands.csproj" />
     <ProjectReference Include="../ComicEngine.Data.MsSql/ComicEngine.Data.MsSql.csproj" />
+    <ProjectReference Include="..\ComicEngine.Identity.Client\ComicEngine.Identity.Client.csproj" />
   </ItemGroup>
     
 </Project>

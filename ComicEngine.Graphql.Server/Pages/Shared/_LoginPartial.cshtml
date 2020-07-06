@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using ComicEngine.Graphql.IdentityServer;
-@using ComicEngine.Graphql.Server.IdentityServer
-
-@{
+﻿@{
     string returnUrl = null;
     var query = ViewContext.HttpContext.Request.Query;
     if (query.ContainsKey("returnUrl"))

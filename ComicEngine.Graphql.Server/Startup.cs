@@ -1,8 +1,6 @@
 using System;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
-using ComicEngine.Graphql.IdentityServer.Data;
-using ComicEngine.Graphql.Server.IdentityServer.Data;
 using ComicEngine.Graphql.Server.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
@@ -11,7 +9,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

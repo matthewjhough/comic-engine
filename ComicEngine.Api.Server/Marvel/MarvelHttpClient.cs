@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ComicEngine.Common;
-using ComicEngine.Common.Comic;
 using ComicEngine.Common.Marvel;
+using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Server.Marvel {
     public class MarvelHttpClient {
