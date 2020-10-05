@@ -19,20 +19,21 @@ export const LoginActions = {
   Register: 'register'
 };
 
-const prefix = '/authentication';
+const idpBaseRoute = 'https://localhost:7001';
 
 export const ApplicationPaths = {
   DefaultLoginRedirectPath: '/',
-  ApiAuthorizationClientConfigurationUrl: `/_configuration/${ApplicationName}`,
-  ApiAuthorizationPrefix: prefix,
-  Login: `${prefix}/${LoginActions.Login}`,
-  LoginFailed: `${prefix}/${LoginActions.LoginFailed}`,
-  LoginCallback: `${prefix}/${LoginActions.LoginCallback}`,
-  Register: `${prefix}/${LoginActions.Register}`,
-  Profile: `${prefix}/${LoginActions.Profile}`,
-  LogOut: `${prefix}/${LogoutActions.Logout}`,
-  LoggedOut: `${prefix}/${LogoutActions.LoggedOut}`,
-  LogOutCallback: `${prefix}/${LogoutActions.LogoutCallback}`,
-  IdentityRegisterPath: '/Identity/Account/Register',
-  IdentityManagePath: '/Identity/Account/Manage'
+  ApiAuthorizationClientConfigurationUrl: `${idpBaseRoute}/.well-known/openid-configuration/`,
+  ApiAuthorizationPrefix: '',
+  LoginIdpRoute: `https://localhost:7001/connect/authorize`,
+  Login: `/${LoginActions.Login}`,
+  LoginFailed: `/${LoginActions.LoginFailed}`,
+  LoginCallback: `/${LoginActions.LoginCallback}`,
+  Register: `/${LoginActions.Register}`,
+  Profile: `/${LoginActions.Profile}`,
+  LogOut: `/${LogoutActions.Logout}`,
+  LoggedOut: `/${LogoutActions.LoggedOut}`,
+  LogOutCallback: `/${LogoutActions.LogoutCallback}`,
+  // IdentityRegisterPath: '/Identity/Account/Register',
+  // IdentityManagePath: '/Identity/Account/Manage'
 };

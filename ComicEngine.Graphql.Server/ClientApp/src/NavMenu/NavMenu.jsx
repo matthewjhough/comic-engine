@@ -68,7 +68,7 @@ export class NavMenu extends Component {
                     {routeConfig.myComics.text}
                   </NavLink>
                 </NavItem>
-                <LoginMenu></LoginMenu>
+                <LoginMenu />
               </ul>
             </Collapse>
           </Container>

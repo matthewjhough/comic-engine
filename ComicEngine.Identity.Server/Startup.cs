@@ -23,6 +23,8 @@ namespace ComicEngine.Identity.Server
     {
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
+        
+        private string DevelopmentCors = "DevelopmentCors";
 
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
@@ -85,6 +87,15 @@ namespace ComicEngine.Identity.Server
                 .AddInMemoryApiResources(Config.Apis)
                 .AddInMemoryClients(Config.Clients)
                 ;
+            
+            services.AddCors(options => options.AddPolicy(DevelopmentCors,
+                corsBuilder =>
+                {
+                    corsBuilder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin();
+                }));
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();

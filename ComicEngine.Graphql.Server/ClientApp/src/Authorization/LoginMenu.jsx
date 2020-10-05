@@ -3,6 +3,9 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
+import {comicEngineUserManager} from "./ComicEngineUserManager";
+import IdentityTokenManager from "./IdentityTokenManager";
+const identityTokenManager = new IdentityTokenManager();
 
 export class LoginMenu extends Component {
   constructor(props) {
@@ -16,7 +19,10 @@ export class LoginMenu extends Component {
 
   componentDidMount() {
     this._subscription = authService.subscribe(() => this.populateState());
-    this.populateState();
+    // Load state after url has been parsed, and stored in local storage.
+    identityTokenManager.ProcessIdentityToken().then(res => {
+      this.populateState();
+    });
   }
 
   componentWillUnmount() {
@@ -31,7 +37,7 @@ export class LoginMenu extends Component {
     this.setState({
       isAuthenticated,
       userName: user && user.name
-    });
+    }, () => console.log("authentication status: ", this.state));
   }
 
   render() {
@@ -67,16 +73,17 @@ export class LoginMenu extends Component {
     );
   }
 
+  // TODO: Add register link.
   anonymousView(registerPath, loginPath) {
     return (
       <Fragment>
+        {/*<NavItem>*/}
+        {/*  <NavLink tag={Link} className="text-dark" to={registerPath}>*/}
+        {/*    Register*/}
+        {/*  </NavLink>*/}
+        {/*</NavItem>*/}
         <NavItem>
-          <NavLink tag={Link} className="text-dark" to={registerPath}>
-            Register
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} className="text-dark" to={loginPath}>
+          <NavLink tag={Link} to={loginPath} className="text-dark">
             Login
           </NavLink>
         </NavItem>

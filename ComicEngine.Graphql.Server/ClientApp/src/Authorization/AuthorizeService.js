@@ -1,5 +1,4 @@
-import {UserManager, UserManagerSettings, WebStorageStateStore} from 'oidc-client';
-import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
+import {comicEngineUserManager} from "./ComicEngineUserManager";
 
 export class AuthorizeService {
     _callbacks = [];
@@ -13,7 +12,12 @@ export class AuthorizeService {
 
     async isAuthenticated() {
         const user = await this.getUser();
+        console.log("isAuthenticated user: ", user);
         return !!user;
+    }
+    
+    redirectToIdp() {
+        this.userManager.signinRedirect();
     }
 
     async getUser() {
@@ -188,20 +192,7 @@ export class AuthorizeService {
             return;
         }
 
-        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-        if (!response.ok) {
-            throw new Error(`Could not load settings for '${ApplicationName}'`);
-        }
-
-        let settings = await response.json();
-        settings.automaticSilentRenew = true;
-        settings.includeIdTokenInSilentRenew = true;
-        settings.userStore = new WebStorageStateStore({
-            prefix: ApplicationName
-        });
-
-        this.userManager = new UserManager(settings);
-
+        this.userManager = comicEngineUserManager;
         this.userManager.events.addUserSignedOut(async () => {
             await this.userManager.removeUser();
             this.updateState(undefined);

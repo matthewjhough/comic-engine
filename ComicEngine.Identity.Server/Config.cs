@@ -18,14 +18,14 @@ namespace ComicEngine.Identity.Server
 
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
+            new[]
             {
                 new ApiResource("comic_api", "Comic engine api")
             };
 
 
         public static IEnumerable<Client> Clients =>
-            new Client[]
+            new[]
             {
                 // client credentials flow client
                 new Client
@@ -61,15 +61,16 @@ namespace ComicEngine.Identity.Server
                 new Client
                 {
                     ClientId = "ComicEngine.Graphql",
-                    ClientName = "ComicEngine.Graphql",
+                    ClientName = "ComicEngine Graphql",
                     ClientUri = "http://localhost:5002",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    RequirePkce = false,
                     RequireClientSecret = false,
 
                     RedirectUris =
                     {
+                        "http://localhost:5002",
                         "http://localhost:5002/index.html",
                         "http://localhost:5002/callback.html",
                         "http://localhost:5002/silent.html",

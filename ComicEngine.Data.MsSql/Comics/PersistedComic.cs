@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ComicEngine.Common.Comic;
 
 namespace ComicEngine.Data.MsSql.Comics {
+    
     [Table ("PersistedComics")]
     public class PersistedComic : PersistedResource {
         [Key]

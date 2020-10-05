@@ -60,7 +60,7 @@ export class Login extends Component {
           return <div>Processing login callback</div>;
         case LoginActions.Profile:
         case LoginActions.Register:
-          return <div></div>;
+          return <div>.</div>;
         default:
           throw new Error(`Invalid action '${action}'`);
       }
@@ -123,7 +123,7 @@ export class Login extends Component {
     this.redirectToApiAuthorizationPath(
       `${ApplicationPaths.IdentityRegisterPath}?${
         QueryParameterNames.ReturnUrl
-      }=${encodeURI(ApplicationPaths.Login)}`
+      }=${encodeURI(ApplicationPaths.LoginIdpRoute)}`
     );
   }
 

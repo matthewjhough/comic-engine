@@ -19,6 +19,7 @@ export class Logout extends Component {
     }
 
     componentDidMount() {
+        console.log("logging out...");
         const action = this.props.action;
         switch (action) {
             case LogoutActions.Logout:
