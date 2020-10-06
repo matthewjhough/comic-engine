@@ -29,11 +29,13 @@ namespace ComicEngine.Api.Client {
         /// Retrieves all comics associated with a user.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Comic>> RequestAllSavedComics () {
-            Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
+        public async Task<IEnumerable<Comic>> RequestAllSavedComics (string userId) {
+            string fullUrl = $"{SavedComicsEndpoint}/{userId}";
+            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            
             var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor);
             
-            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (SavedComicsEndpoint);
+            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (fullUrl);
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return comicResponse;

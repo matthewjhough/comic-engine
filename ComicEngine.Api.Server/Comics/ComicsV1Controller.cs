@@ -54,14 +54,12 @@ namespace ComicEngine.Api.Server.Comics {
             return saveComic;
         }
 
-        [HttpGet ("/v1/saved/comics")]
+        [HttpGet ("/v1/saved/comics/{userId}")]
         [Authorize]
-        public async Task<IEnumerable<Comic>> Get ()
+        public async Task<IEnumerable<Comic>> Get ([FromRoute] string userId)
         {
-            // TODO: This info should be included in access_token.
-            var subject = "1234";
             // Todo: add logging / exception handling
-            var comicList = await _getCommand.GetSavedComics (subject);
+            var comicList = await _getCommand.GetSavedComics (userId);
 
             return comicList;
         }

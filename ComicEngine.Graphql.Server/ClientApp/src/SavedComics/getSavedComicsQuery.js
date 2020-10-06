@@ -1,6 +1,6 @@
 export const getSavedComicsQuery = `
-query savedComics {
-    savedComics {
+query savedComics($userId: String!) {
+    savedComics(userId: $userId) {
         id
         title
         copyright

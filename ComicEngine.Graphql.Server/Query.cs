@@ -44,11 +44,17 @@ namespace ComicEngine.Graphql.Server {
             return comicsByTitleAndIssueNumber;
         }
 
-        public async Task<IEnumerable<Comic>> SavedComics (IResolverContext context)
+        public async Task<IEnumerable<Comic>> SavedComics (string userId)
         {
-            IEnumerable<Comic> response = await _comicHttpRepository.RequestAllSavedComics ();
+            _logger.LogDebug("Retrieving saved comics for user '{userId}'", userId);
+            IEnumerable<Comic> response = await _comicHttpRepository.RequestAllSavedComics (userId);
+            var savedComics = response as Comic[] ?? response.ToArray();
+            _logger.LogDebug(
+                "Found '{comicCount}' comics for user '{userId}'", 
+                savedComics.Count(), 
+                userId);
 
-            return response;
+            return savedComics;
         }
     }
 }
