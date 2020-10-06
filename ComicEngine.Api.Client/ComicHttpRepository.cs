@@ -79,11 +79,15 @@ namespace ComicEngine.Api.Client {
         /// Saves a <see cref="Comic"/> to the users saved comics.
         /// </summary>
         /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
+        /// <param name="userId">The id or subject of the user making the request.</param>
         /// <returns><see cref="Comic"/></returns>
-        public async Task<Comic> SaveComicToApi (Comic comic) {
-            Logger.LogDebug ("Making request to: {endpoint}", SavedComicsEndpoint);
+        public async Task<Comic> SaveComicToApi (Comic comic, string userId) {
+            
             var apiClient = new ComicHttpClient (_comicApiClientConfig, _httpContextAccessor);
-            var fullUrl = $"{apiClient.ComicEngineApiUri}/{SavedComicsEndpoint}";
+            var fullUrl = $"{apiClient.ComicEngineApiUri}/{SavedComicsEndpoint}/{userId}";
+            
+            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            
             var comicResponse = await apiClient.PostToApiWithBody(fullUrl, comic);
 
             Logger.LogDebug ("Response returned: {response}", comicResponse);

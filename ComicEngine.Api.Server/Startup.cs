@@ -23,7 +23,7 @@ namespace ComicEngine.Api.Server {
         public void ConfigureServices (IServiceCollection services) {
             services.AddControllers ();
             services.AddHttpClient ();
-            services.AddSingleton<MarvelHttpClient> (sp =>
+            services.AddSingleton(sp =>
                     new MarvelHttpClient (
                         sp.GetRequiredService<ILogger<MarvelHttpClient>> (),
                         Configuration

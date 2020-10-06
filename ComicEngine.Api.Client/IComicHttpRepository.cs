@@ -24,6 +24,6 @@ namespace ComicEngine.Api.Client {
 
         Task<IEnumerable<Comic>> RequestAllSavedComics ();
 
-        Task<Comic> SaveComicToApi (Comic comic);
+        Task<Comic> SaveComicToApi (Comic comic, string userId);
     }
 }

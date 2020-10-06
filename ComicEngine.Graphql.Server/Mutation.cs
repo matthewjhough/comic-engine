@@ -21,10 +21,8 @@ namespace ComicEngine.Graphql.Server {
 
         public async Task<Comic> CreateSavedComic (IResolverContext context)
         {
-            var token = IdentityTokenSupport
-                .ResolveIdentityToken(context.ContextData["HttpContext"] 
-                    as HttpContext);
-            var comicInput = context.Argument<Comic> ("comic");
+            Comic comicInput = context.Argument<Comic> ("comic");
+            string userId = context.Argument<string> ("userId");
 
             if (comicInput is null) {
                 throw new System.ArgumentNullException (nameof (comicInput));
@@ -32,7 +30,7 @@ namespace ComicEngine.Graphql.Server {
 
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            Comic response = await _comicHttpApiService.SaveComicToApi (comicInput);
+            Comic response = await _comicHttpApiService.SaveComicToApi (comicInput, userId);
 
             return response;
         }

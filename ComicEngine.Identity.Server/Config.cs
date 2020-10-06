@@ -9,6 +9,8 @@ namespace ComicEngine.Identity.Server
 {
     public static class Config
     {
+        private static readonly string ExampleSecret = "511536EF-F270-4058-80CA-1C89C192F69A";
+
         public static IEnumerable<IdentityResource> Ids =>
             new IdentityResource[]
             {
@@ -16,13 +18,11 @@ namespace ComicEngine.Identity.Server
                 new IdentityResources.Profile(),
             };
 
-
         public static IEnumerable<ApiResource> Apis =>
             new[]
             {
-                new ApiResource("comic_api", "Comic engine api")
+                new ApiResource("comicapi")
             };
-
 
         public static IEnumerable<Client> Clients =>
             new[]
@@ -30,13 +30,11 @@ namespace ComicEngine.Identity.Server
                 // client credentials flow client
                 new Client
                 {
-                    ClientId = "client",
-                    ClientName = "Client Credentials Client",
-
+                    ClientId = "comic_api",
+                    ClientName = "Comic Engine Api",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = {new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256())},
-
-                    AllowedScopes = {"api1"}
+                    ClientSecrets = {new Secret(ExampleSecret.Sha256())},
+                    AllowedScopes = { "comicapi" }
                 },
 
                 // MVC client using code flow + pkce

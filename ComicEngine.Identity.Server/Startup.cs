@@ -55,12 +55,12 @@ namespace ComicEngine.Identity.Server
             //TODO: change UseSqlite to UseSqlServer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
-                        
+
             // Block 1: Add ASP.NET Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
+
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;
@@ -110,7 +110,8 @@ namespace ComicEngine.Identity.Server
                     // set the redirect URI to http://localhost:5000/signin-google
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
-                });
+                })
+                ;
         }
 
         public void Configure(IApplicationBuilder app)

@@ -52,7 +52,25 @@ namespace ComicEngine.Graphql.Server {
             services.AddSingleton<ICorsPolicyService>(cors);
 
             #endregion cors
-
+            
+            // TODO: Handle this as extension method / helper method.
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer(options =>
+                {
+                    var tokenClientConfig = Configuration
+                        .GetSection("TokenClient");
+                    // TODO: Get from appsettings.
+                    options.Authority = tokenClientConfig
+                        .GetSection("Authority")
+                        .Get<string>();
+                    options.RequireHttpsMetadata = tokenClientConfig
+                        .GetSection("RequireHttpMetadata")
+                        .Get<bool>();
+                    options.Audience = tokenClientConfig
+                        .GetSection("ClientId")
+                        .Get<string>();
+                });
+            
             services.AddSingleton<ComicHttpClient>()
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IComicHttpRepository, ComicHttpRepository>(sp =>
@@ -70,7 +88,6 @@ namespace ComicEngine.Graphql.Server {
 
             // Add dotnet HttpClient
             services.AddHttpClient();
-
             services.AddGraphQL(sp =>
                 SchemaBuilder.New()
                     .AddServices(sp)

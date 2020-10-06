@@ -13,6 +13,7 @@ namespace ComicEngine.Graphql.Server.Types {
                 .Field (t => t.CreateSavedComic (default))
                 .Type<ComicType> ()
                 .Argument ("comic", a => a.Type<NonNullType<ComicInputType>> ())
+                .Argument("userId", a => a.Type<NonNullType<StringType>>())
                 // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
                     // try and move on through context

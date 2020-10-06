@@ -12,18 +12,18 @@ namespace ComicEngine.Api.Server.Marvel {
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
 
-        private IGetMarvelCommand _getMarvel;
+        private readonly IGetMarvelCommand _getMarvelComic;
 
         /// <summary>
         /// Constructor for <see cref="MarvelControllerV1" />
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="getMarvelCommand"></param>
+        /// <param name="getMarvelComicCommand"></param>
         public MarvelControllerV1 (
             ILogger<MarvelControllerV1> logger,
-            IGetMarvelCommand getMarvelCommand) {
+            IGetMarvelCommand getMarvelComicCommand) {
 
-            _getMarvel = getMarvelCommand;
+            _getMarvelComic = getMarvelComicCommand;
             _logger = logger;
         }
 
@@ -41,7 +41,7 @@ namespace ComicEngine.Api.Server.Marvel {
                 throw new ArgumentNullException ();
             }
 
-            Comic comicResponse = await _getMarvel.GetByCode (upc);
+            Comic comicResponse = await _getMarvelComic.GetByCode (upc);
 
             _logger.LogDebug ("Returning comic: {marvelResponse}", comicResponse?.Title);
 
@@ -52,7 +52,7 @@ namespace ComicEngine.Api.Server.Marvel {
         public async Task<IEnumerable<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 
-            var comicResponse = await _getMarvel.GetByTitleAndIssueNumber (title, issueNumber) as IEnumerable<Comic>;
+            var comicResponse = await _getMarvelComic.GetByTitleAndIssueNumber (title, issueNumber) as IEnumerable<Comic>;
 
             _logger.LogDebug ("Found {number} comics", comicResponse.Count ());
 

@@ -52,14 +52,15 @@ namespace ComicEngine.Api.Server.Marvel {
         private string CreateRequestUrl (string route, string query) {
             string ts = "1";
             string apiHashSource = ts + _marvelApiSettings.PrivateKey + _marvelApiSettings.PublicKey;
-            string marvelHash = "1234";
+            string marvelHash;
 
             try {
                 using (MD5 md5Hash = MD5.Create ()) {
                     marvelHash = HashUtilities.GetMd5Hash (md5Hash, apiHashSource);
                 }
             } catch (Exception exception) {
-                throw exception;
+                _logger.LogDebug(exception, "An exception occured while processing the request hash.");
+                throw;
             }
 
             var url = $"{_marvelApiSettings.BaseUrl}{route}?{query}&ts={ts}&apikey={_marvelApiSettings.PublicKey}&hash={marvelHash}";

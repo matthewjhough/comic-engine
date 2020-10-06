@@ -5,13 +5,16 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ComicEngine.Identity.Client
 {
     public class HttpRequestClient<T>
     {
+        private static readonly ILogger Logger = new LoggerFactory().CreateLogger(nameof(HttpRequestClient<T>));
         internal IHttpContextAccessor HttpContextAccessor { get; set; }
         internal Dictionary<string, string> RequestHeaders { get; set; }
         internal HttpMethod Method { get; set; }
@@ -20,6 +23,8 @@ namespace ComicEngine.Identity.Client
         internal string RelativeUrl { get; set; }
         internal string AbsoluteUrl { get; set; }
 
+        private static readonly string AccessToken = "access_token";
+
         /// <summary>
         /// Assembles the properties defined into an <see cref="HttpClient"/>,
         /// then makes a request, and parses the response.
@@ -27,7 +32,7 @@ namespace ComicEngine.Identity.Client
         /// <returns><see cref="T"/> <see cref="HttpResponse"/></returns>
         public async Task<T> Send()
         {
-            var requestMessage = CreateRequestMessage();
+            var requestMessage = await CreateRequestMessage();
             var response = await MakeRequest(requestMessage);
 
             return response;
@@ -74,9 +79,9 @@ namespace ComicEngine.Identity.Client
         /// Helper method to reduce duplicate logic when creating a marvel request.
         /// </summary>
         /// <returns><see cref="HttpRequestMessage"/> with set properties</returns>
-        private HttpRequestMessage CreateRequestMessage () {
+        private async Task<HttpRequestMessage> CreateRequestMessage () {
             var requestMessage = new HttpRequestMessage(Method, AbsoluteUrl);
-            requestMessage = AddHeadersToRequestMessage(requestMessage);
+            requestMessage = await AddHeadersToRequestMessage(requestMessage);
             requestMessage = AddRequestBody(requestMessage);
             
             return requestMessage;
@@ -86,76 +91,38 @@ namespace ComicEngine.Identity.Client
         /// Applies <see cref="RequestHeaders"/> To <see cref="HttpRequestMessage"/>.
         /// Will add Request token if one not defined.
         /// </summary>
+        /// <remarks>This would be whatever user defined headers should appear, in addition to the access token.</remarks>
         /// <param name="requestMessage"><see cref="HttpRequestMessage"/></param>
         /// <returns><see cref="HttpRequestMessage"/></returns>
-        private HttpRequestMessage AddHeadersToRequestMessage(
+        private async Task<HttpRequestMessage> AddHeadersToRequestMessage(
             HttpRequestMessage requestMessage)
         {
             // TODO: Set these as defaults, and if provided in RequestHeaders, overwrite instead of add.
             requestMessage.Headers.Add ("Accept", "*/*");
             requestMessage.Headers.Add ("Sec-Fetch-Mode", "cors");
 
+            Logger.LogDebug("Adding request header overrides to request message...");
             if (!(RequestHeaders is null))
             {
                 foreach ((var key, var value) in RequestHeaders)
                 {
                     requestMessage.Headers.Add(key, value);
+                    Logger.LogDebug("added request header {key}, {value} to request message.", key, value);
                 }
             }
 
-            requestMessage = AddAuthorizationToRequestMethod(requestMessage);
+            if (HttpContextAccessor?.HttpContext is null)
+            {
+                Logger.LogDebug("HttpContextAccessor was unable to find an http context before getting access token.");
+                throw new Exception("No HttpContext found when trying to make request.");
+            }
+
+            Logger.LogDebug("getting access token for request...");
+            var token = await HttpContextAccessor.HttpContext.GetTokenAsync(AccessToken);
+            requestMessage.Headers.Add("Authorization", $"Bearer {token}");
+            Logger.LogDebug("access token added to request: {token}", token);
 
             return requestMessage;
-        }
-
-        /// <summary>
-        /// Checks if <see cref="RequestToken"/> defined, adds if it is, otherwise attempts
-        /// to resolve from the HttpContext.
-        /// </summary>
-        /// <param name="requestMessage">The <see cref="HttpRequestMessage"/> to mutate.</param>
-        /// <returns><see cref="HttpRequestMessage"/></returns>
-        private HttpRequestMessage AddAuthorizationToRequestMethod(HttpRequestMessage requestMessage)
-        {
-            if (!(RequestToken is null))
-            {
-                requestMessage.Headers.Add("Authorization", $"Bearer {RequestToken}");
-                return requestMessage;
-            }
-
-            if (HttpContextAccessor is null) return requestMessage;
-            
-            var token = ResolveIdentityToken(HttpContextAccessor.HttpContext);
-            if (!(token is null))
-            {
-                requestMessage.Headers.Add("Authorization", $"Bearer {token}");
-            }
-
-            return requestMessage;
-        }
-
-        /// <summary>
-        /// Accepts the <see cref="HttpContext"/>, and returns the token from the
-        /// <see cref="Authorization"/> <see cref="HttpContext.Request.Headers"/> property.
-        /// </summary>
-        /// <param name="httpContext">The <see cref="HttpContext"/> From <see cref="HttpRequest"/></param>
-        /// <returns><see cref="string"/> Id_Token.</returns>
-        private static string ResolveIdentityToken(HttpContext httpContext)
-        {
-            try
-            {
-                var requestToken = httpContext?
-                    .Request?
-                    .Headers["Authorization"]
-                    .ToString()
-                    .Split(" ")
-                    [1];
-                
-                return requestToken;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
         }
     }
 }

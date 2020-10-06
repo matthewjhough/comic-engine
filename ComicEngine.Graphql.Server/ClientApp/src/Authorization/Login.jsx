@@ -4,8 +4,7 @@ import authService from './AuthorizeService';
 import { AuthenticationResultStatus } from './AuthorizeService';
 import {
   LoginActions,
-  QueryParameterNames,
-  ApplicationPaths
+  QueryParameterNames
 } from './ApiAuthorizationConstants';
 
 // The main responsibility of this component is to handle the user's login process.
@@ -58,9 +57,6 @@ export class Login extends Component {
           return <div>Processing login</div>;
         case LoginActions.LoginCallback:
           return <div>Processing login callback</div>;
-        case LoginActions.Profile:
-        case LoginActions.Register:
-          return <div>.</div>;
         default:
           throw new Error(`Invalid action '${action}'`);
       }
@@ -117,18 +113,6 @@ export class Login extends Component {
     return (
       (state && state.returnUrl) || fromQuery || `${window.location.origin}/`
     );
-  }
-
-  redirectToRegister() {
-    this.redirectToApiAuthorizationPath(
-      `${ApplicationPaths.IdentityRegisterPath}?${
-        QueryParameterNames.ReturnUrl
-      }=${encodeURI(ApplicationPaths.LoginIdpRoute)}`
-    );
-  }
-
-  redirectToProfile() {
-    this.redirectToApiAuthorizationPath(ApplicationPaths.IdentityManagePath);
   }
 
   redirectToApiAuthorizationPath(apiAuthorizationPath) {

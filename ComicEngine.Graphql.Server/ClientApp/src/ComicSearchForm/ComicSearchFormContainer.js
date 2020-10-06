@@ -9,7 +9,7 @@ import {
   toggleLoading,
   setSelectedComic
 } from '../ComicResults/comicResultsActions';
-import { makeSaveComicRequest } from '../SavedComics/savedComicsActions';
+import { createSavedComic } from '../SavedComics/savedComicsActions';
 
 const mapStateToProps = ({ comicSearchForm, comicResults }) => ({
   ...comicSearchForm,
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
   toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true)),
   setSelectedComic: comic => dispatch(setSelectedComic(comic)),
   makeSaveComicRequest: selectedComic =>
-    dispatch(makeSaveComicRequest(selectedComic))
+    dispatch(createSavedComic(selectedComic))
 });
 
 export const ComicSearchFormContainer = connect(

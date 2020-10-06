@@ -12,7 +12,6 @@ export class AuthorizeService {
 
     async isAuthenticated() {
         const user = await this.getUser();
-        console.log("isAuthenticated user: ", user);
         return !!user;
     }
     

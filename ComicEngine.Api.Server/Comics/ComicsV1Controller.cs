@@ -26,9 +26,9 @@ namespace ComicEngine.Api.Server.Comics {
             _logger = logger;
         }
 
-        [HttpPost ("/v1/saved/comics")]
-        public async Task<Comic> Create ([FromBody] Comic comic) {
-            var subject = TEMP_GetSubFromIdentityToken(HttpContext);
+        // TODO: Authorize
+        [HttpPost ("/v1/saved/comics/{userId}")]
+        public async Task<Comic> Create ([FromBody] Comic comic, [FromRoute] string userId) {
             // TODO: Validation
             if (comic.Title is null) {
                 throw new Exception ("Title is required.");
@@ -37,7 +37,7 @@ namespace ComicEngine.Api.Server.Comics {
             _logger.LogDebug ("**** Comic from body title: {title} ****", comic.Title);
             
             // Todo: add logging/exception handling
-            var saveComic = await _createCommand.CreateSavedComicAsync (comic, subject);
+            var saveComic = await _createCommand.CreateSavedComicAsync (comic, userId);
 
             return saveComic;
         }
@@ -45,7 +45,7 @@ namespace ComicEngine.Api.Server.Comics {
         [HttpPost ("/v1/saved/comics/temp")]
         public async Task<Comic> CreateFromBody ([FromBody] Comic comic) {
             // TODO: This info should be included in access_token.
-            var subject = TEMP_GetSubFromIdentityToken(HttpContext);
+            var subject = "1234";
             _logger.LogDebug ("Comic from body title: {title}", comic.Title);
             
             // Todo: add logging/exception handling
@@ -59,31 +59,11 @@ namespace ComicEngine.Api.Server.Comics {
         public async Task<IEnumerable<Comic>> Get ()
         {
             // TODO: This info should be included in access_token.
-            var subject = TEMP_GetSubFromIdentityToken(HttpContext);
+            var subject = "1234";
             // Todo: add logging / exception handling
             var comicList = await _getCommand.GetSavedComics (subject);
 
             return comicList;
-        }
-
-        /// <summary>
-        /// This is a temporary helper method to parse ID_Tokens.
-        /// This will be removed once access tokens are being used via graphql,
-        /// and server projects.
-        /// </summary>
-        /// <param name="httpContext"><see cref="HttpContext"/></param>
-        /// <returns></returns>
-        private string TEMP_GetSubFromIdentityToken(HttpContext httpContext)
-        {
-            // TODO: Don't do this here. Eventually this comes from access_token instead.
-            var requestToken = httpContext?.Request?.Headers["Authorization"]
-                .ToString()
-                .Split(" ")
-                [1];
-            
-            var handler = new JwtSecurityTokenHandler();
-            var jwt = handler.ReadToken(requestToken) as JwtSecurityToken;
-            return jwt.Claims.First(claim => claim.Type == "sub").Value;
         }
     }
 }

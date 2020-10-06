@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
@@ -29,15 +30,22 @@ namespace ComicEngine.Graphql.Server {
         public async Task<IEnumerable<Comic>> ComicsByTitleAndIssueNumber (string title, string issueNumber) {
             _logger.LogDebug ("Executing ComicByTitleAndIssueNumber with parameters: {title}, {issueNumber}", title, issueNumber);
 
-            IEnumerable<Comic> response = await _comicHttpRepository.RequestMarvelComicsByParameters (title, issueNumber);
-
-            return response;
+            IEnumerable<Comic> comics = await _comicHttpRepository
+                .RequestMarvelComicsByParameters (title, issueNumber);
+            
+            var comicsByTitleAndIssueNumber = comics as Comic[] ?? comics.ToArray();
+            
+            _logger.LogDebug(
+                "'{comicsCount}' found with search criteria '{title}', 'issueNumber'", 
+                comicsByTitleAndIssueNumber?.Count(),
+                title,
+                issueNumber
+                );
+            return comicsByTitleAndIssueNumber;
         }
 
         public async Task<IEnumerable<Comic>> SavedComics (IResolverContext context)
         {
-            // var token = IdentityTokenSupport.ResolveIdentityToken(context.ContextData["HttpContext"] as HttpContext);
-            var httpContext = context.ContextData["HttpContext"] as HttpContext;
             IEnumerable<Comic> response = await _comicHttpRepository.RequestAllSavedComics ();
 
             return response;

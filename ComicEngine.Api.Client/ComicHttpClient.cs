@@ -87,6 +87,7 @@ namespace ComicEngine.Api.Client {
                 .WithAbsoluteUrl(absoluteUrl)
                 .WithRequestBody(obj)
                 .WithRequestMethod(HttpMethod.Post)
+                .WithHttpContextAccessor(_contextAccessor)
                 .Build();
             
             var response = await client.Send();

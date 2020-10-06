@@ -1,6 +1,6 @@
 export const createSavedComicMutation = `
-mutation createSavedComic($comic: ComicInput!) {
-    createSavedComic(comic: $comic) {
+mutation createSavedComic($comic: ComicInput!, $userId: String!) {
+    createSavedComic(comic: $comic, userId: $userId) {
         id
         title
         copyright

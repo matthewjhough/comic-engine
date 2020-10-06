@@ -25,7 +25,7 @@ namespace ComicEngine.Data.MsSql.Comics {
                 await ComicContext.SaveChangesAsync ();
             } catch (Exception ex) {
                 // TODO: add logging
-                throw ex;
+                throw;
             }
         }
 

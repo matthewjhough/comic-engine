@@ -3,7 +3,6 @@ import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
-import {comicEngineUserManager} from "./ComicEngineUserManager";
 import IdentityTokenManager from "./IdentityTokenManager";
 const identityTokenManager = new IdentityTokenManager();
 
@@ -37,7 +36,7 @@ export class LoginMenu extends Component {
     this.setState({
       isAuthenticated,
       userName: user && user.name
-    }, () => console.log("authentication status: ", this.state));
+    }, () => console.log("authentication status: ", this.state, user));
   }
 
   render() {
@@ -77,11 +76,11 @@ export class LoginMenu extends Component {
   anonymousView(registerPath, loginPath) {
     return (
       <Fragment>
-        {/*<NavItem>*/}
-        {/*  <NavLink tag={Link} className="text-dark" to={registerPath}>*/}
-        {/*    Register*/}
-        {/*  </NavLink>*/}
-        {/*</NavItem>*/}
+        <NavItem>
+          <NavLink tag={Link} className="text-dark" to={registerPath}>
+            Register
+          </NavLink>
+        </NavItem>
         <NavItem>
           <NavLink tag={Link} to={loginPath} className="text-dark">
             Login
