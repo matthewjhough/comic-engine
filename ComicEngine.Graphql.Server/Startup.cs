@@ -62,13 +62,12 @@ namespace ComicEngine.Graphql.Server {
                     // TODO: Get from appsettings.
                     options.Authority = tokenClientConfig
                         .GetSection("Authority")
-                        .Get<string>();
+                        .Get<string>()
+                        ;
                     options.RequireHttpsMetadata = tokenClientConfig
                         .GetSection("RequireHttpMetadata")
-                        .Get<bool>();
-                    options.Audience = tokenClientConfig
-                        .GetSection("ClientId")
-                        .Get<string>();
+                        .Get<bool>()
+                        ;
                 });
             
             services.AddSingleton<ComicHttpClient>()

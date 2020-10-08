@@ -3,6 +3,7 @@ using ComicEngine.Api.Commands.SavedComic;
 using ComicEngine.Api.Server.Comics;
 using ComicEngine.Api.Server.Marvel;
 using ComicEngine.Data.MsSql.Comics;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ComicEngine.Api.Server {
     public class Startup {
@@ -22,6 +24,35 @@ namespace ComicEngine.Api.Server {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
             services.AddControllers ();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, 
+                    options =>
+                {
+                    var tokenClientConfig = Configuration
+                        .GetSection("TokenClient");
+                    // TODO: Get from appsettings.
+                    options.Authority = tokenClientConfig
+                            .GetSection("Authority")
+                            .Get<string>()
+                        ;
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                    options.Audience = "foo";
+                })
+                ;
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "comic.api");
+                });
+            });
+            
             services.AddHttpClient ();
             services.AddSingleton(sp =>
                     new MarvelHttpClient (
@@ -49,18 +80,16 @@ namespace ComicEngine.Api.Server {
                                 .Build())
                         .Build());
             
-            // TODO: Setup correctly when access tokens enabled
-            services.AddAuthentication("Bearer");
-            services.AddAuthentication ("Bearer")
-                .AddJwtBearer ("Bearer", options =>
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
                 {
-                    options.ClaimsIssuer = "http://localhost:5002";
-                    options.Authority = "http://localhost:5002";
-                    options.RequireHttpsMetadata = false;
-                    options.Audience = "comic_api";
-                    options.IncludeErrorDetails = true;
-                })
-                ;
+                    policy.WithOrigins("https://localhost:5003")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,15 +106,13 @@ namespace ComicEngine.Api.Server {
                     .Database
                     .EnsureCreated ();
             }
-
-            app.UseHttpsRedirection ();
-
-            app.UseRouting ();
+            
             app.UseAuthentication ();
+            app.UseHttpsRedirection ();
+            app.UseRouting ();
             app.UseAuthorization ();
-
             app.UseEndpoints (endpoints => {
-                endpoints.MapControllers ();
+                endpoints.MapControllers ().RequireAuthorization();
             });
         }
     }

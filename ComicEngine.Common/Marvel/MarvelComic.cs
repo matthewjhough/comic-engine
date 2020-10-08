@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ComicEngine.Common;
+﻿using System.Collections.Generic;
 using ComicEngine.Common.Comic;
 
 namespace ComicEngine.Common.Marvel {

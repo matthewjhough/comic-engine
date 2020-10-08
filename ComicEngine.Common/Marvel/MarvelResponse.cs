@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ComicEngine.Common.Marvel {
+﻿namespace ComicEngine.Common.Marvel {
     public class MarvelResponse {
 
         /// <summary>

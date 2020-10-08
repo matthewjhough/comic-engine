@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Commands.SavedComic;
 using ComicEngine.Common.Comic;
 using HotChocolate.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Server.Comics {
+    [ApiController]
+    [Authorize]
     public class ComicsV1Controller : ControllerBase {
         private readonly ICreateSavedComicCommand _createCommand;
         private readonly IGetSavedComicCommand _getCommand;
@@ -26,7 +26,6 @@ namespace ComicEngine.Api.Server.Comics {
             _logger = logger;
         }
 
-        // TODO: Authorize
         [HttpPost ("/v1/saved/comics/{userId}")]
         public async Task<Comic> Create ([FromBody] Comic comic, [FromRoute] string userId) {
             // TODO: Validation
@@ -54,14 +53,18 @@ namespace ComicEngine.Api.Server.Comics {
             return saveComic;
         }
 
-        [HttpGet ("/v1/saved/comics/{userId}")]
         [Authorize]
+        [HttpGet ("/v1/saved/comics/{userId}")]
         public async Task<IEnumerable<Comic>> Get ([FromRoute] string userId)
         {
+            _logger.LogDebug("Retrieving comics for user '{userId}'", userId);
+            var test = HttpContext;
             // Todo: add logging / exception handling
             var comicList = await _getCommand.GetSavedComics (userId);
-
-            return comicList;
+            var comicEnumeration = comicList as Comic[] ?? comicList.ToArray();
+            _logger.LogDebug("Found '{comicCount}' comics for user '{userId}'", comicEnumeration.Count(), userId);
+            
+            return comicEnumeration;
         }
     }
 }

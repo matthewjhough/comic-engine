@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,8 +78,8 @@ namespace ComicEngine.Api.Server.Marvel {
                 Title = marvelComic.Title,
                 Upc = marvelComic.Upc,
                 Description = marvelComic.Description,
-                Characters = marvelComic.Characters as CharacterProfile,
-                Creators = marvelComic.Creators as CreatorProfile,
+                Characters = marvelComic.Characters,
+                Creators = marvelComic.Creators,
                 Series = marvelComic.ComicSeries,
                 PublishDates = marvelComic.Dates.ToList (),
                 PageCount = marvelComic.PageCount,

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Commands.Marvel;
 using ComicEngine.Common.Comic;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Server.Marvel {
+    [Authorize]
     [ApiController]
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
@@ -32,6 +34,7 @@ namespace ComicEngine.Api.Server.Marvel {
         /// </summary>
         /// <param name="upc"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet ("/v1/marvel/comic")]
         public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
@@ -48,6 +51,7 @@ namespace ComicEngine.Api.Server.Marvel {
             return comicResponse;
         }
 
+        [Authorize]
         [HttpGet ("/v1/marvel/comic/search")]
         public async Task<IEnumerable<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);

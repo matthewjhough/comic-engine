@@ -1,9 +1,7 @@
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common.Comic;
-using ComicEngine.Graphql.Server.Types;
 using HotChocolate.Resolvers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql.Server {

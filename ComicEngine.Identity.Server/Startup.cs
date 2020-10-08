@@ -5,7 +5,6 @@
 using ComicEngine.Identity.Server.Data;
 using ComicEngine.Identity.Server.Models;
 using ComicEngine.Identity.Server.Quickstart;
-using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
@@ -50,7 +49,8 @@ namespace ComicEngine.Identity.Server
                 iis.AutomaticAuthentication = false;
             });
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = Configuration
+                .GetConnectionString("DefaultConnection");
             
             //TODO: change UseSqlite to UseSqlServer
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -101,16 +101,6 @@ namespace ComicEngine.Identity.Server
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                    // register your IdentityServer with Google at https://console.developers.google.com
-                    // enable the Google+ API
-                    // set the redirect URI to http://localhost:5000/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
-                })
                 ;
         }
 
