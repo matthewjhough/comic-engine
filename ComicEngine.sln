@@ -6,17 +6,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Data", "ComicEn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Data.MsSql", "ComicEngine.Data.MsSql\ComicEngine.Data.MsSql.csproj", "{17CBFCEF-5FF0-4E79-9482-6E221A4D0CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Graphql.Server", "ComicEngine.Graphql.Server\ComicEngine.Graphql.Server.csproj", "{613E8B09-9C42-4693-B0E3-ACB58C9DE142}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Graphql", "ComicEngine.Graphql\ComicEngine.Graphql.csproj", "{613E8B09-9C42-4693-B0E3-ACB58C9DE142}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Api.Client", "ComicEngine.Api.Client\ComicEngine.Api.Client.csproj", "{DA05242E-3579-4B6F-BCFA-096A85231EE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Api.Commands", "ComicEngine.Api.Commands\ComicEngine.Api.Commands.csproj", "{85F57D0F-C42D-4D17-909D-1E7A182AAD17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Api", "ComicEngine.Api\ComicEngine.Api.csproj", "{35102586-3FA1-469B-BE72-7E4D8C9E69BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Api.Server", "ComicEngine.Api.Server\ComicEngine.Api.Server.csproj", "{35102586-3FA1-469B-BE72-7E4D8C9E69BA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Identity.Server", "ComicEngine.Identity.Server\ComicEngine.Identity.Server.csproj", "{6CB834BD-2F91-4D3D-B49C-3E0E72456215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Identity", "ComicEngine.Identity\ComicEngine.Identity.csproj", "{6CB834BD-2F91-4D3D-B49C-3E0E72456215}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Identity.Client", "ComicEngine.Identity.Client\ComicEngine.Identity.Client.csproj", "{2B455E11-47D7-4614-A68C-9DABEE818BF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{00FA3F00-8861-4BF4-B170-59062A06CFA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{551974A3-B3C6-4B53-BC0D-959282D92224}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{03033901-30DB-4EF3-9B9D-9DB2252EDFA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +48,6 @@ Global
 		{DA05242E-3579-4B6F-BCFA-096A85231EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA05242E-3579-4B6F-BCFA-096A85231EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA05242E-3579-4B6F-BCFA-096A85231EE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85F57D0F-C42D-4D17-909D-1E7A182AAD17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85F57D0F-C42D-4D17-909D-1E7A182AAD17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85F57D0F-C42D-4D17-909D-1E7A182AAD17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85F57D0F-C42D-4D17-909D-1E7A182AAD17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35102586-3FA1-469B-BE72-7E4D8C9E69BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35102586-3FA1-469B-BE72-7E4D8C9E69BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35102586-3FA1-469B-BE72-7E4D8C9E69BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,5 +60,15 @@ Global
 		{2B455E11-47D7-4614-A68C-9DABEE818BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B455E11-47D7-4614-A68C-9DABEE818BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B455E11-47D7-4614-A68C-9DABEE818BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA05242E-3579-4B6F-BCFA-096A85231EE2} = {00FA3F00-8861-4BF4-B170-59062A06CFA3}
+		{2B455E11-47D7-4614-A68C-9DABEE818BF6} = {00FA3F00-8861-4BF4-B170-59062A06CFA3}
+		{6CB834BD-2F91-4D3D-B49C-3E0E72456215} = {551974A3-B3C6-4B53-BC0D-959282D92224}
+		{613E8B09-9C42-4693-B0E3-ACB58C9DE142} = {551974A3-B3C6-4B53-BC0D-959282D92224}
+		{35102586-3FA1-469B-BE72-7E4D8C9E69BA} = {551974A3-B3C6-4B53-BC0D-959282D92224}
+		{D4BF3569-8E27-473D-BDFA-1B0BB253D18F} = {03033901-30DB-4EF3-9B9D-9DB2252EDFA4}
+		{22631776-9E63-44F1-B482-8069403F6296} = {03033901-30DB-4EF3-9B9D-9DB2252EDFA4}
+		{17CBFCEF-5FF0-4E79-9482-6E221A4D0CE2} = {03033901-30DB-4EF3-9B9D-9DB2252EDFA4}
 	EndGlobalSection
 EndGlobal
