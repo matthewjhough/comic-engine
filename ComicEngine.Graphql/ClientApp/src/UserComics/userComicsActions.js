@@ -1,8 +1,8 @@
 import { NotificationManager } from 'react-notifications';
 import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
-import { getSavedComicsQuery } from './getSavedComicsQuery';
-import { createSavedComicMutation } from './createSavedComicMutation';
+import { getUserComicsQuery } from './getUserComicsQuery';
+import { createUserComicMutation } from './createUserComicMutation';
 import {comicEngineUserManager} from "../Authorization/ComicEngineUserManager";
 
 export function getUserComics() {
@@ -10,7 +10,7 @@ export function getUserComics() {
     return comicEngineUserManager.getUser().then(user => {
         console.log("Current user subject: ", user.profile.sub);
 
-        return makeGraphqlRequest(getSavedComicsQuery, {
+        return makeGraphqlRequest(getUserComicsQuery, {
             userId: user.profile.sub
         })
             .then(res => res.json())
@@ -19,11 +19,11 @@ export function getUserComics() {
                     return dispatch(setResults({ results: [] }));
                 }
 
-                if (data.savedComics == null) {
+                if (data.userComics == null) {
                     return dispatch(setResults({ results: [] }));
                 }
 
-                return dispatch(setResults({ results: data.savedComics }));
+                return dispatch(setResults({ results: data.userComics }));
             })
             .then(() => dispatch(toggleLoading(false)))
     });
@@ -37,7 +37,7 @@ export function createUserComic(selectedComic) {
     return comicEngineUserManager.getUser().then(user => {
         console.log("Current user subject: ", user.profile.sub);
         
-        return makeGraphqlRequest(createSavedComicMutation, {
+        return makeGraphqlRequest(createUserComicMutation, {
             comic: selectedComic,
             userId: user.profile.sub
         })

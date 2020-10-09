@@ -15,13 +15,13 @@ namespace ComicEngine.Api.UserComics {
         public async Task<Comic> CreateUserComicAsync (Comic comic, string subject)
         {
             // Todo: add logging.
-            await _userComicsRepository.CreateSavedComic (comic, subject);
+            await _userComicsRepository.CreateUserComic (comic, subject);
             return comic;
         }
 
         public async Task<IEnumerable<Comic>> GetUserComics (string subject) {
             // Todo: add logging.
-            var savedComics = await _userComicsRepository.GetSavedComics (subject);
+            var savedComics = await _userComicsRepository.GetUserComics (subject);
 
             return savedComics;
         }

@@ -29,7 +29,7 @@ namespace ComicEngine.Api.Client {
         /// Retrieves all comics associated with a user.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Comic>> RequestAllSavedComics (string userId) {
+        public async Task<IEnumerable<Comic>> RequestAllUserComics (string userId) {
             string fullUrl = $"{SavedComicsEndpoint}/{userId}";
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
             

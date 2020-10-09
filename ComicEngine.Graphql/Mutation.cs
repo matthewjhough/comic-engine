@@ -17,7 +17,7 @@ namespace ComicEngine.Graphql {
                 throw new System.ArgumentNullException (nameof (comicHttpApiService));
         }
 
-        public async Task<Comic> CreateSavedComic (IResolverContext context)
+        public async Task<Comic> CreateUserComic (IResolverContext context)
         {
             Comic comicInput = context.Argument<Comic> ("comic");
             string userId = context.Argument<string> ("userId");

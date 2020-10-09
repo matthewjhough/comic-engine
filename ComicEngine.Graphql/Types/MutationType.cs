@@ -10,7 +10,7 @@ namespace ComicEngine.Graphql.Types {
 
         protected override void Configure (IObjectTypeDescriptor<Mutation> descriptor) {
             descriptor
-                .Field (t => t.CreateSavedComic (default))
+                .Field (t => t.CreateUserComic (default))
                 .Type<ComicType> ()
                 .Argument ("comic", a => a.Type<NonNullType<ComicInputType>> ())
                 .Argument("userId", a => a.Type<NonNullType<StringType>>())

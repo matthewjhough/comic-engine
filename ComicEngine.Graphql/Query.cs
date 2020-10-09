@@ -42,10 +42,10 @@ namespace ComicEngine.Graphql {
             return comicsByTitleAndIssueNumber;
         }
 
-        public async Task<IEnumerable<Comic>> SavedComics (string userId)
+        public async Task<IEnumerable<Comic>> UserComics (string userId)
         {
             _logger.LogDebug("Retrieving saved comics for user '{userId}'", userId);
-            IEnumerable<Comic> response = await _comicHttpRepository.RequestAllSavedComics (userId);
+            IEnumerable<Comic> response = await _comicHttpRepository.RequestAllUserComics (userId);
             var savedComics = response as Comic[] ?? response.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 

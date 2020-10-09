@@ -28,7 +28,7 @@ namespace ComicEngine.Graphql.Types {
                 });
 
             descriptor
-                .Field (t => t.SavedComics (default))
+                .Field (t => t.UserComics (default))
                 .Type<ListType<ComicType>> ()
                 .Use (next => async context =>
                 {
