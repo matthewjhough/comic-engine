@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import { toggleLoading, setResults } from '../ComicResults/comicResultsActions';
-import { getSavedComics } from './savedComicsActions';
-import { SavedComics } from './SavedComics';
+import { getUserComics } from './userComicsActions';
+import { UserComics } from './UserComics';
 
 const mapStateToProps = ({ comicResults }) => ({ ...comicResults });
 
 const mapDispatchToProps = dispatch => ({
   toggleLoading: isLoading => dispatch(toggleLoading(isLoading)),
-  getSavedComics: () => dispatch(getSavedComics()),
+  getUserComics: () => dispatch(getUserComics()),
   clearResults: () => dispatch(setResults([]))
 });
 
-export const SavedComicsContainer = connect(
+export const UserComicsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SavedComics);
+)(UserComics);

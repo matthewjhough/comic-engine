@@ -2,28 +2,28 @@ using ComicEngine.Common.Comic;
 using ComicEngine.Data;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Comics
+namespace ComicEngine.Api.UserComics
 {
-    public class ComicsRepositoryBuilder
+    public class UserComicsRepositoryBuilder
     {
         internal IStorageClient<Comic> StorageClient;
         internal ILogger Logger;
 
-        public ComicsRepositoryBuilder WithStorageClient(IStorageClient<Comic> storageClient)
+        public UserComicsRepositoryBuilder WithStorageClient(IStorageClient<Comic> storageClient)
         {
             StorageClient = storageClient;
             return this;
         }
 
-        public ComicsRepositoryBuilder WithLogger(ILogger logger)
+        public UserComicsRepositoryBuilder WithLogger(ILogger logger)
         {
             Logger = logger;
             return this;
         }
 
-        public ComicsRepository Build()
+        public UserComicsRepository Build()
         {
-            return new ComicsRepository
+            return new UserComicsRepository
             {
                 ComicStorageClient = StorageClient,
                 Logger = Logger

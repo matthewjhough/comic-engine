@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace ComicEngine.Api.Client {
     public class ComicHttpRepository : IComicHttpRepository {
         private const string MarvelEndpoint = "v1/marvel/comic";
-        private const string SavedComicsEndpoint = "v1/saved/comics";
+        private const string SavedComicsEndpoint = "v1/user/comics";
         private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (ComicHttpRepository));
         private readonly ComicHttpClientConfig _comicApiClientConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;

@@ -3,15 +3,15 @@ import { ContentWrapper } from '../ContentWrapper/ContentWrapper';
 import { FlexContainer } from '../FlexContainer/FlexContainer';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
-export function SavedComics({ toggleLoading, getSavedComics, clearResults }) {
+export function UserComics({ toggleLoading, getUserComics, clearResults }) {
   useEffect(() => {
     toggleLoading(true);
-    getSavedComics();
+    getUserComics();
 
     return () => {
       clearResults();
     };
-  }, [clearResults, getSavedComics, toggleLoading]);
+  }, [clearResults, getUserComics, toggleLoading]);
 
   return (
     <ContentWrapper>

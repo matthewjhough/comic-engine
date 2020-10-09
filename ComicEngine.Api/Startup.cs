@@ -1,8 +1,8 @@
-using ComicEngine.Api.Comics;
 using ComicEngine.Api.Commands.Marvel;
-using ComicEngine.Api.Commands.SavedComic;
+using ComicEngine.Api.Commands.UserComic;
 using ComicEngine.Api.Marvel;
-using ComicEngine.Data.MsSql.Comics;
+using ComicEngine.Api.UserComics;
+using ComicEngine.Data.MsSql.UserComics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,19 +64,19 @@ namespace ComicEngine.Api {
                     ))
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IGetMarvelCommand, MarvelCommands> ()
-                .AddSingleton<IGetSavedComicCommand, ComicCommands> ()
+                .AddSingleton<IGetUserComicCommand, UserComicCommands> ()
                 .AddSingleton<ILoggerFactory, LoggerFactory> ()
-                .AddSingleton<ICreateSavedComicCommand, ComicCommands> ()
+                .AddSingleton<ICreateUserComicCommand, UserComicCommands> ()
                 .AddSingleton(sp =>
-                    new ComicContext (Configuration))
-                .AddSingleton<IComicsRepository, ComicsRepository> (sp =>
-                    new ComicsRepositoryBuilder()
+                    new UserComicContext (Configuration))
+                .AddSingleton<IUserComicsRepository, UserComicsRepository> (sp =>
+                    new UserComicsRepositoryBuilder()
                         .WithLogger(
-                            sp.GetRequiredService<ILogger<ComicsRepository>>())
+                            sp.GetRequiredService<ILogger<UserComicsRepository>>())
                         .WithStorageClient(
-                            new EntityComicStorageClientBuilder()
+                            new EntityUserComicStorageClientBuilder()
                                 .WithComicContext(
-                                    sp.GetRequiredService<ComicContext>())
+                                    sp.GetRequiredService<UserComicContext>())
                                 .Build())
                         .Build());
             
@@ -101,7 +101,7 @@ namespace ComicEngine.Api {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory> ()
                 .CreateScope ()) {
                 var context = serviceScope.ServiceProvider
-                    .GetRequiredService<ComicContext> ();
+                    .GetRequiredService<UserComicContext> ();
                 context
                     .Database
                     .EnsureCreated ();

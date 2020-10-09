@@ -119,7 +119,6 @@ namespace ComicEngine.Graphql {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -136,6 +135,7 @@ namespace ComicEngine.Graphql {
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                // todo: enable authorization
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");

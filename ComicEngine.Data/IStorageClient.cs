@@ -34,11 +34,5 @@ namespace ComicEngine.Data
         /// <param name="resourceId"></param>
         /// <param name="resource"></param>
         Task<T> Update(string resourceId, T resource);
-
-        /// <summary>
-        /// Gets the resource by resource's id.
-        /// </summary>
-        /// <param name="resourceId"></param>
-        Task<T> GetByResourceId(string resourceId);
     }
 }

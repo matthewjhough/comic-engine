@@ -5,7 +5,7 @@ import { getSavedComicsQuery } from './getSavedComicsQuery';
 import { createSavedComicMutation } from './createSavedComicMutation';
 import {comicEngineUserManager} from "../Authorization/ComicEngineUserManager";
 
-export function getSavedComics() {
+export function getUserComics() {
   return function(dispatch) {
     return comicEngineUserManager.getUser().then(user => {
         console.log("Current user subject: ", user.profile.sub);
@@ -30,7 +30,7 @@ export function getSavedComics() {
   };
 }
 
-export function createSavedComic(selectedComic) {
+export function createUserComic(selectedComic) {
   console.log('making saved comic request...', selectedComic);
   return function(dispatch) {
     console.log('dispatching selected comic...');
@@ -64,7 +64,7 @@ export function createSavedComic(selectedComic) {
                 );
 
                 // TODO: do something with saved comic result
-                if (data.createSavedComic == null) {
+                if (data.createUserComic == null) {
                     return dispatch(setResults({ results: [] }));
                 }
 

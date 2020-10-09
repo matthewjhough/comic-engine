@@ -4,14 +4,14 @@ using ComicEngine.Common.Comic;
 using ComicEngine.Data;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Comics {
-    public class ComicsRepository : IComicsRepository {
+namespace ComicEngine.Api.UserComics {
+    public class UserComicsRepository : IUserComicsRepository {
 
         internal IStorageClient<Comic> ComicStorageClient;
 
         internal ILogger Logger;
 
-        internal ComicsRepository () {}
+        internal UserComicsRepository () {}
 
         public async Task CreateSavedComic (Comic comic, string subject)
         {
