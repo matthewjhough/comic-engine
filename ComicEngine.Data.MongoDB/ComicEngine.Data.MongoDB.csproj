@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ComicEngine.Data\ComicEngine.Data.csproj" />
+      <PackageReference Include="MongoDB.Driver" Version="$(MongoDbVersion)" />
     </ItemGroup>
 
 </Project>

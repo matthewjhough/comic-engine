@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands" />
     <Folder Include="Marvel\" />
   </ItemGroup>
 
@@ -15,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../ComicEngine.Api.Commands/ComicEngine.Api.Commands.csproj" />
     <ProjectReference Include="../ComicEngine.Data.MsSql/ComicEngine.Data.MsSql.csproj" />
+    <ProjectReference Include="..\ComicEngine.Data.MongoDb\ComicEngine.Data.MongoDb.csproj" />
     <ProjectReference Include="..\ComicEngine.Identity.Client\ComicEngine.Identity.Client.csproj" />
   </ItemGroup>
     
