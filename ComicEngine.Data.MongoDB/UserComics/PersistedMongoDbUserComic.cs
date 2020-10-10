@@ -1,13 +1,18 @@
-using ComicEngine.Data.UserComics;
+using ComicEngine.Common.Comic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace ComicEngine.Data.MongoDb.UserComics
 {
-    public class PersistedMongoDbUserComic : PersistedUserComic
+    public sealed class PersistedMongoDbUserComic : PersistedResource
     {
         [BsonId]
+        [BsonElement("Id")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public override int Id { get; set; }
+        public string Id { get; set; }
+        
+        public string UserId { get; set; }
+
+        public Comic Comic { get; set; }
     }
 }

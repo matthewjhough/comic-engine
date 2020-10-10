@@ -3,18 +3,18 @@ import { Route } from 'react-router';
 import { NotificationContainer } from 'react-notifications';
 import { Layout } from './Layout/Layout';
 import { Home } from './Home/Home';
-import AuthorizeRoute from './Authorization/AuthorizeRoute';
-import ApiAuthorizationRoutes from './Authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './Authorization/ApiAuthorizationConstants';
-import { routeConfig } from './routeConfig';
+import AuthorizeRoute from './Authorization/AuthorizeRoute';
+import ApiAuthorizationRoutes from './Navigation/ApiAuthorizationRoutes';
+import { routeConfig } from './Navigation/routeConfig';
 
 import 'react-notifications/lib/notifications.css';
 import './custom.css';
 
 export default class App extends Component {
   static displayName = App.name;
-
-  render() {
+  
+    render() {
     return (
       <Layout>
         <Route exact path="/" component={Home} />

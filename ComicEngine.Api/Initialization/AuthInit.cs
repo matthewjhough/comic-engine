@@ -26,7 +26,6 @@ namespace ComicEngine.Api.Initialization
                         {
                             ValidateAudience = false
                         };
-                        options.Audience = "foo";
                     });
 
             services.AddAuthorization(options =>

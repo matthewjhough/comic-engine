@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
-import authService from './AuthorizeService';
-import { AuthenticationResultStatus } from './AuthorizeService';
+import authService from '../Authorization/AuthorizeService';
+import { AuthenticationResultStatus } from '../Authorization/AuthorizeService';
 import {
   LoginActions,
   QueryParameterNames
-} from './ApiAuthorizationConstants';
+} from '../Authorization/ApiAuthorizationConstants';
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -70,6 +70,7 @@ export class Login extends Component {
       case AuthenticationResultStatus.Redirect:
         break;
       case AuthenticationResultStatus.Success:
+        console.log("Login: authenticated, redirecting to ", returnUrl)
         await this.navigateToReturnUrl(returnUrl);
         break;
       case AuthenticationResultStatus.Fail:

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Component } from 'react';
-import authService from './AuthorizeService';
-import { AuthenticationResultStatus } from './AuthorizeService';
-import { QueryParameterNames, LogoutActions, ApplicationPaths } from './ApiAuthorizationConstants';
+import authService from '../Authorization/AuthorizeService';
+import { AuthenticationResultStatus } from '../Authorization/AuthorizeService';
+import { QueryParameterNames, LogoutActions, ApplicationPaths } from '../Authorization/ApiAuthorizationConstants';
 
 // The main responsibility of this component is to handle the user's logout process.
 // This is the starting point for the logout process, which is usually initiated when a

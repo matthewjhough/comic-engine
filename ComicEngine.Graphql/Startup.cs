@@ -59,11 +59,11 @@ namespace ComicEngine.Graphql {
                 {
                     var tokenClientConfig = Configuration
                         .GetSection("TokenClient");
-                    // TODO: Get from appsettings.
                     options.Authority = tokenClientConfig
                         .GetSection("Authority")
                         .Get<string>()
                         ;
+                    options.Audience = tokenClientConfig.GetSection("Audience").Get<string>();
                     options.RequireHttpsMetadata = tokenClientConfig
                         .GetSection("RequireHttpMetadata")
                         .Get<bool>()
@@ -83,7 +83,10 @@ namespace ComicEngine.Graphql {
             services.AddRazorPages();
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
 
             // Add dotnet HttpClient
             services.AddHttpClient();

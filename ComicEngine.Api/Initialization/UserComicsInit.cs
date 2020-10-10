@@ -15,8 +15,8 @@ namespace ComicEngine.Api.Initialization
         {
             services
                 .Configure<UserComicsDatabaseSettings>(configuration
-                    .GetSection(nameof(UserComicsDatabaseSettings)))
-                .AddSingleton<IUserComicsDatabaseSettings>(sp =>
+                    .GetSection(nameof(UserComicsDatabaseSettings)));
+            services.AddSingleton<IUserComicsDatabaseSettings>(sp =>
                     sp.GetRequiredService<IOptions<UserComicsDatabaseSettings>>()
                         .Value);
             services

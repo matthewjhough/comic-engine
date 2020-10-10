@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollDiv } from '../ScrollDiv/ScrollDiv';
+import { AbstractScrollDiv } from '../AbstractScrollDiv/AbstractScrollDiv';
 
 export class Home extends Component {
   static displayName = Home.name;
 
   render() {
     return (
-      <ScrollDiv>
+      <AbstractScrollDiv>
         <div>
           <h1>Comic Engine App</h1>
           <p>
@@ -15,7 +15,7 @@ export class Home extends Component {
             inventory of it.
           </p>
         </div>
-      </ScrollDiv>
+      </AbstractScrollDiv>
     );
   }
 }

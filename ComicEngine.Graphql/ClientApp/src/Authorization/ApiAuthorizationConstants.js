@@ -1,4 +1,4 @@
-export const ApplicationName = 'ComicEngine.Graphql';
+export const ApplicationName = 'ComicEngine';
 
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',

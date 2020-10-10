@@ -10,17 +10,15 @@ namespace ComicEngine.Data.MongoDb.UserComics
     {
         private readonly IMongoCollection<PersistedMongoDbUserComic> _userComics;
         
-        internal IUserComicsDatabaseSettings Settings { get; set; }
-        
-        internal MongoDbUserComicStorageClient()
+        internal MongoDbUserComicStorageClient(IUserComicsDatabaseSettings settings)
         {
-            var client = new MongoClient(Settings.ConnectionString);
-            var database = client.GetDatabase(Settings.DatabaseName);
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
             _userComics = database
-                .GetCollection<PersistedMongoDbUserComic>(Settings
+                .GetCollection<PersistedMongoDbUserComic>(settings
                     .UserComicsCollectionName);
         }
-        
+
         public async Task Create(Comic resource, string subject)
         {
             var persistedComic = new PersistedMongoDbUserComic() {
@@ -56,7 +54,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
         }
 
         // TODO: Implement single item
-        public PersistedMongoDbUserComic Get(int id) =>
+        public PersistedMongoDbUserComic GetById(string id) =>
             _userComics
                 .Find<PersistedMongoDbUserComic>(comic => comic.Id == id)
                 .FirstOrDefault();
@@ -69,6 +67,5 @@ namespace ComicEngine.Data.MongoDb.UserComics
         //
         // public void Remove(int id) => 
         //     _userComics.DeleteOne(comic => comic.Id == id);
-
     }
 }

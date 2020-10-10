@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './FlexContainer.module.scss';
+import styles from './AbstractFlexContainer.module.scss';
 
-export function FlexContainer({ children, isColumn }) {
+export function AbstractFlexContainer({ children, isColumn }) {
   if (isColumn) {
     return (
       <div className={`${styles.flexContainer} ${styles.flexColumn}`}>

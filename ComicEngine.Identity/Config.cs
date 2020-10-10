@@ -31,17 +31,26 @@ namespace ComicEngine.Identity
                 new Client
                 {
                     ClientId = "comic.graphql",
-                    ClientName = "Comic Engine Api",
+                    ClientName = "Comic Engine Graphql Client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = {new Secret(ExampleSecret.Sha256())},
                     AllowedScopes = { "comic.api" }
+                },
+                
+                // client_credentials flow client
+                new Client
+                {
+                    ClientId = "comic.api",
+                    ClientName = "Comic Engine Api",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets = {new Secret(ExampleSecret.Sha256())}
                 },
 
                 // SPA client using code flow + pkce
                 new Client
                 {
                     ClientId = "ComicEngine",
-                    ClientName = "ComicEngine Graphql",
+                    ClientName = "ComicEngine Web Application",
                     ClientUri = "http://localhost:5002",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequirePkce = false,

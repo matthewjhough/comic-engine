@@ -3,7 +3,7 @@ import {ApplicationName} from "./ApiAuthorizationConstants";
 
 export const oidcConfiguration = {
     authority: "https://localhost:7001",
-    client_id: "ComicEngine.Graphql",
+    client_id: "ComicEngine",
     redirect_uri: "http://localhost:5002",
     response_type: "id_token",
     scope: "openid profile",

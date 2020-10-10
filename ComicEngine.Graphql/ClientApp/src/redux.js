@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { comicSearchFormReducer } from './ComicSearchForm/comicSearchFormReducer';
+import { comicSearchFormReducer } from './ComicSearch/comicSearchFormReducer';
 import { comicResultsReducer } from './ComicResults/comicResultsReducer';
 
 export const combinedReducers = combineReducers({

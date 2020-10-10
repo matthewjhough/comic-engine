@@ -60,11 +60,11 @@ export class AuthorizeService {
             return this.success(state);
         } catch (silentError) {
             // User might not be authenticated, fallback to popup authentication
-            console.log("Silent authentication error: ", silentError);
+            console.log("AuthorizeService:: Silent authentication error: ", silentError);
 
             try {
                 if (this._popUpDisabled) {
-                    throw new Error('Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
+                    throw new Error('AuthorizeService:: Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
                 }
 
                 const popUpUser = await this.userManager.signinPopup(this.createArguments());
@@ -73,9 +73,9 @@ export class AuthorizeService {
             } catch (popUpError) {
                 if (popUpError.message === "Popup window closed") {
                     // The user explicitly cancelled the login action by closing an opened popup.
-                    return this.error("The user closed the window.");
+                    return this.error("AuthorizeService:: The user closed the window.");
                 } else if (!this._popUpDisabled) {
-                    console.log("Popup authentication error: ", popUpError);
+                    console.log("AuthorizeService:: Popup authentication error: ", popUpError);
                 }
 
                 // PopUps might be blocked by the user, fallback to redirect
@@ -83,21 +83,22 @@ export class AuthorizeService {
                     await this.userManager.signinRedirect(this.createArguments(state));
                     return this.redirect();
                 } catch (redirectError) {
-                    console.log("Redirect authentication error: ", redirectError);
+                    console.log("AuthorizeService:: Redirect authentication error: ", redirectError);
                     return this.error(redirectError);
                 }
             }
         }
     }
 
-    async completeSignIn(url) {
+    async completeSignIn(url, user) {
         try {
             await this.ensureUserManagerInitialized();
-            const user = await this.userManager.signinCallback(url);
+            // const user = await this.userManager.signinCallback(url);
             this.updateState(user);
-            return this.success(user && user.state);
+            const state = user && user.state;
+            return this.success(state);
         } catch (error) {
-            console.log('There was an error signing in: ', error);
+            console.log('AuthorizeService:: There was an error signing in: ', error);
             return this.error('There was an error signing in.');
         }
     }
@@ -118,12 +119,12 @@ export class AuthorizeService {
             this.updateState(undefined);
             return this.success(state);
         } catch (popupSignOutError) {
-            console.log("Popup signout error: ", popupSignOutError);
+            console.log("AuthorizeService:: Popup signout error: ", popupSignOutError);
             try {
                 await this.userManager.signoutRedirect(this.createArguments(state));
                 return this.redirect();
             } catch (redirectSignOutError) {
-                console.log("Redirect signout error: ", redirectSignOutError);
+                console.log("AuthorizeService:: Redirect signout error: ", redirectSignOutError);
                 return this.error(redirectSignOutError);
             }
         }
@@ -142,9 +143,13 @@ export class AuthorizeService {
     }
 
     updateState(user) {
+        console.log("AuthorizeService:: updating user state...", user);
         this._user = user;
+        console.log("AuthorizeService:: updated user state.");
         this._isAuthenticated = !!this._user;
+        console.log("AuthorizeService:: notifying subscribers...");
         this.notifySubscribers();
+        console.log("AuthorizeService:: notified subscribers.");
     }
 
     subscribe(callback) {

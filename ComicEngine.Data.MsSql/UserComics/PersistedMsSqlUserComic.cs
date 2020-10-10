@@ -1,13 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ComicEngine.Data.UserComics;
+using ComicEngine.Common.Comic;
 
 namespace ComicEngine.Data.MsSql.UserComics
 {
     [Table ("PersistedComics")]
-    public class PersistedMsSqlUserComic : PersistedUserComic
+    public sealed class PersistedMsSqlUserComic : PersistedResource
     {
         [Key]
-        public override int Id { get; set; }
+        public string Id { get; set; }
+        
+        public string UserId { get; set; }
+
+        public Comic Comic { get; set; }
     }
 }

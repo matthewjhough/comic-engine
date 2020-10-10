@@ -1,5 +1,5 @@
-import { UserComicsContainer } from './UserComics/UserComicsContainer';
-import { ComicSearch } from './ComicSearch/ComicSearch';
+import { UserComicsContainer } from '../UserComics/UserComicsContainer';
+import { ComicSearch } from '../ComicSearch/ComicSearch';
 
 export const routeConfig = {
   comicSearch: {

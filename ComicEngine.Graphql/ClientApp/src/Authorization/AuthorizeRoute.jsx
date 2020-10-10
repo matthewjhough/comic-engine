@@ -6,7 +6,6 @@ import authService from './AuthorizeService'
 export default class AuthorizeRoute extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             ready: false,
             authenticated: false
@@ -24,9 +23,8 @@ export default class AuthorizeRoute extends Component {
 
     render() {
         const { ready, authenticated } = this.state;
-        // const redirectUrl = `${ApplicationPaths.Login}?${QueryParameterNames.ReturnUrl}=${encodeURI(window.location.href)}`
         if (!ready) {
-            return <div></div>;
+            return <div/>;
         } else {
             const { component: Component, ...rest } = this.props;
             return <Route {...rest}
@@ -34,7 +32,8 @@ export default class AuthorizeRoute extends Component {
                     if (authenticated) {
                         return <Component {...props} />
                     } else {
-                        authService.redirectToIdp();
+                        console.log('AuthorizeRoute:: redirecting to idp, due to authentication: ', authenticated)
+                        // authService.redirectToIdp();
                         return <></>// <Redirect to={redirectUrl} />
                     }
                 }} />
@@ -42,7 +41,9 @@ export default class AuthorizeRoute extends Component {
     }
 
     async populateAuthenticationState() {
+        console.log("AuthorizeRoute:: populating authentication state...");
         const authenticated = await authService.isAuthenticated();
+        console.log("AuthorizeRoute:: authentication state populated. authenticated: ", authenticated);
         this.setState({ ready: true, authenticated });
     }
 

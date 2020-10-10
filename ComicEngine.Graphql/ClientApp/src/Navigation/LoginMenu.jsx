@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import authService from './AuthorizeService';
-import { ApplicationPaths } from './ApiAuthorizationConstants';
-import IdentityTokenManager from "./IdentityTokenManager";
+import authService from '../Authorization/AuthorizeService';
+import { ApplicationPaths } from '../Authorization/ApiAuthorizationConstants';
+import IdentityTokenManager from "../Authorization/IdentityTokenManager";
 const identityTokenManager = new IdentityTokenManager();
 
 export class LoginMenu extends Component {
@@ -19,9 +19,11 @@ export class LoginMenu extends Component {
   componentDidMount() {
     this._subscription = authService.subscribe(() => this.populateState());
     // Load state after url has been parsed, and stored in local storage.
-    identityTokenManager.ProcessIdentityToken().then(res => {
-      this.populateState();
-    });
+    identityTokenManager
+      .ProcessIdentityToken()
+      .then(res => {
+        this.populateState();
+      });
   }
 
   componentWillUnmount() {
@@ -29,18 +31,22 @@ export class LoginMenu extends Component {
   }
 
   async populateState() {
-    const [isAuthenticated, user] = await Promise.all([
+    await Promise.all([
       authService.isAuthenticated(),
       authService.getUser()
-    ]);
-    this.setState({
-      isAuthenticated,
-      userName: user && user.name
-    }, () => console.log("authentication status: ", this.state, user));
+    ]).then(([isAuthenticated, user]) => {
+      this.setState({
+        isAuthenticated,
+        userName: user && user.name
+      }, () => {
+        console.log("LoginMenu:: authenticated.", this.state);
+      });
+    });
   }
 
   render() {
     const { isAuthenticated, userName } = this.state;
+    console.log("LoginMenu:: isAuthenticated: ", isAuthenticated)
     if (!isAuthenticated) {
       const registerPath = `${ApplicationPaths.Register}`;
       const loginPath = `${ApplicationPaths.Login}`;

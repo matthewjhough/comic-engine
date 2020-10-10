@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router';
 import { Login } from './Login'
 import { Logout } from './Logout'
-import { ApplicationPaths, LoginActions, LogoutActions } from './ApiAuthorizationConstants';
+import { ApplicationPaths, LoginActions, LogoutActions } from '../Authorization/ApiAuthorizationConstants';
 
 export default class ApiAuthorizationRoutes extends Component {
 
@@ -22,9 +22,9 @@ export default class ApiAuthorizationRoutes extends Component {
 }
 
 function loginAction(name){
-    return (<Login action={name}></Login>);
+    return (<Login action={name}/>);
 }
 
 function logoutAction(name) {
-    return (<Logout action={name}></Logout>);
+    return (<Logout action={name}/>);
 }

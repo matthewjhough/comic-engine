@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { ContentWrapper } from '../ContentWrapper/ContentWrapper';
-import { FlexContainer } from '../FlexContainer/FlexContainer';
+import { AbstractContentWrapper } from '../AbstractContentWrapper/AbstractContentWrapper';
+import { AbstractFlexContainer } from '../AbstractFlexContainer/AbstractFlexContainer';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 
 export function UserComics({ toggleLoading, getUserComics, clearResults }) {
@@ -14,10 +14,10 @@ export function UserComics({ toggleLoading, getUserComics, clearResults }) {
   }, [clearResults, getUserComics, toggleLoading]);
 
   return (
-    <ContentWrapper>
-      <FlexContainer isColumn>
+    <AbstractContentWrapper>
+      <AbstractFlexContainer isColumn>
         <ComicResultsContainer />
-      </FlexContainer>
-    </ContentWrapper>
+      </AbstractFlexContainer>
+    </AbstractContentWrapper>
   );
 }
