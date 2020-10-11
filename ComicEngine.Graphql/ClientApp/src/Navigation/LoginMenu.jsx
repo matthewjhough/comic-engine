@@ -19,6 +19,7 @@ export class LoginMenu extends Component {
   componentDidMount() {
     this._subscription = authService.subscribe(() => this.populateState());
     // Load state after url has been parsed, and stored in local storage.
+    console.log("LoginMenu:: mounted, processing identity token")
     identityTokenManager
       .ProcessIdentityToken()
       .then(res => {
@@ -46,7 +47,7 @@ export class LoginMenu extends Component {
 
   render() {
     const { isAuthenticated, userName } = this.state;
-    console.log("LoginMenu:: isAuthenticated: ", isAuthenticated)
+    console.log("LoginMenu:: rendering, isAuthenticated: ", isAuthenticated)
     if (!isAuthenticated) {
       const registerPath = `${ApplicationPaths.Register}`;
       const loginPath = `${ApplicationPaths.Login}`;

@@ -33,7 +33,7 @@ export default class AuthorizeRoute extends Component {
                         return <Component {...props} />
                     } else {
                         console.log('AuthorizeRoute:: redirecting to idp, due to authentication: ', authenticated)
-                        // authService.redirectToIdp();
+                        authService.redirectToIdp();
                         return <></>// <Redirect to={redirectUrl} />
                     }
                 }} />

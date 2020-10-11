@@ -1,5 +1,5 @@
 export const comicByTitleAndIssueNumber = `
-query getMatchingComics($title: String, $issueNumber: String) {
+query comicsByTitleAndIssueNumber($title: String, $issueNumber: String) {
     comicsByTitleAndIssueNumber(title: $title, issueNumber: $issueNumber) {
       id
       title

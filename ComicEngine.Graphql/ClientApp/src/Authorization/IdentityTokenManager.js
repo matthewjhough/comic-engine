@@ -16,6 +16,7 @@ export default class IdentityTokenManager {
     
     ParseFragments = async () => {
         const url = window.location.href;
+        console.log("IdentityTokenManager:: parsing fragments...");
         return await comicEngineUserManager
             .signinCallback(url)
             .then(user => {
