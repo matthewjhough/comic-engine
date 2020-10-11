@@ -13,11 +13,13 @@ namespace ComicEngine.Api.UserComics {
 
         internal UserComicsRepository () {}
 
-        public async Task CreateUserComic (Comic comic, string subject)
+        public async Task<Comic> CreateUserComic (Comic comic, string subject)
         {
             Logger.LogDebug("Adding comic with id: '{comicId}' for user: '{userId}'",
                 comic.Id, subject);
             await ComicStorageClient.Create(comic, subject);
+
+            return comic;
         }
 
         public async Task<IEnumerable<Comic>> GetUserComics (string subject) {

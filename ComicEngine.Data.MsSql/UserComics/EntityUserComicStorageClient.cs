@@ -10,7 +10,7 @@ namespace ComicEngine.Data.MsSql.UserComics {
     {
         internal UserComicContext UserComicContext;
 
-        public async Task Create(Comic resource, string subject)
+        public async Task<Comic> Create(Comic resource, string subject)
         {
             var persistedComic = new PersistedMsSqlUserComic {
                 Comic = resource,
@@ -27,6 +27,8 @@ namespace ComicEngine.Data.MsSql.UserComics {
                 // TODO: add logging
                 throw;
             }
+
+            return resource;
         }
 
         public async Task<IEnumerable<Comic>> Get(string subject)

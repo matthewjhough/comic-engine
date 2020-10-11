@@ -5,7 +5,7 @@ using ComicEngine.Data;
 
 namespace ComicEngine.Api.UserComics {
     public interface IUserComicsRepository : IDataRepository {
-        Task CreateUserComic (Comic comic, string subject);
+        Task<Comic> CreateUserComic (Comic comic, string subject);
 
         /// <summary>
         /// Gets all stored comics by current user's id.

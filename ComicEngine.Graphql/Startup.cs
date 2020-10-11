@@ -2,9 +2,11 @@ using System;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
 using ComicEngine.Graphql.Types;
+using ComicEngine.Identity.Client;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,23 +54,25 @@ namespace ComicEngine.Graphql {
             services.AddSingleton<ICorsPolicyService>(cors);
 
             #endregion cors
+            var tokenClientSettings = Configuration
+                .GetSection("TokenClient")
+                .Get<TokenClientSettings>();
             
-            // TODO: Handle this as extension method / helper method.
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer(options =>
+            services.AddAuthentication(options =>
                 {
-                    var tokenClientConfig = Configuration
-                        .GetSection("TokenClient");
-                    options.Authority = tokenClientConfig
-                        .GetSection("Authority")
-                        .Get<string>()
-                        ;
-                    options.Audience = tokenClientConfig.GetSection("Audience").Get<string>();
-                    options.RequireHttpsMetadata = tokenClientConfig
-                        .GetSection("RequireHttpMetadata")
-                        .Get<bool>()
-                        ;
-                });
+                    options.DefaultScheme = "Cookies";
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, 
+                    options =>
+                    {
+                        options.Authority = tokenClientSettings.Authority;
+                        options.RequireHttpsMetadata = true;
+                        // options.TokenValidationParameters = new TokenValidationParameters
+                        // {
+                        //     ValidateAudience = false
+                        // };
+                    });
             
             services.AddSingleton<ComicHttpClient>()
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
@@ -77,7 +81,8 @@ namespace ComicEngine.Graphql {
                         Configuration
                             .GetSection("ComicHttpClientConfig")
                             .Get<ComicHttpClientConfig>(),
-                        sp.GetRequiredService<IHttpContextAccessor>()));
+                        sp.GetRequiredService<IHttpContextAccessor>(),
+                        tokenClientSettings));
 
             services.AddControllersWithViews();
             services.AddRazorPages();

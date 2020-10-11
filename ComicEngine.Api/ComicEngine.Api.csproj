@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../ComicEngine.Data.MsSql/ComicEngine.Data.MsSql.csproj" />
+    <ProjectReference Include="..\ComicEngine.Api.Client\ComicEngine.Api.Client.csproj" />
     <ProjectReference Include="..\ComicEngine.Data.MongoDb\ComicEngine.Data.MongoDb.csproj" />
     <ProjectReference Include="..\ComicEngine.Identity.Client\ComicEngine.Identity.Client.csproj" />
   </ItemGroup>

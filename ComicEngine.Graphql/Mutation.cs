@@ -30,6 +30,11 @@ namespace ComicEngine.Graphql {
 
             Comic response = await _comicHttpApiService.SaveComicToApi (comicInput, userId);
 
+            if (response is null)
+            {
+                throw new CreateComicException($"Unable to add comic {comicInput.Id} for user {userId}");
+            }
+
             return response;
         }
     }

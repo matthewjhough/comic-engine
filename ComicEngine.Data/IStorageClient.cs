@@ -14,7 +14,7 @@ namespace ComicEngine.Data
         /// </summary>
         /// <param name="resource"></param>
         /// <param name="subject"></param>
-        Task Create(T resource, string subject);
+        Task<T> Create(T resource, string subject);
 
         /// <summary>
         /// Gets all the resources from specified userid.

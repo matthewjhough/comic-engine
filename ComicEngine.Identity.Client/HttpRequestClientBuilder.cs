@@ -17,13 +17,21 @@ namespace ComicEngine.Identity.Client
         private string RelativeUrl { get; set; }
         private string AbsoluteUrl { get; set; }
         
+        private TokenClientSettings TokenClientSettings { get; set; }
+        
         public HttpRequestClientBuilder<T> WithAbsoluteUrl(
             string absoluteUrl)
         {
             AbsoluteUrl = absoluteUrl;
             return this;
         }
-        
+
+        public HttpRequestClientBuilder<T> WithTokenClientSettings(TokenClientSettings tokenClientSettings)
+        {
+            TokenClientSettings = tokenClientSettings;
+            return this;
+        }
+
         public HttpRequestClientBuilder<T> WithRelativeUrl(
             string relativeUrl)
         {
@@ -90,7 +98,8 @@ namespace ComicEngine.Identity.Client
                 RequestToken = RequestToken,
                 RequestBody = RequestParameters,
                 RequestHeaders = RequestHeaders,
-                Method = Method
+                Method = Method,
+                TokenClientSettings = TokenClientSettings
             };
         }
     }

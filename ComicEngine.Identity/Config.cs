@@ -4,6 +4,7 @@
 
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using IdentityServer4;
 
 namespace ComicEngine.Identity
 {
@@ -31,7 +32,7 @@ namespace ComicEngine.Identity
                 new Client
                 {
                     ClientId = "comic.graphql",
-                    ClientName = "Comic Engine Graphql Client",
+                    ClientName = "Comic Engine Graphql",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = {new Secret(ExampleSecret.Sha256())},
                     AllowedScopes = { "comic.api" }

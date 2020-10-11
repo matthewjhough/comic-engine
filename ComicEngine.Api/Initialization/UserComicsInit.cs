@@ -1,7 +1,6 @@
 using ComicEngine.Api.UserComics;
 using ComicEngine.Common;
 using ComicEngine.Data.MongoDb.UserComics;
-using ComicEngine.Data.MsSql.UserComics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -20,7 +19,6 @@ namespace ComicEngine.Api.Initialization
                     sp.GetRequiredService<IOptions<UserComicsDatabaseSettings>>()
                         .Value);
             services
-                .AddSingleton(sp => new UserComicContext(configuration))
                 .AddSingleton<IUserComicsRepository, UserComicsRepository>(sp =>
                     new UserComicsRepositoryBuilder()
                         .WithLogger(

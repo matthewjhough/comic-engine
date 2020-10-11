@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,14 +20,17 @@ namespace ComicEngine.Data.MongoDb.UserComics
                     .UserComicsCollectionName);
         }
 
-        public async Task Create(Comic resource, string subject)
+        public async Task<Comic> Create(Comic resource, string subject)
         {
             var persistedComic = new PersistedMongoDbUserComic() {
                 Comic = resource,
-                UserId = subject
+                UserId = subject,
+                // Id = Guid.NewGuid().ToString()
             };
             
             await _userComics.InsertOneAsync(persistedComic);
+
+            return resource;
         }
 
         public async Task<IEnumerable<Comic>> Get(string subject)

@@ -1,4 +1,5 @@
 using ComicEngine.Common;
+using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,12 +16,11 @@ namespace ComicEngine.Api.Initialization
                     options =>
                     {
                         var tokenClientConfig = configuration
-                            .GetSection("TokenClient");
-                        // TODO: Get from appsettings.
-                        options.Authority = tokenClientConfig
-                                .GetSection("Authority")
-                                .Get<string>()
-                            ;
+                            .GetSection("TokenClient")
+                            .Get<TokenClientSettings>();
+                        
+                        options.Authority = tokenClientConfig.Authority;
+                        options.Audience = tokenClientConfig.Audience;
                         options.RequireHttpsMetadata = true;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {

@@ -21,7 +21,7 @@ namespace ComicEngine.Graphql.Types {
                         // Log here
                         await next (context);
                     } catch (Exception ex) {
-                        Logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
+                        Logger.LogError (ex, "An error occured while executing {queryName}", context.Field.Name);
                         context.ReportError (ex.Message);
                         throw;
                     }
@@ -36,7 +36,7 @@ namespace ComicEngine.Graphql.Types {
                         // Log here
                         await next (context);
                     } catch (Exception ex) {
-                        Logger.LogError (ex, "An error occured while executing {mutationName}", context.Field.Name);
+                        Logger.LogError (ex, "An error occured while executing {queryName}", context.Field.Name);
                         context.ReportError (ex.Message);
                         throw;
                     }

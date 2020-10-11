@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,7 @@ namespace ComicEngine.Identity.Client
         internal string AbsoluteUrl { get; set; }
 
         private static readonly string AccessToken = "access_token";
+        internal TokenClientSettings TokenClientSettings { get; set; }
 
         /// <summary>
         /// Assembles the properties defined into an <see cref="HttpClient"/>,
@@ -116,10 +118,25 @@ namespace ComicEngine.Identity.Client
                 throw new Exception("No HttpContext found when trying to make request.");
             }
 
+            if (TokenClientSettings is null)
+            {
+                return requestMessage;
+            }
+
             Logger.LogDebug("getting access token for request...");
-            var token = await HttpContextAccessor.HttpContext.GetTokenAsync(AccessToken);
-            requestMessage.Headers.Add("Authorization", $"Bearer {token}");
-            Logger.LogDebug("access token added to request: {token}", token);
+            
+            var client = new HttpClient();
+            var disco = await client.GetDiscoveryDocumentAsync(TokenClientSettings.Authority);
+            var token = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = TokenClientSettings.ClientId,
+                ClientSecret = TokenClientSettings.Secret,
+                Scope = TokenClientSettings.Scope,
+                GrantType = "client_credentials"
+            });
+            requestMessage.Headers.Add("Authorization", $"Bearer {token.AccessToken}");
+            Logger.LogDebug("access token added to request: {token}", token.AccessToken);
 
             return requestMessage;
         }

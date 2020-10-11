@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicEngine.Api.Client;
 using ComicEngine.Api.Commands.Marvel;
 using ComicEngine.Common.Comic;
 using HotChocolate.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace ComicEngine.Api.Marvel {
         /// <param name="upc"></param>
         /// <returns></returns>
         [Authorize]
-        [HttpGet ("/v1/marvel/comic")]
+        [HttpGet (EndpointsV1.MarvelComicsUpcEndpoint)]
         public async Task<Comic> GetComicByUpc ([FromQuery] string upc) {
             _logger.LogDebug ("Request received with upc code: {upc}", upc);
 
@@ -52,7 +53,7 @@ namespace ComicEngine.Api.Marvel {
         }
 
         [Authorize]
-        [HttpGet ("/v1/marvel/comic/search")]
+        [HttpGet (EndpointsV1.MarvelComicsSearchEndpoint)]
         public async Task<IEnumerable<Comic>> GetComicByTitleAndIssue ([FromQuery] string title, string issueNumber) {
             _logger.LogDebug ("Request received with parameters: \ntitle: {title}\nissueNumber: {issueNumber}", title, issueNumber);
 

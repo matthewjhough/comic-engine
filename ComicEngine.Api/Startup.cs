@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using ComicEngine.Api.Initialization;
 using ComicEngine.Common;
-using ComicEngine.Data.MsSql.UserComics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,15 +37,6 @@ namespace ComicEngine.Api {
         public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
-            }
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory> ()
-                .CreateScope ()) {
-                var context = serviceScope.ServiceProvider
-                    .GetRequiredService<UserComicContext> ();
-                context
-                    .Database
-                    .EnsureCreated ();
             }
             
             app.UseAuthentication ();

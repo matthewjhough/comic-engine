@@ -11,13 +11,17 @@ namespace ComicEngine.Api.Client {
         public readonly string ComicEngineApiUri;
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (ComicHttpClient));
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly TokenClientSettings _tokenClientSettings;
 
+        // TODO: remove this client entirely
         public ComicHttpClient (
             ComicHttpClientConfig apiConfig,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            TokenClientSettings tokenClientSettings
         ) {
             ComicEngineApiUri = apiConfig?.ComicHttpClientUrl;
             _contextAccessor = httpContextAccessor;
+            _tokenClientSettings = tokenClientSettings;
         }
 
         /// <summary>
@@ -32,18 +36,27 @@ namespace ComicEngine.Api.Client {
                 throw new Exception ("Api Url was null or whitespace.");
             }
 
-            var absoluteUrl = $"{ComicEngineApiUri}/{endpoint}?{parameters}";
-            var client = new HttpRequestClientBuilder<T>()
-                .WithRequestMethod(HttpMethod.Get)
-                .WithAbsoluteUrl(absoluteUrl)
-                .WithHttpContextAccessor(_contextAccessor)
-                .Build();
+            try
+            {
+                var absoluteUrl = $"{ComicEngineApiUri}/{endpoint}?{parameters}";
+                _logger.LogDebug ("making request to {endpoint}", absoluteUrl);
+                var client = new HttpRequestClientBuilder<T>()
+                    .WithRequestMethod(HttpMethod.Get)
+                    .WithAbsoluteUrl(absoluteUrl)
+                    .WithHttpContextAccessor(_contextAccessor)
+                    .WithTokenClientSettings(_tokenClientSettings)
+                    .Build();
 
-            var response = await client.Send();
-            
-            _logger.LogDebug ("RequestComicFromApi response: ", response);
+                var response = await client.Send();
+                _logger.LogDebug ("{endpoint} response: {response}", absoluteUrl, response);
 
-            return response;
+                return response;
+            }
+            catch (Exception e)
+            {
+                _logger.LogDebug(e, "Exception thrown while trying to make request to {comicEngineUri}.", ComicEngineApiUri);
+                throw;
+            }
         }
 
         /// <summary>
@@ -63,6 +76,7 @@ namespace ComicEngine.Api.Client {
                 .WithAbsoluteUrl(absoluteUrl)
                 .WithRequestMethod(HttpMethod.Post)
                 .WithHttpContextAccessor(_contextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
                 .Build();
 
             var response = await client.Send();
@@ -88,6 +102,7 @@ namespace ComicEngine.Api.Client {
                 .WithRequestBody(obj)
                 .WithRequestMethod(HttpMethod.Post)
                 .WithHttpContextAccessor(_contextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
                 .Build();
             
             var response = await client.Send();
