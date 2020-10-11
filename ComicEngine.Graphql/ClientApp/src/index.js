@@ -5,14 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './redux';
+import {configureLogging} from "./logging";
+import {configuration} from "./config";
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
-// TODO For Auth: 
-//  Load conditional Account management urls when authenticated.
-//  Add register link.
 
+configureLogging(configuration);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={baseUrl}>

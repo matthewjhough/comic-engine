@@ -72,8 +72,9 @@ export function ComicSearchForm({
         {selectedComic.id ? (
           <StickyButton
             onClick={() => {
-              console.log(selectedComic);
+              console.log("ComicSearchForm:: saving selected comic...", selectedComic);
               makeSaveComicRequest(selectedComic);
+              console.log("ComicSearchForm:: Save operation complete.")
               setSelectedComic({});
             }}
             type="button">

@@ -8,7 +8,7 @@ import {comicEngineUserManager} from "../Authorization/ComicEngineUserManager";
 export function getUserComics() {
   return function(dispatch) {
     return comicEngineUserManager.getUser().then(user => {
-        console.log("Current user subject: ", user.profile.sub);
+        console.log("userComicsActions:: Current user subject: ", user.profile.sub);
 
         return makeGraphqlRequest(getUserComicsQuery, {
             userId: user.profile.sub
@@ -31,11 +31,12 @@ export function getUserComics() {
 }
 
 export function createUserComic(selectedComic) {
-  console.log('making saved comic request...', selectedComic);
+  console.log('userComicsActions:: making saved comic request...', selectedComic);
   return function(dispatch) {
-    console.log('dispatching selected comic...');
+    console.log('userComicsActions:: dispatching selected comic...');
     return comicEngineUserManager.getUser().then(user => {
-        console.log("Current user subject: ", user.profile.sub);
+        console.log("userComicsActions:: Current user subject: ", user.profile.sub);
+        dispatch(toggleLoading(true));
         
         return makeGraphqlRequest(createUserComicMutation, {
             comic: selectedComic,
@@ -45,7 +46,7 @@ export function createUserComic(selectedComic) {
             .then(({ data, errors }) => {
                 if (errors && errors.length > 0) {
                     console.error(
-                        'something went wrong saving comic.',
+                        'userComicsActions:: something went wrong saving comic.',
                         errors,
                         selectedComic
                     );
@@ -56,8 +57,7 @@ export function createUserComic(selectedComic) {
                     return dispatch(setResults({ results: [] }));
                 }
 
-                console.log('Comic saved to database.', data);
-
+                console.log('userComicsActions:: Comic saved to database.', data);
                 NotificationManager.success(
                     'Success',
                     `${selectedComic.title} added to My Comics`
@@ -70,6 +70,8 @@ export function createUserComic(selectedComic) {
 
                 // TODO: do something with saved comic result
                 return dispatch(setResults({ results: [] }));
+            }).then(() => {
+                dispatch(toggleLoading(false));
             });
     });
   };

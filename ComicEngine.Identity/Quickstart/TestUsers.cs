@@ -45,7 +45,24 @@ namespace ComicEngine.Identity.Quickstart
                         IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
                     new Claim("location", "somewhere")
                 }
-            }
+            },
+            new TestUser
+            {
+                SubjectId = "88421113", Username = "bill", Password = "bill",
+                Claims =
+                {
+                new Claim(JwtClaimTypes.Name, "Bill Smith"),
+                new Claim(JwtClaimTypes.GivenName, "Bill"),
+                new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                new Claim(JwtClaimTypes.Email, "bill@email.com"),
+                new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                new Claim(JwtClaimTypes.WebSite, "http://bill.com"),
+                new Claim(JwtClaimTypes.Address,
+                    @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }",
+                    IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim("location", "somewhere")
+        }
+    }
         };
     }
 }
