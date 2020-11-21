@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.Comics;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.Logging;
 

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Commands.Marvel;
-using ComicEngine.Common.Comic;
-using ComicEngine.Common.Marvel;
+using ComicEngine.Api.Commands.Marvels;
+using ComicEngine.Common.Comics;
+using ComicEngine.Common.Marvels;
 
 namespace ComicEngine.Api.Marvel {
     public class MarvelCommands : IGetMarvelCommand {

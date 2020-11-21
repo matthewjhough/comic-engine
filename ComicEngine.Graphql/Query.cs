@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.Comics;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql {

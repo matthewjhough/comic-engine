@@ -1,4 +1,4 @@
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.UserComics;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -11,8 +11,6 @@ namespace ComicEngine.Data.MongoDb.UserComics
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         
-        public string UserId { get; set; }
-
-        public Comic Comic { get; set; }
+        public UserComic UserComic { get; set; }
     }
 }

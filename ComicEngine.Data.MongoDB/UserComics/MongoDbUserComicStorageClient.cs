@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
+using ComicEngine.Data.UserComics;
 using MongoDB.Driver;
 
 namespace ComicEngine.Data.MongoDb.UserComics
@@ -23,9 +24,11 @@ namespace ComicEngine.Data.MongoDb.UserComics
         public async Task<Comic> Create(Comic resource, string subject)
         {
             var persistedComic = new PersistedMongoDbUserComic() {
-                Comic = resource,
-                UserId = subject,
-                // Id = Guid.NewGuid().ToString()
+                UserComic = new UserComic()
+                {
+                    Comic = resource,
+                    UserId = subject
+                }
             };
             
             await _userComics.InsertOneAsync(persistedComic);
@@ -36,13 +39,13 @@ namespace ComicEngine.Data.MongoDb.UserComics
         public async Task<IEnumerable<Comic>> Get(string subject)
         {
             var persistedComics = await _userComics
-                .FindAsync(comic => string.Equals(comic.UserId, subject));
+                .FindAsync(comic => string.Equals(comic.UserComic.UserId, subject));
             
             var comics = persistedComics
                 .ToList()
                 .Where(persistedComic =>
-                    string.Equals(persistedComic.UserId, subject))
-                .Select(persistedComic => persistedComic.Comic);
+                    string.Equals(persistedComic.UserComic.UserId, subject))
+                .Select(persistedComic => persistedComic.UserComic.Comic);
             
             return comics;
         }

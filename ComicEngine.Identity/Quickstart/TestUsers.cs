@@ -43,12 +43,14 @@ namespace ComicEngine.Identity.Quickstart
                     new Claim(JwtClaimTypes.Address,
                         @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }",
                         IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
-                    new Claim("location", "somewhere")
+                    new Claim("location", "somewhere"),
+                    new Claim(JwtClaimTypes.Role, "get-comics"),
+                    new Claim(JwtClaimTypes.Role, "create-comic")
                 }
             },
             new TestUser
             {
-                SubjectId = "88421113", Username = "bill", Password = "bill",
+                SubjectId = "88421114", Username = "bill", Password = "bill",
                 Claims =
                 {
                 new Claim(JwtClaimTypes.Name, "Bill Smith"),

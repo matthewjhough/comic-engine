@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Api.Commands.UserComic;
-using ComicEngine.Common.Comic;
+using ComicEngine.Api.Commands.UserComics;
+using ComicEngine.Common.Comics;
 
 namespace ComicEngine.Api.UserComics {
     // FIXME: Update to single execution commands.

@@ -1,5 +1,5 @@
-using ComicEngine.Api.Commands.Marvel;
-using ComicEngine.Api.Commands.UserComic;
+using ComicEngine.Api.Commands.Marvels;
+using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Api.Marvel;
 using ComicEngine.Api.UserComics;
 using ComicEngine.Common;

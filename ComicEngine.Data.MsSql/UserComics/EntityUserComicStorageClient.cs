@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.Comics;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComicEngine.Data.MsSql.UserComics {

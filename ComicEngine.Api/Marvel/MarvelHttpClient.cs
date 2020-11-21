@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ComicEngine.Common;
-using ComicEngine.Common.Marvel;
+using ComicEngine.Common.Marvels;
 using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

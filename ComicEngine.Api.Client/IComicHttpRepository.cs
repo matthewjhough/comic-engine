@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comic;
+using ComicEngine.Common.Comics;
 
 namespace ComicEngine.Api.Client {
     public interface IComicHttpRepository {
