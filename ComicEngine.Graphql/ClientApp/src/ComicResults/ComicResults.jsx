@@ -5,7 +5,7 @@ import { ComicResult } from './ComicResult';
 import styles from './ComicResults.module.scss';
 
 export function ComicResults({
-  results = [],
+  searchResults = [],
   isLoading,
   selectedComicId,
   selectComic,
@@ -14,6 +14,7 @@ export function ComicResults({
 }) {
   const selectComicMethod = selectComic ? selectComic : () => {};
 
+  console.log("ComicResults 'searchResults': ", searchResults);
   return (
     <div className={styles.comicResults}>
       <AbstractScrollDiv>
@@ -21,7 +22,7 @@ export function ComicResults({
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          results.map((comic, i) => (
+          searchResults.map((comic, i) => (
             <ComicResult
               key={`${comic.id}-${i}`}
               onClick={() => selectComicMethod(comic)}

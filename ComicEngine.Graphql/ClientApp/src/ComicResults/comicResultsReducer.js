@@ -1,5 +1,6 @@
 import {
-  SET_COMIC_RESULTS,
+  SET_COMIC_RESULTS, 
+  SET_COMIC_SEARCH_RESULTS,
   SET_SELECTED_COMIC_RESULT,
   TOGGLE_COMIC_SEARCH_LOADING
 } from '../actionTypes';
@@ -30,6 +31,8 @@ export function comicResultsReducer(state = defaultState, action) {
       return resolveSelectedComic(state, action);
     case TOGGLE_COMIC_SEARCH_LOADING:
       return { ...state, isLoading: action.isLoading };
+    case SET_COMIC_SEARCH_RESULTS:
+      return { ...state, searchResults: action.searchResults };
     case SET_COMIC_RESULTS:
       return { ...state, results: action.results };
     default:

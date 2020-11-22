@@ -18,13 +18,11 @@ const mapStateToProps = ({ comicSearchForm, comicResults }) => ({
 
 const mapDispatchToProps = dispatch => ({
   updateTitleInput: title => dispatch(updateTitleInput(title)),
-  updateIssueNumberInput: issueNumber =>
-    dispatch(updateIssueNumberInput(issueNumber)),
+  updateIssueNumberInput: issueNumber => dispatch(updateIssueNumberInput(issueNumber)),
   updateResultsFromForm: dispatch(updateResultsFromForm),
   toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true)),
   setSelectedComic: comic => dispatch(setSelectedComic(comic)),
-  makeSaveComicRequest: selectedComic =>
-    dispatch(createUserComic(selectedComic))
+  makeSaveComicRequest: selectedComic => dispatch(createUserComic(selectedComic))
 });
 
 export const ComicSearchFormContainer = connect(

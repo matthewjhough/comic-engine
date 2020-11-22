@@ -1,4 +1,5 @@
 export const configuration = {
-    isLoggingEnabled: true,
+    isLoggingEnabled: false,
     isWarningEnabled: false,
+    isErrorEnabled: true,
 };

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Collapse,
-  Container,
+  Nav,
   Navbar,
   NavbarBrand,
-  NavbarToggler,
   NavItem,
   NavLink
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { LoginMenu } from './LoginMenu';
 import { routeConfig } from './routeConfig';
 import './NavMenu.css';
+import {LoginMenu} from "./LoginMenu";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -34,44 +32,32 @@ export class NavMenu extends Component {
   render() {
     return (
       <header>
-        <Navbar
-          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
-          light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">
+        <Navbar color="light" light expand="md">
+            <NavbarBrand href="/">
               ComicEngine
             </NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse
-              className="d-sm-inline-flex flex-sm-row-reverse"
-              isOpen={!this.state.collapsed}
-              navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
+            <Nav className="mr-auto" navbar>
+              <NavItem>
+                <NavLink tag={Link} to="/">
+                  Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
                     tag={Link}
-                    className="text-dark"
                     to={routeConfig.comicSearch.url}>
-                    {routeConfig.comicSearch.text}
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
+                  {routeConfig.comicSearch.text}
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
                     tag={Link}
-                    className="text-dark"
                     to={routeConfig.myComics.url}>
-                    {routeConfig.myComics.text}
-                  </NavLink>
-                </NavItem>
-                <LoginMenu />
-              </ul>
-            </Collapse>
-          </Container>
+                  {routeConfig.myComics.text}
+                </NavLink>
+              </NavItem>
+              <LoginMenu />
+            </Nav>
         </Navbar>
       </header>
     );

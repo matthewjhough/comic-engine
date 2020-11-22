@@ -1,13 +1,21 @@
 import {
   SET_COMIC_RESULTS,
   TOGGLE_COMIC_SEARCH_LOADING,
-  SET_SELECTED_COMIC_RESULT
+  SET_SELECTED_COMIC_RESULT, 
+  SET_COMIC_SEARCH_RESULTS
 } from '../actionTypes';
 
 export function setResults({ results }) {
   return {
     type: SET_COMIC_RESULTS,
     results
+  };
+}
+
+export function setComicSearchResults({ searchResults }) {
+  return {
+    type: SET_COMIC_SEARCH_RESULTS,
+    searchResults
   };
 }
 
