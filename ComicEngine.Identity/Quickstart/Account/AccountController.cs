@@ -175,7 +175,6 @@ namespace ComicEngine.Identity.Quickstart.Account
             return View(vm);
         }
 
-
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -234,7 +233,6 @@ namespace ComicEngine.Identity.Quickstart.Account
         {
             return View();
         }
-
 
         /*****************************************/
         /* helper APIs for the AccountController */

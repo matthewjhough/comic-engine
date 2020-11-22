@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace ComicEngine.Api.UserComics {
         }
 
         [HttpPost (EndpointsV1.UserComicsEndpoint)]
-        public async Task<Comic> Create ([FromBody] Comic comic, [FromRoute] string userId) {
+        public async Task<UserComic> Create ([FromBody] Comic comic, [FromRoute] string userId) {
             // TODO: Validation
             if (comic.Title is null) {
                 throw new Exception ("Title is required.");
@@ -44,14 +45,17 @@ namespace ComicEngine.Api.UserComics {
 
         [Authorize]
         [HttpGet (EndpointsV1.UserComicsEndpoint)]
-        public async Task<IEnumerable<Comic>> Get ([FromRoute] string userId)
+        public async Task<IEnumerable<UserComic>> Get ([FromRoute] string userId)
         {
             _logger.LogDebug("Retrieving comics for user '{userId}'", userId);
             var test = HttpContext;
             // Todo: add logging / exception handling
             var comicList = await _getCommand.GetUserComics (userId);
-            var comicEnumeration = comicList as Comic[] ?? comicList.ToArray();
-            _logger.LogDebug("Found '{comicCount}' comics for user '{userId}'", comicEnumeration.Count(), userId);
+            var comicEnumeration = comicList as UserComic[] ?? comicList.ToArray();
+            _logger.LogDebug(
+                "Found '{comicCount}' comics for user '{userId}'", 
+                comicEnumeration.Count(), 
+                userId);
             
             return comicEnumeration;
         }

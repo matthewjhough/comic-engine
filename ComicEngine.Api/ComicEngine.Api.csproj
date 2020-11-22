@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="$(MicrosoftIdentityServerVersion)" />
     <PackageReference Include="Newtonsoft.Json" Version="$(NewtonSoftVersion)" />
+    <PackageReference Include="Automatonymous" Version="$(AutomatonymousVersion)" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,7 +8,7 @@ using IdentityServer4;
 
 namespace ComicEngine.Identity
 {
-    public static class Config
+    public static class ClientConfiguration
     {
         private static readonly string ExampleSecret = "511536EF-F270-4058-80CA-1C89C192F69A";
 

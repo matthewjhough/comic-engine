@@ -1,29 +1,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Api.Commands.UserComics;
-using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 
 namespace ComicEngine.Api.UserComics {
     // FIXME: Update to single execution commands.
-    public class UserComicCommands : IGetUserComicCommand, ICreateUserComicCommand {
+    public class UserComicCommands : IGetUserComicCommand {
         private readonly IUserComicsRepository _userComicsRepository;
 
-        public UserComicCommands (IUserComicsRepository userComicsRepository) {
+        internal UserComicCommands (IUserComicsRepository userComicsRepository) {
             _userComicsRepository = userComicsRepository;
         }
 
-        public async Task<Comic> CreateUserComicAsync (Comic comic, string subject)
-        {
+        public async Task<IEnumerable<UserComic>> GetUserComics (string subject) {
             // Todo: add logging.
-            await _userComicsRepository.CreateUserComic (comic, subject);
-            return comic;
-        }
+            var userComics = await _userComicsRepository.GetUserComics (subject);
 
-        public async Task<IEnumerable<Comic>> GetUserComics (string subject) {
-            // Todo: add logging.
-            var savedComics = await _userComicsRepository.GetUserComics (subject);
-
-            return savedComics;
+            return userComics;
         }
     }
 }

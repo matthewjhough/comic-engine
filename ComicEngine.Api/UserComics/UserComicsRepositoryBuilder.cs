@@ -1,4 +1,5 @@
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 using ComicEngine.Data;
 using Microsoft.Extensions.Logging;
 
@@ -6,10 +7,10 @@ namespace ComicEngine.Api.UserComics
 {
     public class UserComicsRepositoryBuilder
     {
-        internal IStorageClient<Comic> StorageClient;
+        internal IStorageClient<UserComic> StorageClient;
         internal ILogger Logger;
 
-        public UserComicsRepositoryBuilder WithStorageClient(IStorageClient<Comic> storageClient)
+        public UserComicsRepositoryBuilder WithStorageClient(IStorageClient<UserComic> storageClient)
         {
             StorageClient = storageClient;
             return this;

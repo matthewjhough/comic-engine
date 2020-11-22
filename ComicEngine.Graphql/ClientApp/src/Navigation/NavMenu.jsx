@@ -42,20 +42,6 @@ export class NavMenu extends Component {
                   Home
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                    tag={Link}
-                    to={routeConfig.comicSearch.url}>
-                  {routeConfig.comicSearch.text}
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                    tag={Link}
-                    to={routeConfig.myComics.url}>
-                  {routeConfig.myComics.text}
-                </NavLink>
-              </NavItem>
               <LoginMenu />
             </Nav>
         </Navbar>

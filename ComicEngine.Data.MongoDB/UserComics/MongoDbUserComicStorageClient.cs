@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comics;
 using ComicEngine.Common.UserComics;
 using ComicEngine.Data.UserComics;
 using MongoDB.Driver;
 
 namespace ComicEngine.Data.MongoDb.UserComics
 {
-    public class MongoDbUserComicStorageClient : IStorageClient<Comic>
+    public class MongoDbUserComicStorageClient : IStorageClient<UserComic>
     {
         private readonly IMongoCollection<PersistedMongoDbUserComic> _userComics;
         
@@ -21,14 +20,10 @@ namespace ComicEngine.Data.MongoDb.UserComics
                     .UserComicsCollectionName);
         }
 
-        public async Task<Comic> Create(Comic resource, string subject)
+        public async Task<UserComic> Create(UserComic resource, string subject)
         {
             var persistedComic = new PersistedMongoDbUserComic() {
-                UserComic = new UserComic()
-                {
-                    Comic = resource,
-                    UserId = subject
-                }
+                UserComic = resource
             };
             
             await _userComics.InsertOneAsync(persistedComic);
@@ -36,7 +31,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
             return resource;
         }
 
-        public async Task<IEnumerable<Comic>> Get(string subject)
+        public async Task<IEnumerable<UserComic>> Get(string subject)
         {
             var persistedComics = await _userComics
                 .FindAsync(comic => string.Equals(comic.UserComic.UserId, subject));
@@ -45,7 +40,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
                 .ToList()
                 .Where(persistedComic =>
                     string.Equals(persistedComic.UserComic.UserId, subject))
-                .Select(persistedComic => persistedComic.UserComic.Comic);
+                .Select(persistedComic => persistedComic.UserComic);
             
             return comics;
         }
@@ -55,7 +50,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
             throw new System.NotImplementedException();
         }
 
-        public Task<Comic> Update(string resourceId, Comic resource)
+        public Task<UserComic> Update(string resourceId, UserComic resource)
         {
             throw new System.NotImplementedException();
         }

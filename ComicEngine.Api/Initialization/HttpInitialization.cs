@@ -14,14 +14,6 @@ namespace ComicEngine.Api.Initialization
             services
                 .AddSingleton<ILoggerFactory, LoggerFactory>()
                 .AddHttpClient ()
-                .AddSingleton(sp =>
-                    new MarvelHttpClient (
-                        sp.GetRequiredService<ILogger<MarvelHttpClient>> (),
-                        configuration
-                            .GetSection ("marvelApi")
-                            .Get<MarvelApiConfig> (),
-                        sp.GetRequiredService<IHttpContextAccessor>()
-                    ))
                 .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddCors(options =>
                 {

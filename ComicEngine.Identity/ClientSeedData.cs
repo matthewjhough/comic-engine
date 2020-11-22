@@ -13,7 +13,7 @@ using Serilog;
 
 namespace ComicEngine.Identity
 {
-    public class SeedData
+    public class ClientSeedData
     {
         public static void EnsureSeedData(string connectionString)
         {
@@ -21,12 +21,12 @@ namespace ComicEngine.Identity
             services.AddOperationalDbContext(options =>
             {
                 options.ConfigureDbContext = db => db.UseSqlite(connectionString,
-                    sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                    sql => sql.MigrationsAssembly(typeof(ClientSeedData).Assembly.FullName));
             });
             services.AddConfigurationDbContext(options =>
             {
                 options.ConfigureDbContext = db => db.UseSqlite(connectionString,
-                    sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                    sql => sql.MigrationsAssembly(typeof(ClientSeedData).Assembly.FullName));
             });
 
             var serviceProvider = services.BuildServiceProvider();
@@ -44,7 +44,7 @@ namespace ComicEngine.Identity
             if (!context.Clients.Any())
             {
                 Log.Debug("Clients being populated");
-                foreach (var client in Config.Clients.ToList())
+                foreach (var client in ClientConfiguration.Clients.ToList())
                 {
                     context.Clients.Add(client.ToEntity());
                 }
@@ -59,7 +59,7 @@ namespace ComicEngine.Identity
             if (!context.IdentityResources.Any())
             {
                 Log.Debug("IdentityResources being populated");
-                foreach (var resource in Config.Ids.ToList())
+                foreach (var resource in ClientConfiguration.Ids.ToList())
                 {
                     context.IdentityResources.Add(resource.ToEntity());
                 }
@@ -74,7 +74,7 @@ namespace ComicEngine.Identity
             if (!context.ApiResources.Any())
             {
                 Log.Debug("ApiResources being populated");
-                foreach (var resource in Config.Apis.ToList())
+                foreach (var resource in ClientConfiguration.Apis.ToList())
                 {
                     context.ApiResources.Add(resource.ToEntity());
                 }

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System;
 using ComicEngine.Identity.Data;
 using ComicEngine.Identity.Models;
 using ComicEngine.Identity.Quickstart;
@@ -83,9 +84,9 @@ namespace ComicEngine.Identity
                 //     // this enables automatic token cleanup. this is optional.
                 //     options.EnableTokenCleanup = true;
                 // })
-                .AddInMemoryIdentityResources(Config.Ids)
-                .AddInMemoryApiResources(Config.Apis)
-                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryIdentityResources(ClientConfiguration.Ids)
+                .AddInMemoryApiResources(ClientConfiguration.Apis)
+                .AddInMemoryClients(ClientConfiguration.Clients)
                 ;
             
             services.AddCors(options => options.AddPolicy(DevelopmentCors,
@@ -100,8 +101,7 @@ namespace ComicEngine.Identity
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                ;
+            services.AddAuthentication();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -130,7 +130,7 @@ namespace ComicEngine.Identity
             var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
             if (!context.Clients.Any())
             {
-                foreach (var client in Config.Clients)
+                foreach (var client in ClientConfiguration.Clients)
                 {
                     context.Clients.Add(client.ToEntity());
                 }
@@ -139,7 +139,7 @@ namespace ComicEngine.Identity
 
             if (!context.IdentityResources.Any())
             {
-                foreach (var resource in Config.Ids)
+                foreach (var resource in ClientConfiguration.Ids)
                 {
                     context.IdentityResources.Add(resource.ToEntity());
                 }
@@ -148,7 +148,7 @@ namespace ComicEngine.Identity
 
             if (!context.ApiResources.Any())
             {
-                foreach (var resource in Config.Apis)
+                foreach (var resource in ClientConfiguration.Apis)
                 {
                     context.ApiResources.Add(resource.ToEntity());
                 }

@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { NavItem, NavLink } from 'reactstrap';
+import {NavItem, NavLink} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import authService from '../Authorization/AuthorizeService';
 import { ApplicationPaths } from '../Authorization/ApiAuthorizationConstants';
 import IdentityTokenManager from "../Authorization/IdentityTokenManager";
+import {routeConfig} from "./routeConfig";
 const identityTokenManager = new IdentityTokenManager();
 
 export class LoginMenu extends Component {
@@ -65,6 +66,20 @@ export class LoginMenu extends Component {
   authenticatedView(userName, profilePath, logoutPath) {
     return (
       <Fragment>
+        <NavItem>
+          <NavLink
+              tag={Link}
+              to={routeConfig.comicSearch.url}>
+            {routeConfig.comicSearch.text}
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+              tag={Link}
+              to={routeConfig.myComics.url}>
+            {routeConfig.myComics.text}
+          </NavLink>
+        </NavItem>
         <NavItem>
           <NavLink tag={Link} className="text-dark" to={profilePath}>
             My Profile

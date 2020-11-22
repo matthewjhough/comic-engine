@@ -52,7 +52,7 @@ namespace ComicEngine.Identity
                     Log.Information("Seeding database...");
                     var config = host.Services.GetRequiredService<IConfiguration>();
                     var connectionString = config.GetConnectionString("DefaultConnection");
-                    SeedData.EnsureSeedData(connectionString);
+                    ClientSeedData.EnsureSeedData(connectionString);
                     Log.Information("Done seeding database.");
                     return 0;
                 }
