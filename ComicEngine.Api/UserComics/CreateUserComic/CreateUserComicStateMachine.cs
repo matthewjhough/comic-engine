@@ -39,11 +39,11 @@ namespace ComicEngine.Api.UserComics.CreateUserComic
         public Event<IUserComicsRepository> CreateAndAddUserComic { get; set; }
         
         /// States
-        public State CreatingUserComic { get; set; }
+        public Automatonymous.State CreatingUserComic { get; set; }
         // Validate user comic
-        public State ValidatingComic { get; set; }
+        public Automatonymous.State ValidatingComic { get; set; }
         // convert user comic state.
-        public State ConvertingUserComic { get; set; }
-        public State Completed { get; set; }
+        public Automatonymous.State ConvertingUserComic { get; set; }
+        public Automatonymous.State Completed { get; set; }
     }
 }

@@ -4,22 +4,19 @@ using Automatonymous;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
 using ComicEngine.Common.Comics;
 using ComicEngine.Common.UserComics;
+using ComicEngine.State;
 using GreenPipes;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic.Activities
 {
-    public class ConvertToUserComicActivity : Activity<CreateUserComicState, Comic>
+    public class ConvertToUserComicActivity : BaseActivity<CreateUserComicState, Comic>
     {
-        public void Probe(ProbeContext context)
+        public override void Probe(ProbeContext context)
         {
             context.CreateScope("convertToUserComic");
         }
 
-        public void Accept(StateMachineVisitor visitor)
-        {
-        }
-
-        public Task Execute(
+        public override Task Execute(
             BehaviorContext<CreateUserComicState, Comic> context, 
             Behavior<CreateUserComicState, Comic> next)
         {
@@ -31,13 +28,6 @@ namespace ComicEngine.Api.UserComics.CreateUserComic.Activities
             };
             
             return next.Execute(context);
-        }
-
-        public Task Faulted<TException>(
-            BehaviorExceptionContext<CreateUserComicState, Comic, TException> context,
-            Behavior<CreateUserComicState, Comic> next) where TException : Exception
-        {
-            return next.Faulted(context);
         }
     }
 }

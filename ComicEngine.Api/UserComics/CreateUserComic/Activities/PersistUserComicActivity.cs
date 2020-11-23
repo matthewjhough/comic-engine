@@ -2,22 +2,19 @@ using System;
 using System.Threading.Tasks;
 using Automatonymous;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
+using ComicEngine.State;
 using GreenPipes;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic.Activities
 {
-    public class PersistUserComicActivity : Activity<CreateUserComicState, IUserComicsRepository>
+    public class PersistUserComicActivity : BaseActivity<CreateUserComicState, IUserComicsRepository>
     {
-        public void Probe(ProbeContext context)
+        public override void Probe(ProbeContext context)
         {
             context.CreateScope("persistUserComic");
         }
 
-        public void Accept(StateMachineVisitor visitor)
-        {
-        }
-
-        public async Task Execute(
+        public override async Task Execute(
             BehaviorContext<CreateUserComicState, IUserComicsRepository> context, 
             Behavior<CreateUserComicState, IUserComicsRepository> next)
         {
@@ -26,13 +23,6 @@ namespace ComicEngine.Api.UserComics.CreateUserComic.Activities
             await context.Data.CreateUserComic(
                 context.Instance.ResultUserComic,
                 context.Instance.InputSubject);
-        }
-
-        public Task Faulted<TException>(
-            BehaviorExceptionContext<CreateUserComicState, IUserComicsRepository, TException> context,
-            Behavior<CreateUserComicState, IUserComicsRepository> next) where TException : Exception
-        {
-            return next.Faulted(context);
         }
     }
 }

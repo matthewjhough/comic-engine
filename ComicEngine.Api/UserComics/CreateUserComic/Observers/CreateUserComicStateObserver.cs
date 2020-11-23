@@ -1,21 +1,9 @@
-using System;
-using System.Threading.Tasks;
-using Automatonymous;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
-using GreenPipes.Util;
+using ComicEngine.State;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic.Observers
 {
-    public class CreateUserComicStateObserver :
-        StateObserver<CreateUserComicState>
+    public class CreateUserComicStateObserver : BaseStateObserver<CreateUserComicState>
     {
-        public Task StateChanged(InstanceContext<CreateUserComicState> context, State currentState, State previousState)
-        {
-            string previous = previousState != null ? previousState.Name : "null";
-            string current = currentState.Name;
-            Console.WriteLine($"=>State Transition from '{previous}' to '{current}'");
-
-            return TaskUtil.Completed;
-        }
     }
 }

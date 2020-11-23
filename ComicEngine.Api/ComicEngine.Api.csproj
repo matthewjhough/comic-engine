@@ -11,10 +11,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="$(MicrosoftIdentityServerVersion)" />
     <PackageReference Include="Newtonsoft.Json" Version="$(NewtonSoftVersion)" />
-    <PackageReference Include="Automatonymous" Version="$(AutomatonymousVersion)" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ComicEngine.State\ComicEngine.State.csproj" />
     <ProjectReference Include="..\ComicEngine.Api.Client\ComicEngine.Api.Client.csproj" />
     <ProjectReference Include="..\ComicEngine.Data.MongoDb\ComicEngine.Data.MongoDb.csproj" />
     <ProjectReference Include="..\ComicEngine.Identity.Client\ComicEngine.Identity.Client.csproj" />
