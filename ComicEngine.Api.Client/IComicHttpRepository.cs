@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 
 namespace ComicEngine.Api.Client {
     public interface IComicHttpRepository {
@@ -21,8 +22,8 @@ namespace ComicEngine.Api.Client {
             string title, string issueNumber
         );
 
-        Task<IEnumerable<Comic>> RequestAllUserComics (string userId);
+        Task<IEnumerable<UserComic>> RequestAllUserComics (string userId);
 
-        Task<Comic> SaveComicToApi (Comic comic, string userId);
+        Task<UserComic> SaveComicToApi (Comic comic, string userId);
     }
 }

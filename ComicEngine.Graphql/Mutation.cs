@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,7 @@ namespace ComicEngine.Graphql {
                 throw new System.ArgumentNullException (nameof (comicHttpApiService));
         }
 
-        public async Task<Comic> CreateUserComic (IResolverContext context)
+        public async Task<UserComic> CreateUserComic (IResolverContext context)
         {
             Comic comicInput = context.Argument<Comic> ("comic");
             string userId = context.Argument<string> ("userId");
@@ -28,7 +29,7 @@ namespace ComicEngine.Graphql {
 
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            Comic response = await _comicHttpApiService.SaveComicToApi (comicInput, userId);
+            UserComic response = await _comicHttpApiService.SaveComicToApi (comicInput, userId);
 
             if (response is null)
             {

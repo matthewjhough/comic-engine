@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Common;
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -34,13 +36,49 @@ namespace ComicEngine.Api.Client {
         /// Retrieves all comics associated with a user.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Comic>> RequestAllUserComics (string userId) {
-            string fullUrl = $"{EndpointsV1.UserComicsEndpointBase}/{userId}";
+        public async Task<IEnumerable<UserComic>> RequestAllUserComics (string userId) {
+            var fullUrl = $"{_comicApiClientConfig.ComicHttpClientUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
+            
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
             
-            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor, _tokenClientSettings);
+            var client = new HttpRequestClientBuilder<object>()
+                .WithRequestMethod(HttpMethod.Get)
+                .WithAbsoluteUrl(fullUrl)
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
+                .Build();
             
-            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (fullUrl);
+            var response = await client.Send();
+            var comicResponse = response as IEnumerable<UserComic>;
+
+            Logger.LogDebug ("Response returned: {response}", comicResponse);
+
+            return comicResponse;
+        }
+        
+        /// <summary>
+        /// Saves a <see cref="Comic"/> to the users saved comics.
+        /// </summary>
+        /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
+        /// <param name="userId">The id or subject of the user making the request.</param>
+        /// <returns><see cref="Comic"/></returns>
+        public async Task<UserComic> SaveComicToApi (Comic comic, string userId) {
+            
+            var fullUrl = $"{_comicApiClientConfig.ComicHttpClientUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
+            
+            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            
+            var client = new HttpRequestClientBuilder<object>()
+                .WithAbsoluteUrl(fullUrl)
+                .WithRequestBody(comic)
+                .WithRequestMethod(HttpMethod.Post)
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
+                .Build();
+            
+            var response = await client.Send();
+            var comicResponse = response as UserComic;
+
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return comicResponse;
@@ -77,26 +115,6 @@ namespace ComicEngine.Api.Client {
             var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor, _tokenClientSettings);
             Logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
             var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);
-            Logger.LogDebug ("Response returned: {response}", comicResponse);
-
-            return comicResponse;
-        }
-
-        /// <summary>
-        /// Saves a <see cref="Comic"/> to the users saved comics.
-        /// </summary>
-        /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
-        /// <param name="userId">The id or subject of the user making the request.</param>
-        /// <returns><see cref="Comic"/></returns>
-        public async Task<Comic> SaveComicToApi (Comic comic, string userId) {
-            
-            var apiClient = new ComicHttpClient (_comicApiClientConfig, _httpContextAccessor, _tokenClientSettings);
-            var fullUrl = $"{apiClient.ComicEngineApiUri}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
-            
-            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
-            
-            var comicResponse = await apiClient.PostToApiWithBody(fullUrl, comic);
-
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 
             return comicResponse;

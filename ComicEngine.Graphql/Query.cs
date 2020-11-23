@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Common;
 using ComicEngine.Common.Comics;
+using ComicEngine.Common.UserComics;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Graphql {
@@ -42,11 +43,11 @@ namespace ComicEngine.Graphql {
             return comicsByTitleAndIssueNumber;
         }
 
-        public async Task<IEnumerable<Comic>> UserComics (string userId)
+        public async Task<IEnumerable<UserComic>> UserComics (string userId)
         {
             _logger.LogDebug("Retrieving saved comics for user '{userId}'", userId);
-            IEnumerable<Comic> response = await _comicHttpRepository.RequestAllUserComics (userId);
-            var savedComics = response as Comic[] ?? response.ToArray();
+            IEnumerable<UserComic> response = await _comicHttpRepository.RequestAllUserComics (userId);
+            var savedComics = response as UserComic[] ?? response.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 
                 savedComics.Count(), 
