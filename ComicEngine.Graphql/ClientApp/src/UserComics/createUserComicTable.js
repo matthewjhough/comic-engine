@@ -24,7 +24,7 @@ export function createUserComicHeaders(data) {
     
     return [id_field, thumbnail_field]
         .concat(Object
-        .keys(data)
+        .keys(data.comic)
         .filter(keyNotEqualToConstants)
         .concat([description_field]));
 }
@@ -33,7 +33,7 @@ export function handleImageValue(url, row, rowIndex) {
     return (
         <img key={`img-row-${rowIndex}`} className={styles.comicResultImage}
              src={url}
-             alt={`${row.title} thumbnail`}
+             alt={`${row.comic.title} thumbnail`}
         />
     );
 }
@@ -46,9 +46,9 @@ export function createUserComicBody(headers, data) {
     return data.map((row, rowIndex) => 
         headers.map(heading => {
             if (heading === thumbnail_field) {
-                return handleImageValue(row[heading], row, rowIndex);
+                return handleImageValue(row.comic[heading], row, rowIndex);
             }
             
-            return row[heading];
+            return row.comic[heading];
         }));
 }

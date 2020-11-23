@@ -27,7 +27,7 @@ namespace ComicEngine.Api.UserComics.CreateUserComic
 
             During(CreatingUserComic, 
             When(CreateAndAddUserComic)
-                .ExecuteAsync(async context => new PersistUserComicActivity())
+                .Execute(context => new PersistUserComicActivity())
                 .TransitionTo(Completed)
             );
         }

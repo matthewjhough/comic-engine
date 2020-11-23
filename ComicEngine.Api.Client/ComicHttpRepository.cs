@@ -7,6 +7,7 @@ using ComicEngine.Common.UserComics;
 using ComicEngine.Identity.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ComicEngine.Api.Client {
     //TODO: Make requests to server in here instead of the client, add builder for this repo.
@@ -49,7 +50,9 @@ namespace ComicEngine.Api.Client {
                 .Build();
             
             var response = await client.Send();
-            var comicResponse = response as IEnumerable<UserComic>;
+            var comicResponseString = response.ToString();
+            var comicResponse = JsonConvert
+                .DeserializeObject<IEnumerable<UserComic>>(comicResponseString);
 
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 
@@ -76,8 +79,8 @@ namespace ComicEngine.Api.Client {
                 .WithTokenClientSettings(_tokenClientSettings)
                 .Build();
             
-            var response = await client.Send();
-            var comicResponse = response as UserComic;
+            object response = await client.Send();
+            var comicResponse = JsonConvert.DeserializeObject<UserComic>(response.ToString());
 
             Logger.LogDebug ("Response returned: {response}", comicResponse);
 

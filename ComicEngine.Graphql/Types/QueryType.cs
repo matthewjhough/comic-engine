@@ -29,7 +29,7 @@ namespace ComicEngine.Graphql.Types {
 
             descriptor
                 .Field (t => t.UserComics (default))
-                .Type<ListType<ComicType>> ()
+                .Type<ListType<UserComicType>> ()
                 .Use (next => async context =>
                 {
                     try {

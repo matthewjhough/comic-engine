@@ -20,6 +20,7 @@ export function UserComics({
     };
   }, [clearResults, getUserComics, toggleLoading]);
 
+  console.log("UserComics 'results': ", results);
   // TODO: do this logic on change, not on render
   const firstResultOrDefault = getOrDefault(results, "0", []);
   const headers = createUserComicHeaders(firstResultOrDefault);

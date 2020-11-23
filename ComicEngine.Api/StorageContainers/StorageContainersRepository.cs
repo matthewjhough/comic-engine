@@ -1,6 +1,8 @@
+using ComicEngine.Data;
+
 namespace ComicEngine.Api.StorageContainers
 {
-    public class StorageContainersRepository
+    public class StorageContainersRepository : IDataRepository
     {
         
     }
