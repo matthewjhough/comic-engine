@@ -19,6 +19,8 @@ export function UserComics({
       clearResults();
     };
   }, [clearResults, getUserComics, toggleLoading]);
+  
+  const getUserComicValue = (index, results) => results[index];
 
   console.log("UserComics 'results': ", results);
   // TODO: do this logic on change, not on render
@@ -31,7 +33,12 @@ export function UserComics({
   return (
     <AbstractContentWrapper>
       <AbstractFlexContainer isColumn>
-        <AbstractTable headers={headers} body={body} />
+        <AbstractTable 
+            headers={headers} 
+            body={body} 
+            deleteBadge={true} 
+            badgeHandler={(rowValues, index) => console.log(getUserComicValue(index, results))} 
+        />
       </AbstractFlexContainer>
     </AbstractContentWrapper>
   );

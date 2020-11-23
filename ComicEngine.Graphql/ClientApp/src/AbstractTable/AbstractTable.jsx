@@ -1,7 +1,7 @@
 import React from "react";
-import { Table } from "reactstrap";
+import { Table, Badge } from "reactstrap";
 
-export function AbstractTable({ headers, body }) {
+export function AbstractTable({ headers, body, deleteBadge, badgeHandler }) {
     return (
         <Table bordered hover dark responsive>
             <thead>
@@ -14,7 +14,13 @@ export function AbstractTable({ headers, body }) {
             {body.map(((rowValues, index) => (
                 <tr key={index}>
                     <th scope="row">
-                        {index + 1}
+                        {(index + 1)}
+                        {deleteBadge && (
+                            <Badge
+                                style={{ cursor: "pointer" }}
+                                onClick={() => badgeHandler && badgeHandler(rowValues, index)}
+                                color="danger">Delete</Badge>
+                        )}
                     </th>
                     {rowValues.map((value, valueIndex) => (
                         <td key={`${index}-${value}-${valueIndex}`}>{value}</td>

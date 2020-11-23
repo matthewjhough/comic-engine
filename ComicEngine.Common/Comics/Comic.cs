@@ -9,7 +9,7 @@ namespace ComicEngine.Common.Comics {
         public int StorageId { get; set; }
 
         [ForeignKey ("PersistedComic")]
-        public int PersistedComicId { get; set; }
+        public string PersistedComicId { get; set; }
 
         public int Id { get; set; }
 

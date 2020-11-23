@@ -4,11 +4,13 @@ import React from "react";
 const id_field = "id";
 const description_field = "description";
 const thumbnail_field = "thumbnail";
+const persisted_comic_id = "persistedComicId";
 
 const keyNotEqualToConstants = (key) =>
     (key !== id_field) && 
     (key !== description_field) &&
-    (key !== thumbnail_field);
+    (key !== thumbnail_field) &&
+    (key !== persisted_comic_id);
 
 /**
  * Takes the comic result objects, and creates an array in the desired order.
