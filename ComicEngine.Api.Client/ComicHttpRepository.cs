@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ComicEngine.Common;
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
 using ComicEngine.Identity.Client;
+using ComicEngine.Shared;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.UserComics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

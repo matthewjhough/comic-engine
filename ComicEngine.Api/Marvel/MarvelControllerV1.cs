@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Api.Commands.Marvels;
-using ComicEngine.Common.Comics;
+using ComicEngine.Shared.Comics;
 using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

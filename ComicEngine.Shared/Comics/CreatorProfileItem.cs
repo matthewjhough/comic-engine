@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using HotChocolate;
 
-namespace ComicEngine.Common.Comics {
+namespace ComicEngine.Shared.Comics {
     [Table ("CreatorProfileItems")]
     public class CreatorProfileItem : ProfileItem {
         [GraphQLIgnore]

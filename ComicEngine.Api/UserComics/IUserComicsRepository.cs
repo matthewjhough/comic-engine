@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
 using ComicEngine.Data;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.UserComics {
     public interface IUserComicsRepository : IDataRepository {

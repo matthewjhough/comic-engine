@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
     <ProjectReference Include="../ComicEngine.Data/ComicEngine.Data.csproj" />
+    <ProjectReference Include="..\ComicEngine.Shared\ComicEngine.Shared.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 using Automatonymous;
 using ComicEngine.Api.UserComics.CreateUserComic.Activities;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
-using ComicEngine.Common.Comics;
+using ComicEngine.Shared.Comics;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic
 {

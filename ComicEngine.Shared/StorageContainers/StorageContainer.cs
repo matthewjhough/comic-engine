@@ -1,4 +1,4 @@
-namespace ComicEngine.Common.StorageContainers
+namespace ComicEngine.Shared.StorageContainers
 {
     public class StorageContainer
     {

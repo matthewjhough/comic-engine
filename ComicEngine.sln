@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Common", "ComicEngine.Common\ComicEngine.Common.csproj", "{D4BF3569-8E27-473D-BDFA-1B0BB253D18F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Shared", "ComicEngine.Shared\ComicEngine.Shared.csproj", "{D4BF3569-8E27-473D-BDFA-1B0BB253D18F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicEngine.Data", "ComicEngine.Data\ComicEngine.Data.csproj", "{22631776-9E63-44F1-B482-8069403F6296}"
 EndProject

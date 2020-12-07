@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Common.UserComics;
 using ComicEngine.Data.UserComics;
+using ComicEngine.Shared.UserComics;
 using MongoDB.Driver;
 
 namespace ComicEngine.Data.MongoDb.UserComics
@@ -40,7 +40,13 @@ namespace ComicEngine.Data.MongoDb.UserComics
                 .ToList()
                 .Where(persistedComic =>
                     string.Equals(persistedComic.UserComic.UserId, subject))
-                .Select(persistedComic => persistedComic.UserComic);
+                .Select(persistedComic =>
+                {
+                    var userComic = persistedComic.UserComic;
+                    userComic.Comic.PersistedComicId = persistedComic.Id;
+
+                    return userComic;
+                });
             
             return comics;
         }

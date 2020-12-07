@@ -1,7 +1,7 @@
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.StorageContainers;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 
-namespace ComicEngine.Common.UserComics
+namespace ComicEngine.Shared.UserComics
 {
     public class UserComic
     {

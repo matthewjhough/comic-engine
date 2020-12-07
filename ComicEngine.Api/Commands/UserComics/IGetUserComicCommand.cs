@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.Commands.UserComics {
     public interface IGetUserComicCommand {

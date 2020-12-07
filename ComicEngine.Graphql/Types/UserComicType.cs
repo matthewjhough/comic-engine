@@ -1,4 +1,4 @@
-using ComicEngine.Common.UserComics;
+using ComicEngine.Shared.UserComics;
 using HotChocolate.Types;
 
 namespace ComicEngine.Graphql.Types

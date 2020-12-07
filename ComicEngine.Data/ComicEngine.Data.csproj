@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="../ComicEngine.Common/ComicEngine.Common.csproj" />
+    <ProjectReference Include="..\ComicEngine.Shared\ComicEngine.Shared.csproj" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Api.UserComics;
 using ComicEngine.Api.UserComics.CreateUserComic;
-using ComicEngine.Common;
 using ComicEngine.Data.MongoDb.UserComics;
 using ComicEngine.Data.UserComics;
+using ComicEngine.Shared;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

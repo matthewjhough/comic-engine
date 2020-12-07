@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ComicEngine.Common.Comics {
+namespace ComicEngine.Shared.Comics {
     [Table ("ComicPrice")]
     public class ComicPrice {
         [Key]

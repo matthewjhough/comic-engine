@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using HotChocolate;
 
-namespace ComicEngine.Common.Comics {
+namespace ComicEngine.Shared.Comics {
     public abstract class ProfileItem {
         [Key]
         public int Id { get; set; }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HotChocolate;
 
-namespace ComicEngine.Common.Comics {
+namespace ComicEngine.Shared.Comics {
     [Table ("ComicImageResources")]
     public class ComicImageResource {
         [Key]

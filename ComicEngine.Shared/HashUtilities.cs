@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ComicEngine.Common {
+namespace ComicEngine.Shared {
     public class HashUtilities {
 
         /// <summary>

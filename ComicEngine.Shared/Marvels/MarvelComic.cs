@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ComicEngine.Common.Comics;
+using ComicEngine.Shared.Comics;
 
-namespace ComicEngine.Common.Marvels {
+namespace ComicEngine.Shared.Marvels {
     public class MarvelComic {
 
         /// <summary>

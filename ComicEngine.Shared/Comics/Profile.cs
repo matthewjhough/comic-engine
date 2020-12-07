@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ComicEngine.Common.Comics {
+namespace ComicEngine.Shared.Comics {
     public abstract class Profile {
         [Key]
         public int Id { get; set; }

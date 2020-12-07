@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using ComicEngine.Api.Initialization;
-using ComicEngine.Common;
+using ComicEngine.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -3,7 +3,7 @@ using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Api.Marvel;
 using ComicEngine.Api.UserComics;
 using ComicEngine.Api.UserComics.CreateUserComic;
-using ComicEngine.Common;
+using ComicEngine.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

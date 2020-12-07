@@ -3,8 +3,8 @@ using Automatonymous;
 using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Api.UserComics.CreateUserComic.Observers;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic
 {

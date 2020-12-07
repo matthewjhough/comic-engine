@@ -1,6 +1,5 @@
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
 using ComicEngine.Data;
+using ComicEngine.Shared.UserComics;
 using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.UserComics

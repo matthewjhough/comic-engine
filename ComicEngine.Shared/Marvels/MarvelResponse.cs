@@ -1,4 +1,4 @@
-﻿namespace ComicEngine.Common.Marvels {
+﻿namespace ComicEngine.Shared.Marvels {
     public class MarvelResponse {
 
         /// <summary>

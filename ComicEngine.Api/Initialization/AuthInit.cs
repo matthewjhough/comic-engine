@@ -1,5 +1,5 @@
-using ComicEngine.Common;
 using ComicEngine.Identity.Client;
+using ComicEngine.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,5 +1,5 @@
-using ComicEngine.Common.Comics;
-using ComicEngine.Common.UserComics;
+using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.UserComics;
 using ComicEngine.State;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic.States

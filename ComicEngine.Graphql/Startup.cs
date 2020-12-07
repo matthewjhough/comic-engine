@@ -1,8 +1,8 @@
 using System;
 using ComicEngine.Api.Client;
-using ComicEngine.Common;
 using ComicEngine.Graphql.Types;
 using ComicEngine.Identity.Client;
+using ComicEngine.Shared;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using IdentityServer4.Services;

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ComicEngine.Common.Comics;
+using ComicEngine.Shared.Comics;
 
 namespace ComicEngine.Data.MsSql.UserComics
 {

@@ -1,5 +1,5 @@
 using System;
-using ComicEngine.Common;
+using ComicEngine.Shared;
 using HotChocolate.Types;
 using Microsoft.Extensions.Logging;
 

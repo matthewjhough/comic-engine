@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ComicEngine.Common
+namespace ComicEngine.Shared
 {
     public interface IStartupInitialization
     {

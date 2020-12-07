@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using ComicEngine.Common;
-using ComicEngine.Common.Marvels;
 using ComicEngine.Identity.Client;
+using ComicEngine.Shared;
+using ComicEngine.Shared.Marvels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

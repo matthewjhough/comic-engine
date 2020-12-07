@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common.Comics;
+using ComicEngine.Shared.Comics;
 
 namespace ComicEngine.Api.Commands.Marvels {
     public interface IGetMarvelCommand {
