@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Common.StorageContainers;
+using ComicEngine.Shared.StorageContainers;
 
 namespace ComicEngine.Data.MongoDb.StorageContainers
 {

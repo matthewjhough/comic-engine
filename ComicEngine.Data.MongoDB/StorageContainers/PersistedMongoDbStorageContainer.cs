@@ -1,4 +1,4 @@
-using ComicEngine.Common.StorageContainers;
+using ComicEngine.Shared.StorageContainers;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 

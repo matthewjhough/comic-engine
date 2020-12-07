@@ -68,14 +68,9 @@ namespace ComicEngine.Graphql {
                     {
                         options.Authority = tokenClientSettings.Authority;
                         options.RequireHttpsMetadata = true;
-                        // options.TokenValidationParameters = new TokenValidationParameters
-                        // {
-                        //     ValidateAudience = false
-                        // };
                     });
             
-            services.AddSingleton<ComicHttpClient>()
-                .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IComicHttpRepository, ComicHttpRepository>(sp =>
                     new ComicHttpRepository(
                         Configuration

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -96,12 +97,35 @@ namespace ComicEngine.Api.Client {
             string upc
         ) {
             var parameters = $"upc={upc}";
-            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor, _tokenClientSettings);
-            Logger.LogDebug ("Making request to: {endpoint}, with parameters: {parameters}", EndpointsV1.MarvelComicsUpcEndpoint, parameters);
-            var comicResponse = await apiClient.RequestComicFromApi<Comic> (EndpointsV1.MarvelComicsUpcEndpoint, parameters);
-            Logger.LogDebug ("Response returned: {response}", comicResponse);
+            Logger.LogDebug (
+                "Making request to: {endpoint}, with parameters: {parameters}", 
+                EndpointsV1.MarvelComicsUpcEndpoint, parameters);
+            try
+            {
+                var absoluteUrl = $"{_comicApiClientConfig.ComicHttpClientUrl}/{_comicApiClientConfig.ComicHttpClientUrl}?{parameters}";
+                
+                Logger.LogDebug ("making request to {endpoint}", absoluteUrl);
+                
+                var client = new HttpRequestClientBuilder<Comic>()
+                    .WithRequestMethod(HttpMethod.Get)
+                    .WithAbsoluteUrl(absoluteUrl)
+                    .WithHttpContextAccessor(_httpContextAccessor)
+                    .WithTokenClientSettings(_tokenClientSettings)
+                    .Build();
 
-            return comicResponse;
+                var comics = await client.Send();
+                
+                Logger.LogDebug ("{endpoint} response: {response}", absoluteUrl, comics);
+
+                return comics;
+            }
+            catch (Exception e)
+            {
+                Logger.LogDebug(e, 
+                    "Exception thrown while trying to make request to {comicEngineUri}.", 
+                    _comicApiClientConfig.ComicHttpClientUrl);
+                throw;
+            }
         }
 
         /// <summary>
@@ -115,12 +139,34 @@ namespace ComicEngine.Api.Client {
         ) {
             var endpoint = $"{EndpointsV1.MarvelComicsSearchEndpoint}";
             var parameters = $"title={title}&issueNumber={issueNumber}";
-            var apiClient = new ComicHttpClient(_comicApiClientConfig, _httpContextAccessor, _tokenClientSettings);
-            Logger.LogDebug ("Making request to: {endpoint} with parameters: {parameters}", endpoint, parameters);
-            var comicResponse = await apiClient.RequestComicFromApi<IEnumerable<Comic>> (endpoint, parameters);
-            Logger.LogDebug ("Response returned: {response}", comicResponse);
+            Logger.LogDebug (
+                "Making request to: {endpoint} with parameters: {parameters}", 
+                endpoint, 
+                parameters);
+            
+            try
+            {
+                var absoluteUrl = $"{_comicApiClientConfig.ComicHttpClientUrl}/{endpoint}?{parameters}";
+                Logger.LogDebug ("making request to {endpoint}", absoluteUrl);
+                var client = new HttpRequestClientBuilder<IEnumerable<Comic>>()
+                    .WithRequestMethod(HttpMethod.Get)
+                    .WithAbsoluteUrl(absoluteUrl)
+                    .WithHttpContextAccessor(_httpContextAccessor)
+                    .WithTokenClientSettings(_tokenClientSettings)
+                    .Build();
 
-            return comicResponse;
+                var comics = await client.Send();
+                Logger.LogDebug ("{endpoint} response: {response}", absoluteUrl, comics);
+
+                return comics;
+            }
+            catch (Exception e)
+            {
+                Logger.LogDebug(e, 
+                    "Exception thrown while trying to make request to {comicEngineUri}.", 
+                    _comicApiClientConfig.ComicHttpClientUrl);
+                throw;
+            }
         }
     }
 }
