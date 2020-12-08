@@ -43,7 +43,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
                 .Select(persistedComic =>
                 {
                     var userComic = persistedComic.UserComic;
-                    userComic.Comic.PersistedComicId = persistedComic.Id;
+                    userComic.Id = persistedComic.Id;
 
                     return userComic;
                 });
@@ -51,9 +51,11 @@ namespace ComicEngine.Data.MongoDb.UserComics
             return comics;
         }
         
-        public Task<bool> Delete(string resourceId)
+        public async Task<bool> Delete(string resourceId)
         {
-            throw new System.NotImplementedException();
+            var deleteResult = await _userComics.DeleteOneAsync(comic => comic.Id == resourceId);
+
+            return deleteResult.IsAcknowledged;
         }
 
         public Task<UserComic> Update(string resourceId, UserComic resource)
@@ -69,10 +71,10 @@ namespace ComicEngine.Data.MongoDb.UserComics
 
         // public void Update(int id, Comic comicIn) =>
         //     _userComics.ReplaceOne(comic => comic.Id == id, comicIn);
-        //
-        // public void Remove(Comic comicIn) =>
+
+        // public void Remove(UserComic comicIn) =>
         //     _userComics.DeleteOne(comic => comic.Id == comicIn.Id);
-        //
+        
         // public void Remove(int id) => 
         //     _userComics.DeleteOne(comic => comic.Id == id);
     }

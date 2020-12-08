@@ -5,12 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ComicEngine.Shared.Comics {
     [Table ("Comics")]
     public class Comic {
-        [Key]
-        public int StorageId { get; set; }
-
-        [ForeignKey ("PersistedComic")]
-        public string PersistedComicId { get; set; }
-
         public int Id { get; set; }
 
         public string Copyright { get; set; }

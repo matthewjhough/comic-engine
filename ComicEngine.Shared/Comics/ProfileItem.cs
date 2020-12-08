@@ -6,9 +6,6 @@ namespace ComicEngine.Shared.Comics {
         [Key]
         public int Id { get; set; }
 
-        [GraphQLIgnore]
-        public int ComicStorageId { get; set; }
-
         public string ResourceUri { get; set; }
 
         public string Name { get; set; }

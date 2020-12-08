@@ -14,17 +14,20 @@ namespace ComicEngine.Api.UserComics {
     [ApiController]
     [Authorize]
     public class UserComicsV1Controller : ControllerBase {
-        private readonly ICreateUserComicCommand _createCommand;
-        private readonly IGetUserComicCommand _getCommand;
+        private readonly ICreateUserComicCommand _createUserComicCommand;
+        private readonly IGetUserComicCommand _getUserComicCommand;
+        private readonly IDeleteUserComicCommand _deleteUserComicCommand;
         private readonly ILogger _logger;
 
         public UserComicsV1Controller (
-            ICreateUserComicCommand createUserComicsCommand,
-            IGetUserComicCommand getUserComicsCommand,
+            ICreateUserComicCommand createUserComicUserComicsCommand,
+            IGetUserComicCommand getUserComicUserComicsCommand,
+            IDeleteUserComicCommand deleteUserComicCommand,
             ILogger<UserComicsV1Controller> logger
         ) {
-            _createCommand = createUserComicsCommand;
-            _getCommand = getUserComicsCommand;
+            _createUserComicCommand = createUserComicUserComicsCommand;
+            _getUserComicCommand = getUserComicUserComicsCommand;
+            _deleteUserComicCommand = deleteUserComicCommand;
             _logger = logger;
         }
 
@@ -38,7 +41,7 @@ namespace ComicEngine.Api.UserComics {
             _logger.LogDebug ("**** Comic from body title: {title} ****", comic.Title);
             
             // Todo: add logging/exception handling
-            var userComic = await _createCommand.CreateUserComicAsync (comic, userId);
+            var userComic = await _createUserComicCommand.CreateUserComicAsync (comic, userId);
 
             return userComic;
         }
@@ -48,9 +51,8 @@ namespace ComicEngine.Api.UserComics {
         public async Task<IEnumerable<UserComic>> Get ([FromRoute] string userId)
         {
             _logger.LogDebug("Retrieving comics for user '{userId}'", userId);
-            var test = HttpContext;
             // Todo: add logging / exception handling
-            var comicList = await _getCommand.GetUserComics (userId);
+            var comicList = await _getUserComicCommand.GetUserComics (userId);
             var comicEnumeration = comicList as UserComic[] ?? comicList.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 
@@ -58,6 +60,15 @@ namespace ComicEngine.Api.UserComics {
                 userId);
             
             return comicEnumeration;
+        }
+
+        [Authorize]
+        [HttpDelete(EndpointsV1.UserComicsDeleteEndpoint)]
+        public async Task<bool> Delete([FromRoute] string userId, string userComicId)
+        {
+            var isUserComicDeleted = await _deleteUserComicCommand.DeleteUserComic(userComicId, userId);
+            
+            return isUserComicDeleted;
         }
     }
 }

@@ -47,13 +47,13 @@ namespace ComicEngine.Graphql {
         {
             _logger.LogDebug("Retrieving saved comics for user '{userId}'", userId);
             IEnumerable<UserComic> response = await _comicHttpRepository.RequestAllUserComics (userId);
-            var savedComics = response as UserComic[] ?? response.ToArray();
+            var userComics = response as UserComic[] ?? response.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 
-                savedComics.Count(), 
+                userComics.Count(), 
                 userId);
 
-            return savedComics;
+            return userComics;
         }
     }
 }

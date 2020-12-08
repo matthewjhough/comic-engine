@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace ComicEngine.Graphql.Types {
     public class MutationType : ObjectType<Mutation> {
 
-        private static ILogger _logger = ApplicationLogging.CreateLogger (nameof (MutationType));
+        private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (MutationType));
 
         protected override void Configure (IObjectTypeDescriptor<Mutation> descriptor) {
             descriptor
@@ -17,16 +17,36 @@ namespace ComicEngine.Graphql.Types {
                 // Move this out to reusable middleware for error reporting
                 .Use (next => async context => {
                     // try and move on through context
-                    _logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
+                    Logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
                     try {
                         // Log here
                         await next (context);
                     } catch (Exception ex) {
-                        _logger.LogError (ex, "An error occured while exceuting {mutationName}", context.Field.Name);
+                        Logger.LogError (ex, "An error occured while executing {mutationName}", context.Field.Name);
                         context.ReportError (ex.Message);
                         throw;
                     }
                 });
+
+            descriptor
+                .Field(t => t.DeleteUserComic(default))
+                .Type<BooleanType>()
+                .Argument("userComicId", arg => arg.Type<NonNullType<StringType>>())
+                .Argument("userId", a => a.Type<NonNullType<StringType>>())
+                // Move this out to reusable middleware for error reporting
+                .Use (next => async context => {
+                    // try and move on through context
+                    Logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
+                    try {
+                        // Log here
+                        await next (context);
+                    } catch (Exception ex) {
+                        Logger.LogError (ex, "An error occured while executing {mutationName}", context.Field.Name);
+                        context.ReportError (ex.Message);
+                        throw;
+                    }
+                })
+                ;
         }
     }
 }

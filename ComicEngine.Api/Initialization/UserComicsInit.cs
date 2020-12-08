@@ -37,7 +37,9 @@ namespace ComicEngine.Api.Initialization
                 .AddSingleton<ICreateUserComicCommand>(sp =>
                     new CreateUserComicCommandBuilder()
                         .WithUserComicsRepository(sp.GetRequiredService<IUserComicsRepository>())
-                        .Build());
+                        .Build())
+                .AddSingleton<IDeleteUserComicCommand, UserComicCommands>(sp => 
+                    new UserComicCommands(sp.GetRequiredService<IUserComicsRepository>()));
         }
     }
 }

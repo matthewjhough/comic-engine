@@ -15,8 +15,6 @@ namespace ComicEngine.Api.UserComics {
 
         public async Task<UserComic> CreateUserComic (UserComic comic, string subject)
         {
-            // Logger.LogDebug("Adding comic with id: '{comicId}' for user: '{userId}'",
-            //     comic.Id, subject);
             await ComicStorageClient.Create(comic, subject);
 
             return comic;
@@ -24,7 +22,13 @@ namespace ComicEngine.Api.UserComics {
 
         public async Task<IEnumerable<UserComic>> GetUserComics (string subject) {
             var userComics = await ComicStorageClient.Get(subject);
+            
             return userComics;
+        }
+
+        public async Task<bool> DeleteUserComic(string userComicId, string subject)
+        {
+            return await ComicStorageClient.Delete(userComicId);
         }
     }
 }

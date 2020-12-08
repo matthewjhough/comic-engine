@@ -7,7 +7,8 @@ import {createUserComicBody, createUserComicHeaders} from "./createUserComicTabl
 
 export function UserComics({ 
      toggleLoading, 
-     getUserComics, 
+     getUserComics,
+     deleteUserComic,
      clearResults,
      results,
   }) {
@@ -37,7 +38,11 @@ export function UserComics({
             headers={headers} 
             body={body} 
             deleteBadge={true} 
-            badgeHandler={(rowValues, index) => console.log(getUserComicValue(index, results))} 
+            badgeHandler={(rowValues, index) => {
+                const selectedUserComic = getUserComicValue(index, results);
+                
+                deleteUserComic(selectedUserComic);
+            }} 
         />
       </AbstractFlexContainer>
     </AbstractContentWrapper>

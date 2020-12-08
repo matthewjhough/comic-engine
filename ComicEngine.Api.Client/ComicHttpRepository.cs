@@ -87,6 +87,27 @@ namespace ComicEngine.Api.Client {
 
             return comicResponse;
         }
+        
+        /// <summary>
+        /// Implements <see cref="IComicHttpRepository.DeleteUserComic"/>
+        /// </summary>
+        public async Task<bool> DeleteUserComic(string userComicId, string userId)
+        {
+            var fullUrl = $"{_comicApiClientConfig.ComicHttpClientUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}/comic/{userComicId}";
+            
+            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            
+            var client = new HttpRequestClientBuilder<bool>()
+                .WithAbsoluteUrl(fullUrl)
+                .WithRequestMethod(HttpMethod.Delete)
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
+                .Build();
+            
+            var isComicDeleted = await client.Send();
+            
+            return isComicDeleted;
+        }
 
         /// <summary>
         /// Sends UPC barcode value to marvel api, and returns matching comic.
@@ -168,5 +189,6 @@ namespace ComicEngine.Api.Client {
                 throw;
             }
         }
+
     }
 }

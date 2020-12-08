@@ -1,10 +1,10 @@
 export const getUserComicsQuery = `
 query userComics($userId: String!) {
     userComics(userId: $userId) {
+        id
         userId
         comic {
             id
-            persistedComicId
             title
             copyright
             thumbnail

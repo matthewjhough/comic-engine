@@ -3,7 +3,8 @@ import { makeGraphqlRequest } from '../graphqlClient/graphqlClient';
 import { setResults, toggleLoading } from '../ComicResults/comicResultsActions';
 import { getUserComicsQuery } from './getUserComicsQuery';
 import { createUserComicMutation } from './createUserComicMutation';
-import {comicEngineUserManager} from "../Authorization/ComicEngineUserManager";
+import { deleteUserComicMutation } from "./deleteUserComicMutation";
+import { comicEngineUserManager } from "../Authorization/ComicEngineUserManager";
 
 export function getUserComics() {
   return function(dispatch) {
@@ -75,4 +76,46 @@ export function createUserComic(selectedComic) {
             });
     });
   };
+}
+
+export function deleteUserComic(userComic) {
+    return function(dispatch) {
+        return comicEngineUserManager.getUser().then(user => {
+            console.log("userComicsActions:: Current user subject: ", user.profile.sub);
+            dispatch(toggleLoading(true));
+            console.log("userComicsActions:: Deleting user comic: ", userComic)
+
+            return makeGraphqlRequest(deleteUserComicMutation, {
+                userId: user.profile.sub,
+                userComicId: userComic.id
+            })
+                .then(res => res.json())
+                .then(json => {
+                    console.log("userComicsActions:: JSON returned from comic deletion: ", json);
+                    
+                    if (json && json.errors) {
+                        console.error("userComicsActions:: List of errors from response: ", json.errors);
+                        throw "Something went wrong.";
+                    }
+                    
+                    if (json.data && !json.data.deleteUserComic) {
+                        NotificationManager.error(
+                            'Delete failed.',
+                            `${userComic.title} was not removed from My Comics`
+                        );
+                        throw "Unable to delete comic";
+                    }
+
+
+                    console.log('userComicsActions:: Comic removed from database.', userComic);
+                    NotificationManager.success(
+                        'Removed',
+                        `${userComic.comic.title} removed from My Comics`
+                    );
+                    
+                    return json;
+                })
+                .then(() => dispatch(getUserComics()));
+        })
+    }
 }

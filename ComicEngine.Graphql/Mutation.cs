@@ -9,12 +9,12 @@ namespace ComicEngine.Graphql {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private readonly IComicHttpRepository _comicHttpApiService;
+        private readonly IComicHttpRepository _comicApiRepository;
 
         public Mutation (ILogger<Mutation> logger, IComicHttpRepository comicHttpApiService) {
             _logger = logger ??
                 throw new System.ArgumentNullException (nameof (logger));
-            _comicHttpApiService = comicHttpApiService ??
+            _comicApiRepository = comicHttpApiService ??
                 throw new System.ArgumentNullException (nameof (comicHttpApiService));
         }
 
@@ -29,7 +29,7 @@ namespace ComicEngine.Graphql {
 
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            UserComic response = await _comicHttpApiService.SaveComicToApi (comicInput, userId);
+            UserComic response = await _comicApiRepository.SaveComicToApi (comicInput, userId);
 
             if (response is null)
             {
@@ -37,6 +37,15 @@ namespace ComicEngine.Graphql {
             }
 
             return response;
+        }
+
+        public async Task<bool> DeleteUserComic(IResolverContext context)
+        { 
+            string userComicId = context.Argument<string>("userComicId");
+            string userId = context.Argument<string>("userId");
+            bool isDeleted = await _comicApiRepository.DeleteUserComic(userComicId, userId);
+            
+            return isDeleted;
         }
     }
 }

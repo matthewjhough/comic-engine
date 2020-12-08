@@ -5,12 +5,14 @@ const id_field = "id";
 const description_field = "description";
 const thumbnail_field = "thumbnail";
 const persisted_comic_id = "persistedComicId";
+const storage_id = "storageId";
 
 const keyNotEqualToConstants = (key) =>
     (key !== id_field) && 
     (key !== description_field) &&
     (key !== thumbnail_field) &&
-    (key !== persisted_comic_id);
+    (key !== persisted_comic_id)&&
+    (key !== storage_id);
 
 /**
  * Takes the comic result objects, and creates an array in the desired order.
@@ -33,7 +35,9 @@ export function createUserComicHeaders(data) {
 
 export function handleImageValue(url, row, rowIndex) {
     return (
-        <img key={`img-row-${rowIndex}`} className={styles.comicResultImage}
+        <img key={`img-row-${rowIndex}`} 
+             style={{ maxWidth: "150px" }}
+             className={styles.comicResultImage}
              src={url}
              alt={`${row.comic.title} thumbnail`}
         />
