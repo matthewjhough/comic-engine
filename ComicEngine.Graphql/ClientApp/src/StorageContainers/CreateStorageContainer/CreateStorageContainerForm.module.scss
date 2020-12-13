@@ -1,0 +1,14 @@
+.createStorageContainerFormWrapper {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  margin-bottom: .5rem;
+}
+
+.formRow {
+  width: 100%;
+  padding: 0.5rem;
+  display: table-row;
+  label {
+    padding: 0.5rem;
+  }
+}
