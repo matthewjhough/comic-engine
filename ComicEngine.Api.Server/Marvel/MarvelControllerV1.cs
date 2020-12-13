@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Server.Client;
 using ComicEngine.Api.Server.Actions.Marvels;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;

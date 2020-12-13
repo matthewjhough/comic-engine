@@ -16,8 +16,7 @@ namespace ComicEngine.Data.MongoDb.UserComics
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             _userComics = database
-                .GetCollection<PersistedMongoDbUserComic>(settings
-                    .UserComicsCollectionName);
+                .GetCollection<PersistedMongoDbUserComic>(settings.UserComicsCollectionName);
         }
 
         public async Task<UserComic> Create(UserComic resource, string subject)

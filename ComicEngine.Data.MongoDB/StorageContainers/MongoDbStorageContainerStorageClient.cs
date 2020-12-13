@@ -1,14 +1,35 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ComicEngine.Data.MongoDb.UserComics;
+using ComicEngine.Data.StorageContainers;
 using ComicEngine.Shared.StorageContainers;
+using MongoDB.Driver;
 
 namespace ComicEngine.Data.MongoDb.StorageContainers
 {
     public class MongoDbStorageContainerStorageClient : IStorageClient<StorageContainer>
     {
-        public Task<StorageContainer> Create(StorageContainer resource, string subject)
+        private readonly IMongoCollection<PersistedMongoDbStorageContainer> _storageContainers;
+        internal MongoDbStorageContainerStorageClient(IStorageContainerDatabaseSettings settings)
         {
-            throw new System.NotImplementedException();
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _storageContainers = database
+                .GetCollection<PersistedMongoDbStorageContainer>(settings.StorageContainersCollectionName);
+        }
+        
+        public async Task<StorageContainer> Create(StorageContainer resource, string subject)
+        {
+            var persistedResource = new PersistedMongoDbStorageContainer()
+            {
+                StorageContainer = resource,
+            };
+            
+            await _storageContainers.InsertOneAsync(persistedResource);
+
+            resource.Id = persistedResource.Id;
+            
+            return resource;
         }
 
         public Task<IEnumerable<StorageContainer>> Get(string subject)

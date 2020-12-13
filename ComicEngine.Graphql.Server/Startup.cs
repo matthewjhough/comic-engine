@@ -74,7 +74,7 @@ namespace ComicEngine.Graphql.Server {
                     });
 
             var comicEngineApiClientConfig = Configuration
-                .GetSection("ComicEngineApiRepositoryConfiguration")
+                .GetSection("ComicEngineApiConfiguration")
                 .Get<ComicEngineApiConfiguration>();
             
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()

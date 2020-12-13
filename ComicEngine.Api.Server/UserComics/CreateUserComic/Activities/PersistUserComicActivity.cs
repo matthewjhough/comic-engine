@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Automatonymous;
 using ComicEngine.Api.Server.UserComics.CreateUserComic.States;

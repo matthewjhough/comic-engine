@@ -1,4 +1,3 @@
-using ComicEngine.Api.Server.Marvel;
 using ComicEngine.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;

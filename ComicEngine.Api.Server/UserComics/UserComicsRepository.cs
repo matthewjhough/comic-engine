@@ -3,22 +3,21 @@ using System.Threading.Tasks;
 using ComicEngine.Data;
 using ComicEngine.Data.UserComics;
 using ComicEngine.Shared.UserComics;
-using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Server.UserComics {
     public class UserComicsRepository : IUserComicsRepository {
 
         internal IStorageClient<UserComic> ComicStorageClient;
 
-        internal ILogger Logger;
+        // internal ILogger Logger = ApplicationLogging.CreateLogger(nameof(UserComicsRepository));
 
         internal UserComicsRepository () {}
 
         public async Task<UserComic> CreateUserComic (UserComic comic, string subject)
         {
-            await ComicStorageClient.Create(comic, subject);
+            var userComic = await ComicStorageClient.Create(comic, subject);
 
-            return comic;
+            return userComic;
         }
 
         public async Task<IEnumerable<UserComic>> GetUserComics (string subject) {
