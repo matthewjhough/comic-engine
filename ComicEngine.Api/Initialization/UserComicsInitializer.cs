@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace ComicEngine.Api.Initialization
 {
-    public class UserComicsInit : IStartupInitialization
+    public class UserComicsInitializer : IStartupInitialization
     {
         public void Start(IServiceCollection services, IConfiguration configuration)
         {

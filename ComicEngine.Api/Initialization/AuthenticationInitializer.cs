@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ComicEngine.Api.Initialization
 {
-    public class AuthInit : IStartupInitialization
+    public class AuthenticationInitializer : IStartupInitialization
     {
         public void Start(IServiceCollection services, IConfiguration configuration)
         {

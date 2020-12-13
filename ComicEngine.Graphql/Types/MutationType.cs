@@ -55,8 +55,6 @@ namespace ComicEngine.Graphql.Types {
                 .Type<StorageContainerType>()
                 .Argument("storageContainer", arg => 
                     arg.Type<NonNullType<StorageContainerInputType>>())
-                .Argument("userId", a => 
-                    a.Type<NonNullType<StringType>>())
                 .Use(next => async context =>
                 {
                     // try and move on through context

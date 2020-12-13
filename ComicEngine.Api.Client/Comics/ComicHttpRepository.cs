@@ -8,25 +8,25 @@ using ComicEngine.Shared.Comics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace ComicEngine.Api.Client {
+namespace ComicEngine.Api.Client.Comics {
     public class ComicHttpRepository : IComicHttpRepository {
         private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (ComicHttpRepository));
-        private readonly ComicEngineApiRepositoryConfiguration _comicApiRepositoryConfig;
+        private readonly ComicEngineApiConfiguration _comicApiConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly TokenClientSettings _tokenClientSettings;
 
         /// <summary>
         /// Repository for interacting with the Comic Engine Comic API
         /// </summary>
-        /// <param name="config"><see cref="ComicEngineApiRepositoryConfiguration"/> pulled
+        /// <param name="config"><see cref="ComicEngineApiConfiguration"/> pulled
         /// from the appsettings.</param>
         /// <param name="httpContextAccessor"></param>
         /// <param name="tokenClientSettings"></param>
         public ComicHttpRepository (
-                ComicEngineApiRepositoryConfiguration config, 
+                ComicEngineApiConfiguration config, 
                 IHttpContextAccessor httpContextAccessor, 
                 TokenClientSettings tokenClientSettings) {
-            _comicApiRepositoryConfig = config;
+            _comicApiConfig = config;
             _httpContextAccessor = httpContextAccessor;
             _tokenClientSettings = tokenClientSettings;
         }
@@ -45,7 +45,7 @@ namespace ComicEngine.Api.Client {
                 EndpointsV1.MarvelComicsUpcEndpoint, parameters);
             try
             {
-                var absoluteUrl = $"{_comicApiRepositoryConfig.ClientBaseUrl}/{_comicApiRepositoryConfig.ClientBaseUrl}?{parameters}";
+                var absoluteUrl = $"{_comicApiConfig.ClientBaseUrl}/{_comicApiConfig.ClientBaseUrl}?{parameters}";
                 
                 Logger.LogDebug ("making request to {endpoint}", absoluteUrl);
                 
@@ -66,7 +66,7 @@ namespace ComicEngine.Api.Client {
             {
                 Logger.LogDebug(e, 
                     "Exception thrown while trying to make request to {comicEngineUri}.", 
-                    _comicApiRepositoryConfig.ClientBaseUrl);
+                    _comicApiConfig.ClientBaseUrl);
                 throw;
             }
         }
@@ -89,7 +89,7 @@ namespace ComicEngine.Api.Client {
             
             try
             {
-                var absoluteUrl = $"{_comicApiRepositoryConfig.ClientBaseUrl}/{endpoint}?{parameters}";
+                var absoluteUrl = $"{_comicApiConfig.ClientBaseUrl}/{endpoint}?{parameters}";
                 Logger.LogDebug ("making request to {endpoint}", absoluteUrl);
                 var client = new HttpRequestClientBuilder<IEnumerable<Comic>>()
                     .WithRequestMethod(HttpMethod.Get)
@@ -107,7 +107,7 @@ namespace ComicEngine.Api.Client {
             {
                 Logger.LogDebug(e, 
                     "Exception thrown while trying to make request to {comicEngineUri}.", 
-                    _comicApiRepositoryConfig.ClientBaseUrl);
+                    _comicApiConfig.ClientBaseUrl);
                 throw;
             }
         }

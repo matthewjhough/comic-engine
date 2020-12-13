@@ -9,27 +9,27 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace ComicEngine.Api.Client
+namespace ComicEngine.Api.Client.UserComics
 {
     public class UserComicsHttpRepository : IUserComicsHttpRepository
     {
         private static readonly ILogger Logger = ApplicationLogging.CreateLogger (nameof (UserComicsHttpRepository));
-        private readonly ComicEngineApiRepositoryConfiguration _comicApiRepositoryConfig;
+        private readonly ComicEngineApiConfiguration _comicApiConfig;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly TokenClientSettings _tokenClientSettings;
 
         /// <summary>
         /// Repository for interacting with the Comic Engine Comic API
         /// </summary>
-        /// <param name="config"><see cref="ComicEngineApiRepositoryConfiguration"/> pulled
+        /// <param name="config"><see cref="ComicEngineApiConfiguration"/> pulled
         /// from the appsettings.</param>
         /// <param name="httpContextAccessor"></param>
         /// <param name="tokenClientSettings"></param>
         public UserComicsHttpRepository (
-            ComicEngineApiRepositoryConfiguration config, 
+            ComicEngineApiConfiguration config, 
             IHttpContextAccessor httpContextAccessor, 
             TokenClientSettings tokenClientSettings) {
-            _comicApiRepositoryConfig = config;
+            _comicApiConfig = config;
             _httpContextAccessor = httpContextAccessor;
             _tokenClientSettings = tokenClientSettings;
         }
@@ -39,7 +39,7 @@ namespace ComicEngine.Api.Client
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<UserComic>> RequestAllUserComics (string userId) {
-            var fullUrl = $"{_comicApiRepositoryConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
+            var fullUrl = $"{_comicApiConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
             
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
             
@@ -68,7 +68,7 @@ namespace ComicEngine.Api.Client
         /// <returns><see cref="Comic"/></returns>
         public async Task<UserComic> SaveComicToApi (Comic comic, string userId) {
             
-            var fullUrl = $"{_comicApiRepositoryConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
+            var fullUrl = $"{_comicApiConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
             
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
             
@@ -89,11 +89,11 @@ namespace ComicEngine.Api.Client
         }
         
         /// <summary>
-        /// Implements <see cref="IComicHttpRepository.DeleteUserComic"/>
+        /// Implements <see cref="IUserComicsHttpRepository.DeleteUserComic"/>
         /// </summary>
         public async Task<bool> DeleteUserComic(string userComicId, string userId)
         {
-            var fullUrl = $"{_comicApiRepositoryConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}/comic/{userComicId}";
+            var fullUrl = $"{_comicApiConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}/comic/{userComicId}";
             
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
             

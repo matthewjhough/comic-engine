@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Actions.UserComics;
-using ComicEngine.Api.Client;
+using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.UserComics;
 using HotChocolate.AspNetCore.Authorization;
@@ -13,20 +13,20 @@ using Microsoft.Extensions.Logging;
 namespace ComicEngine.Api.UserComics {
     [ApiController]
     [Authorize]
-    public class UserComicsV1Controller : ControllerBase {
+    public class UserComicsV1Controller : Controller {
         private readonly ICreateUserComicAction _createUserComicAction;
         private readonly IGetUserComicAction _getUserComicAction;
         private readonly IDeleteUserComicAction _deleteUserComicAction;
         private readonly ILogger _logger;
 
         public UserComicsV1Controller (
-            ICreateUserComicAction createUserComicUserComicsAction,
-            IGetUserComicAction getUserComicUserComicsAction,
+            ICreateUserComicAction createUserComicAction,
+            IGetUserComicAction getUserComicAction,
             IDeleteUserComicAction deleteUserComicAction,
             ILogger<UserComicsV1Controller> logger
         ) {
-            _createUserComicAction = createUserComicUserComicsAction;
-            _getUserComicAction = getUserComicUserComicsAction;
+            _createUserComicAction = createUserComicAction;
+            _getUserComicAction = getUserComicAction;
             _deleteUserComicAction = deleteUserComicAction;
             _logger = logger;
         }

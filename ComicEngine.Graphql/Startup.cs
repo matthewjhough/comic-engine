@@ -1,5 +1,8 @@
 using System;
 using ComicEngine.Api.Client;
+using ComicEngine.Api.Client.Comics;
+using ComicEngine.Api.Client.StorageContainers;
+using ComicEngine.Api.Client.UserComics;
 using ComicEngine.Graphql.Types;
 using ComicEngine.Identity.Client;
 using ComicEngine.Shared;
@@ -72,7 +75,7 @@ namespace ComicEngine.Graphql {
 
             var comicEngineApiClientConfig = Configuration
                 .GetSection("ComicEngineApiRepositoryConfiguration")
-                .Get<ComicEngineApiRepositoryConfiguration>();
+                .Get<ComicEngineApiConfiguration>();
             
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IComicHttpRepository, ComicHttpRepository>(sp =>

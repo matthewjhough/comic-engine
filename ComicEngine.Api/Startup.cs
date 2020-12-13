@@ -17,10 +17,11 @@ namespace ComicEngine.Api {
 
         private readonly IEnumerable<IStartupInitialization> Initializers = new IStartupInitialization[]
         {
-            new AuthInit(),
-            new HttpInitialization(),
-            new UserComicsInit(),
-            new MarvelInit(), 
+            new AuthenticationInitializer(),
+            new HttpInitializer(),
+            new UserComicsInitializer(),
+            new MarvelInitializer(),
+            new StorageClientInitializer(),
         };
 
         // This method gets called by the runtime. Use this method to add services to the container.

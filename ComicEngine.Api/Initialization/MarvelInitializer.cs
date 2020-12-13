@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Initialization
 {
-    public class MarvelInit : IStartupInitialization
+    public class MarvelInitializer : IStartupInitialization
     {
         public void Start(IServiceCollection services, IConfiguration configuration)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using ComicEngine.Api.Client;
+using ComicEngine.Api.Client.StorageContainers;
+using ComicEngine.Api.Client.UserComics;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
@@ -59,13 +60,16 @@ namespace ComicEngine.Graphql {
 
         public async Task<StorageContainer> CreateStorageContainer(IResolverContext context)
         {
-            StorageContainer storageContainerArgument = context.Argument<StorageContainer>("storageContainerInput");
-            string userId = context.Argument<string>("userId");
+            var storageContainerArgument = context.Argument<StorageContainer>("storageContainer");
 
-            var createdStorageContainer = await _storageContainerHttpRepository
-                .CreateStorageContainer(storageContainerArgument, userId);
+            StorageContainer storageContainer = await _storageContainerHttpRepository
+                .CreateStorageContainer(storageContainerArgument);
 
-            return createdStorageContainer;
+            _logger.LogDebug("Saved '{storageContainerLabel}' to ComicEngine Api - ID '{storageContainerId}'",
+                storageContainer.Label,
+                storageContainer.Id);
+            
+            return storageContainer;
         }
     }
 }

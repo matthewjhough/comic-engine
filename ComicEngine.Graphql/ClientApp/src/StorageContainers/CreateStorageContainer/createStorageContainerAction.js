@@ -23,8 +23,8 @@ export function createStorageContainer(storageContainerLabel) {
                 userId: user.profile.sub
             })
                 .then(res => res.json())
-                .then(({ data, errors }) => {
-                    console.log("createStorageContainer:: response data: ", data);
+                .then(({ data, errors, ...rest }) => {
+                    console.log("createStorageContainer:: response data: ", data, rest);
                     if (errors && errors.length > 0) {
                         console.error(
                             'createStorageContainer:: something went wrong.',

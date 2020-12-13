@@ -1,6 +1,6 @@
 export const createStorageContainerMutation = `
-mutation createStorageContainer($storageContainer: StorageContainerInput!, $userId: String!){
-  createStorageContainer(storageContainer: $storageContainer, userId: $userId){
+mutation createStorageContainer($storageContainer: StorageContainerInput!){
+  createStorageContainer(storageContainer: $storageContainer){
     id
     label
     userId

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
 
-namespace ComicEngine.Api.Client {
+namespace ComicEngine.Api.Client.Comics {
     public interface IComicHttpRepository {
         /// <summary>
         /// Method to initiate Http Request. This method handles a lot of repeat logic.

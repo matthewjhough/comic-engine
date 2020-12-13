@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
+using ComicEngine.Api.Client.Comics;
+using ComicEngine.Api.Client.UserComics;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.UserComics;

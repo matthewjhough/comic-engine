@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.UserComics;
 
-namespace ComicEngine.Api.Client
+namespace ComicEngine.Api.Client.UserComics
 {
     public interface IUserComicsHttpRepository
     {

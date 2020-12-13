@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Initialization
 {
-    public class HttpInitialization : IStartupInitialization
+    public class HttpInitializer : IStartupInitialization
     {
         public void Start(IServiceCollection services, IConfiguration configuration)
         {
