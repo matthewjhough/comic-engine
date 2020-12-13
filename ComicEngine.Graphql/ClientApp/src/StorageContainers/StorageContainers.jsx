@@ -1,6 +1,6 @@
 import React from "react";
-import { CreateStorageContainerForm } from "./CreateStorageContainer/CreateStorageContainerForm";
+import {CreateStorageContainerFormContainer} from "./CreateStorageContainer/CreateStorageContainerFormContainer";
 
 export function StorageContainers() {
-    return (<div><CreateStorageContainerForm /></div>)
+    return (<div><CreateStorageContainerFormContainer /></div>)
 }

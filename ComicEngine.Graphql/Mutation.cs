@@ -59,7 +59,7 @@ namespace ComicEngine.Graphql {
 
         public async Task<StorageContainer> CreateStorageContainer(IResolverContext context)
         {
-            StorageContainer storageContainerArgument = context.Argument<StorageContainer>("storageContainer");
+            StorageContainer storageContainerArgument = context.Argument<StorageContainer>("storageContainerInput");
             string userId = context.Argument<string>("userId");
 
             var createdStorageContainer = await _storageContainerHttpRepository

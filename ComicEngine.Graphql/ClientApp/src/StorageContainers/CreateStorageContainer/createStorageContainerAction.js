@@ -5,19 +5,26 @@ import {NotificationManager} from "react-notifications";
 import {createStorageContainerMutation} from "./createStorageContainerMutation";
 
 
-export function createStorageContainer(storageContainer) {
-    console.log('createStorageContainer:: making request...', storageContainer);
+export function createStorageContainer(storageContainerLabel) {
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
+            const userId = user.profile.sub;
             console.log("createStorageContainer:: Current user subject: ", user.profile.sub);
             dispatch(toggleLoading(true));
 
+            const storageContainer = {
+                label: storageContainerLabel,
+                userId
+            };
+
+            console.log('createStorageContainer:: making request...', storageContainer);
             return makeGraphqlRequest(createStorageContainerMutation, {
                 storageContainer: storageContainer,
                 userId: user.profile.sub
             })
                 .then(res => res.json())
                 .then(({ data, errors }) => {
+                    console.log("createStorageContainer:: response data: ", data);
                     if (errors && errors.length > 0) {
                         console.error(
                             'createStorageContainer:: something went wrong.',
@@ -26,7 +33,7 @@ export function createStorageContainer(storageContainer) {
                         );
                         NotificationManager.error(
                             'Save failed.',
-                            `${storageContainer.title} was not added to Storage Containers`
+                            `${storageContainer.label} was not added to Storage Containers`
                         );
                         return dispatch(() => {});
                     }
@@ -34,7 +41,7 @@ export function createStorageContainer(storageContainer) {
                     console.log('createStorageContainer:: saved to database.', data);
                     NotificationManager.success(
                         'Success',
-                        `${storageContainer.title} added to Storage Containers`
+                        `${storageContainer.label} added to Storage Containers`
                     );
 
                     // TODO: do something with saved comic result

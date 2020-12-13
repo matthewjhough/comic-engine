@@ -6,6 +6,15 @@ import {deleteUserComicMutation} from "./deleteUserComicMutation";
 import {getUserComics} from "../GetUserComics/getUserComicAction";
 
 export function deleteUserComic(userComic) {
+    const isDeleting = window.confirm(`Are you sure you want to delete ${userComic.comic.title}`);
+    
+    if (!isDeleting) {
+        return function(dispatch) {
+            return new Promise(() => 
+                console.log("Cancelling delete request for comic: ", userComic.comic.title))
+                .then(() => {});
+        };
+    }
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
             console.log("userComicsActions:: Current user subject: ", user.profile.sub);
