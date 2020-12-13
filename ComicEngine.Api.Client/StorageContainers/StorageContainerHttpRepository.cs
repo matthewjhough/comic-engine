@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ComicEngine.Identity.Client;
@@ -55,6 +56,31 @@ namespace ComicEngine.Api.Client.StorageContainers
             Logger.LogDebug ("Response returned: {response}", savedStorageContainer);
 
             return savedStorageContainer;
+        }
+
+        public async Task<IEnumerable<StorageContainer>> GetStorageContainers(string subject)
+        {
+            var fullUrl = $"{_comicApiConfig.ClientBaseUrl}/{EndpointsV1.StorageContainerEndpointBase}/{subject}";
+            
+            Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            
+            var client = new HttpRequestClientBuilder<IEnumerable<StorageContainer>>()
+                .WithAbsoluteUrl(fullUrl)
+                .WithRequestMethod(HttpMethod.Get)
+                .WithHttpContextAccessor(_httpContextAccessor)
+                .WithTokenClientSettings(_tokenClientSettings)
+                .Build();
+            
+            var getStorageContainers = await client.Send();
+
+            if (getStorageContainers is null)
+            {
+                throw new Exception("Something went wrong during get process.");
+            }
+
+            Logger.LogDebug ("Response returned: {response}", getStorageContainers);
+
+            return getStorageContainers;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace ComicEngine.Shared
         public const string UserComicsDeleteEndpoint = "v1/user/comics/{userId}/comic/{userComicId}";
         // Storage Containers
         public const string StorageContainerEndpointBase = "v1/user/storageContainer";
+        public const string StorageContainerSavedEndpoint = "v1/user/storageContainer/{userId}";
     }
 }

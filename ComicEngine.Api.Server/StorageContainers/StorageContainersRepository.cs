@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Data;
 using ComicEngine.Data.StorageContainers;
-using ComicEngine.Shared;
 using ComicEngine.Shared.StorageContainers;
-using Microsoft.Extensions.Logging;
 
 namespace ComicEngine.Api.Server.StorageContainers
 {
@@ -32,6 +31,13 @@ namespace ComicEngine.Api.Server.StorageContainers
             //     createdStorageContainer.UserId);
             
             return createdStorageContainer;
+        }
+
+        public async Task<IEnumerable<StorageContainer>> GetStorageContainers(string subject)
+        {
+            var storageContainers = await StorageClient.Get(subject);
+
+            return storageContainers;
         }
     }
 }

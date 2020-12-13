@@ -28,7 +28,10 @@ namespace ComicEngine.Api.Server.Initialization
                             .WithDatabaseSettings(
                                 sp.GetRequiredService<IStorageContainerDatabaseSettings>())
                             .Build())
-                        .Build());
+                        .Build())
+                .AddSingleton<IGetStorageContainersAction>(sp =>
+                    new StorageContainerActions(
+                        sp.GetRequiredService<IStorageContainersRepository>()));
         }
     }
 }

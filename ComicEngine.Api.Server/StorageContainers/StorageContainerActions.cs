@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Api.Server.Actions.StorageContainers;
 using ComicEngine.Data.StorageContainers;
@@ -6,7 +7,7 @@ using ComicEngine.Shared.StorageContainers;
 
 namespace ComicEngine.Api.Server.StorageContainers
 {
-    public class StorageContainerActions : ICreateStorageContainerAction
+    public class StorageContainerActions : ICreateStorageContainerAction, IGetStorageContainersAction
     {
         private readonly IStorageContainersRepository _storageContainersRepository;
         
@@ -22,6 +23,14 @@ namespace ComicEngine.Api.Server.StorageContainers
             var createdStorageContainer = await _storageContainersRepository.CreateStorageContainer(storageContainer);
 
             return createdStorageContainer;
+        }
+
+        public async Task<IEnumerable<StorageContainer>> GetStorageContainers(string subject)
+        {
+            // TODO: VALIDATE SUBJECT
+            var storageContainers = await _storageContainersRepository.GetStorageContainers(subject);
+
+            return storageContainers;
         }
     }
 }
