@@ -1,7 +1,5 @@
 import React from 'react';
-import { BarcodeReader } from '../BarcodeReader/BarcodeReader';
 import { ComicSearchFormContainer } from './ComicSearchFormContainer';
-import { MobileDeviceCheck } from '../MobileDeviceCheck/MobileDeviceCheck';
 import { AbstractContentWrapper } from '../AbstractContentWrapper/AbstractContentWrapper';
 
 export function ComicSearch() {

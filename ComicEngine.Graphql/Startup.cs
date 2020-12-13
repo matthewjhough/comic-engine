@@ -69,13 +69,25 @@ namespace ComicEngine.Graphql {
                         options.Authority = tokenClientSettings.Authority;
                         options.RequireHttpsMetadata = true;
                     });
+
+            var comicEngineApiClientConfig = Configuration
+                .GetSection("ComicEngineApiRepositoryConfiguration")
+                .Get<ComicEngineApiRepositoryConfiguration>();
             
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddSingleton<IComicHttpRepository, ComicHttpRepository>(sp =>
                     new ComicHttpRepository(
-                        Configuration
-                            .GetSection("ComicHttpClientConfig")
-                            .Get<ComicHttpClientConfig>(),
+                        comicEngineApiClientConfig,
+                        sp.GetRequiredService<IHttpContextAccessor>(),
+                        tokenClientSettings))
+                .AddSingleton<IUserComicsHttpRepository, UserComicsHttpRepository>(sp =>
+                    new UserComicsHttpRepository(
+                        comicEngineApiClientConfig, 
+                        sp.GetRequiredService<IHttpContextAccessor>(),
+                        tokenClientSettings))
+                .AddSingleton<IStorageContainerHttpRepository, StorageContainerHttpRepository>(sp =>
+                    new StorageContainerHttpRepository(
+                        comicEngineApiClientConfig,
                         sp.GetRequiredService<IHttpContextAccessor>(),
                         tokenClientSettings));
 

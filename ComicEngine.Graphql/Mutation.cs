@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using ComicEngine.Api.Client;
 using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 using HotChocolate.Resolvers;
 using Microsoft.Extensions.Logging;
@@ -9,13 +11,20 @@ namespace ComicEngine.Graphql {
     public class Mutation {
         private readonly ILogger _logger;
 
-        private readonly IComicHttpRepository _comicApiRepository;
+        private readonly IUserComicsHttpRepository _comicApiRepository;
 
-        public Mutation (ILogger<Mutation> logger, IComicHttpRepository comicHttpApiService) {
+        private readonly IStorageContainerHttpRepository _storageContainerHttpRepository;
+
+        public Mutation (
+            ILogger<Mutation> logger, 
+            IUserComicsHttpRepository comicHttpApiService, 
+            IStorageContainerHttpRepository storageContainerHttpRepository) {
             _logger = logger ??
-                throw new System.ArgumentNullException (nameof (logger));
+                throw new ArgumentNullException (nameof (logger));
             _comicApiRepository = comicHttpApiService ??
-                throw new System.ArgumentNullException (nameof (comicHttpApiService));
+                throw new ArgumentNullException (nameof (comicHttpApiService));
+            _storageContainerHttpRepository = storageContainerHttpRepository ??
+                throw new ArgumentNullException(nameof(storageContainerHttpRepository));
         }
 
         public async Task<UserComic> CreateUserComic (IResolverContext context)
@@ -46,6 +55,17 @@ namespace ComicEngine.Graphql {
             bool isDeleted = await _comicApiRepository.DeleteUserComic(userComicId, userId);
             
             return isDeleted;
+        }
+
+        public async Task<StorageContainer> CreateStorageContainer(IResolverContext context)
+        {
+            StorageContainer storageContainerArgument = context.Argument<StorageContainer>("storageContainer");
+            string userId = context.Argument<string>("userId");
+
+            var createdStorageContainer = await _storageContainerHttpRepository
+                .CreateStorageContainer(storageContainerArgument, userId);
+
+            return createdStorageContainer;
         }
     }
 }

@@ -47,6 +47,28 @@ namespace ComicEngine.Graphql.Types {
                     }
                 })
                 ;
+
+            descriptor
+                .Field(t => t.CreateStorageContainer(default))
+                .Type<StorageContainerType>()
+                .Argument("storageContainer", arg => 
+                    arg.Type<NonNullType<StorageContainerInputType>>())
+                .Argument("userId", a => 
+                    a.Type<NonNullType<StringType>>())
+                .Use(next => async context =>
+                {
+                    // try and move on through context
+                    Logger.LogDebug ("Processing mutation: {mutationVariables}", context.Variables);
+                    try {
+                        // Log here
+                        await next (context);
+                    } catch (Exception ex) {
+                        Logger.LogError (ex, "An error occured while executing {mutationName}", context.Field.Name);
+                        context.ReportError (ex.Message);
+                        throw;
+                    }
+                })
+                ;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,14 @@ namespace ComicEngine.Graphql {
         private readonly ILogger _logger = ApplicationLogging.CreateLogger (nameof (Query));
 
         private readonly IComicHttpRepository _comicHttpRepository;
+        
+        private readonly IUserComicsHttpRepository _userComicsHttpRepository;
 
-        public Query (IComicHttpRepository comicHttpApiService) {
+        public Query (IComicHttpRepository comicHttpApiService, IUserComicsHttpRepository userComicsHttpRepository) {
             _comicHttpRepository = comicHttpApiService ??
-                throw new System.ArgumentNullException (nameof (comicHttpApiService));
+                throw new ArgumentNullException (nameof (comicHttpApiService));
+            _userComicsHttpRepository = userComicsHttpRepository ??
+                throw new ArgumentNullException(nameof(userComicsHttpRepository));
         }
 
         public async Task<Comic> ComicByUpc (string upc) {
@@ -46,7 +51,7 @@ namespace ComicEngine.Graphql {
         public async Task<IEnumerable<UserComic>> UserComics (string userId)
         {
             _logger.LogDebug("Retrieving saved comics for user '{userId}'", userId);
-            IEnumerable<UserComic> response = await _comicHttpRepository.RequestAllUserComics (userId);
+            IEnumerable<UserComic> response = await _userComicsHttpRepository.RequestAllUserComics (userId);
             var userComics = response as UserComic[] ?? response.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 

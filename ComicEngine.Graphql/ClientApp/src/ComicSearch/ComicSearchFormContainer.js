@@ -9,7 +9,7 @@ import {
   toggleLoading,
   setSelectedComic
 } from '../ComicResults/comicResultsActions';
-import { createUserComic } from '../UserComics/userComicsActions';
+import { createUserComic } from '../UserComics/CreateUserComic/createUserComicAction';
 
 const mapStateToProps = ({ comicSearchForm, comicResults }) => ({
   ...comicSearchForm,

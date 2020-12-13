@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { toggleLoading, setResults } from '../ComicResults/comicResultsActions';
-import {deleteUserComic, getUserComics} from './userComicsActions';
+import { deleteUserComic } from './DeleteUserComic/deleteUserComicAction';
+import { getUserComics } from "./GetUserComics/getUserComicAction";
 import { UserComics } from './UserComics';
 
 const mapStateToProps = ({ comicResults }) => ({ ...comicResults });

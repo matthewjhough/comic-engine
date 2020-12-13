@@ -1,4 +1,4 @@
-import styles from "../ComicResults/ComicResult.module.scss";
+import styles from "./UserComicTable.module.scss";
 import React from "react";
 
 const id_field = "id";

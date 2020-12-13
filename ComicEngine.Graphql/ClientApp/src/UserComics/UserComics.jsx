@@ -3,7 +3,8 @@ import {getOrDefault} from "../utilities";
 import { AbstractContentWrapper } from '../AbstractContentWrapper/AbstractContentWrapper';
 import { AbstractFlexContainer } from '../AbstractFlexContainer/AbstractFlexContainer';
 import { AbstractTable } from "../AbstractTable/AbstractTable";
-import {createUserComicBody, createUserComicHeaders} from "./createUserComicTable";
+import {createUserComicBody, createUserComicHeaders} from "./GetUserComics/generateUserComicTable";
+import {StorageContainers} from "../StorageContainers/StorageContainers";
 
 export function UserComics({ 
      toggleLoading, 
@@ -34,6 +35,7 @@ export function UserComics({
   return (
     <AbstractContentWrapper>
       <AbstractFlexContainer isColumn>
+        <StorageContainers />
         <AbstractTable 
             headers={headers} 
             body={body} 
