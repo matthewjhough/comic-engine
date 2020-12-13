@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicEngine.Api.Actions.UserComics;
 using ComicEngine.Api.Client;
-using ComicEngine.Api.Commands.UserComics;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.UserComics;
 using HotChocolate.AspNetCore.Authorization;
@@ -14,20 +14,20 @@ namespace ComicEngine.Api.UserComics {
     [ApiController]
     [Authorize]
     public class UserComicsV1Controller : ControllerBase {
-        private readonly ICreateUserComicCommand _createUserComicCommand;
-        private readonly IGetUserComicCommand _getUserComicCommand;
-        private readonly IDeleteUserComicCommand _deleteUserComicCommand;
+        private readonly ICreateUserComicAction _createUserComicAction;
+        private readonly IGetUserComicAction _getUserComicAction;
+        private readonly IDeleteUserComicAction _deleteUserComicAction;
         private readonly ILogger _logger;
 
         public UserComicsV1Controller (
-            ICreateUserComicCommand createUserComicUserComicsCommand,
-            IGetUserComicCommand getUserComicUserComicsCommand,
-            IDeleteUserComicCommand deleteUserComicCommand,
+            ICreateUserComicAction createUserComicUserComicsAction,
+            IGetUserComicAction getUserComicUserComicsAction,
+            IDeleteUserComicAction deleteUserComicAction,
             ILogger<UserComicsV1Controller> logger
         ) {
-            _createUserComicCommand = createUserComicUserComicsCommand;
-            _getUserComicCommand = getUserComicUserComicsCommand;
-            _deleteUserComicCommand = deleteUserComicCommand;
+            _createUserComicAction = createUserComicUserComicsAction;
+            _getUserComicAction = getUserComicUserComicsAction;
+            _deleteUserComicAction = deleteUserComicAction;
             _logger = logger;
         }
 
@@ -41,7 +41,7 @@ namespace ComicEngine.Api.UserComics {
             _logger.LogDebug ("**** Comic from body title: {title} ****", comic.Title);
             
             // Todo: add logging/exception handling
-            var userComic = await _createUserComicCommand.CreateUserComicAsync (comic, userId);
+            var userComic = await _createUserComicAction.CreateUserComicAsync (comic, userId);
 
             return userComic;
         }
@@ -52,7 +52,7 @@ namespace ComicEngine.Api.UserComics {
         {
             _logger.LogDebug("Retrieving comics for user '{userId}'", userId);
             // Todo: add logging / exception handling
-            var comicList = await _getUserComicCommand.GetUserComics (userId);
+            var comicList = await _getUserComicAction.GetUserComics (userId);
             var comicEnumeration = comicList as UserComic[] ?? comicList.ToArray();
             _logger.LogDebug(
                 "Found '{comicCount}' comics for user '{userId}'", 
@@ -66,7 +66,7 @@ namespace ComicEngine.Api.UserComics {
         [HttpDelete(EndpointsV1.UserComicsDeleteEndpoint)]
         public async Task<bool> Delete([FromRoute] string userId, string userComicId)
         {
-            var isUserComicDeleted = await _deleteUserComicCommand.DeleteUserComic(userComicId, userId);
+            var isUserComicDeleted = await _deleteUserComicAction.DeleteUserComic(userComicId, userId);
             
             return isUserComicDeleted;
         }

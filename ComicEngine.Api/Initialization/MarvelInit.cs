@@ -1,8 +1,5 @@
-using ComicEngine.Api.Commands.Marvels;
-using ComicEngine.Api.Commands.UserComics;
+using ComicEngine.Api.Actions.Marvels;
 using ComicEngine.Api.Marvel;
-using ComicEngine.Api.UserComics;
-using ComicEngine.Api.UserComics.CreateUserComic;
 using ComicEngine.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +13,7 @@ namespace ComicEngine.Api.Initialization
         public void Start(IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddSingleton<IGetMarvelCommand, MarvelCommands>()
+                .AddSingleton<IGetMarvelAction, MarvelActions>()
                 .AddSingleton(sp =>
                     new MarvelHttpClient (
                         sp.GetRequiredService<ILogger<MarvelHttpClient>> (),

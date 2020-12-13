@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComicEngine.Api.Commands.UserComics;
+using ComicEngine.Api.Actions.UserComics;
 using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.UserComics {
-    // FIXME: Update to single execution commands.
-    public class UserComicCommands : IGetUserComicCommand, IDeleteUserComicCommand {
+    public class UserComicActions : IGetUserComicAction, IDeleteUserComicAction {
         private readonly IUserComicsRepository _userComicsRepository;
 
-        internal UserComicCommands (IUserComicsRepository userComicsRepository) {
+        internal UserComicActions (IUserComicsRepository userComicsRepository) {
             _userComicsRepository = userComicsRepository;
         }
 

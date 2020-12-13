@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Commands.Marvels;
+using ComicEngine.Api.Actions.Marvels;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.Marvels;
 
 namespace ComicEngine.Api.Marvel {
-    public class MarvelCommands : IGetMarvelCommand {
+    public class MarvelActions : IGetMarvelAction {
         private readonly MarvelHttpClient _marvelClient;
-        public MarvelCommands (MarvelHttpClient marvelClient) {
+        public MarvelActions (MarvelHttpClient marvelClient) {
             _marvelClient = marvelClient;
         }
 

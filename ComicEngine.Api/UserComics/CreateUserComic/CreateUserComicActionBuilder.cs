@@ -2,24 +2,24 @@ using System;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic
 {
-    public class CreateUserComicCommandBuilder
+    public class CreateUserComicActionBuilder
     {
         private IUserComicsRepository _userComicsRepository;
 
-        public CreateUserComicCommandBuilder()
+        public CreateUserComicActionBuilder()
         {
         }
 
-        public CreateUserComicCommandBuilder WithUserComicsRepository(IUserComicsRepository userComicsRepository)
+        public CreateUserComicActionBuilder WithUserComicsRepository(IUserComicsRepository userComicsRepository)
         {
             _userComicsRepository = userComicsRepository 
                 ?? throw new ArgumentNullException(nameof(userComicsRepository));
             return this;
         }
 
-        public CreateUserComicCommand Build()
+        public CreateUserComicAction Build()
         {
-            return new CreateUserComicCommand
+            return new CreateUserComicAction
             {
                 UserComicsRepository = _userComicsRepository
             };

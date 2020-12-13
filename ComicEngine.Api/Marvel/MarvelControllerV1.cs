@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicEngine.Api.Actions.Marvels;
 using ComicEngine.Api.Client;
-using ComicEngine.Api.Commands.Marvels;
 using ComicEngine.Shared.Comics;
 using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +15,18 @@ namespace ComicEngine.Api.Marvel {
     public class MarvelControllerV1 : ControllerBase {
         private readonly ILogger _logger;
 
-        private readonly IGetMarvelCommand _getMarvelComic;
+        private readonly IGetMarvelAction _getMarvelComic;
 
         /// <summary>
         /// Constructor for <see cref="MarvelControllerV1" />
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="getMarvelComicCommand"></param>
+        /// <param name="getMarvelComicAction"></param>
         public MarvelControllerV1 (
             ILogger<MarvelControllerV1> logger,
-            IGetMarvelCommand getMarvelComicCommand) {
+            IGetMarvelAction getMarvelComicAction) {
 
-            _getMarvelComic = getMarvelComicCommand;
+            _getMarvelComic = getMarvelComicAction;
             _logger = logger;
         }
 

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Automatonymous;
-using ComicEngine.Api.Commands.UserComics;
+using ComicEngine.Api.Actions.UserComics;
 using ComicEngine.Api.UserComics.CreateUserComic.Observers;
 using ComicEngine.Api.UserComics.CreateUserComic.States;
 using ComicEngine.Shared.Comics;
@@ -8,11 +8,11 @@ using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.UserComics.CreateUserComic
 {
-    public class CreateUserComicCommand : ICreateUserComicCommand
+    public class CreateUserComicAction : ICreateUserComicAction
     {
         internal IUserComicsRepository UserComicsRepository;
 
-        internal CreateUserComicCommand()
+        internal CreateUserComicAction()
         {
         }
 

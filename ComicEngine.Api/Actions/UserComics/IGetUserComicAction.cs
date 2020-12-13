@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.UserComics;
 
-namespace ComicEngine.Api.Commands.UserComics {
-    public interface IGetUserComicCommand {
+namespace ComicEngine.Api.Actions.UserComics {
+    public interface IGetUserComicAction {
         /// <summary>
         /// Gets all saved <see cref="Comic">s.!--
         /// 

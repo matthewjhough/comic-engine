@@ -1,4 +1,4 @@
-using ComicEngine.Api.Commands.UserComics;
+using ComicEngine.Api.Actions.UserComics;
 using ComicEngine.Api.UserComics;
 using ComicEngine.Api.UserComics.CreateUserComic;
 using ComicEngine.Data.MongoDb.UserComics;
@@ -32,14 +32,14 @@ namespace ComicEngine.Api.Initialization
                                     sp.GetRequiredService<IUserComicsDatabaseSettings>())
                                 .Build())
                         .Build())
-                .AddSingleton<IGetUserComicCommand, UserComicCommands>(sp => 
-                    new UserComicCommands(sp.GetRequiredService<IUserComicsRepository>()))
-                .AddSingleton<ICreateUserComicCommand>(sp =>
-                    new CreateUserComicCommandBuilder()
+                .AddSingleton<IGetUserComicAction, UserComicActions>(sp => 
+                    new UserComicActions(sp.GetRequiredService<IUserComicsRepository>()))
+                .AddSingleton<ICreateUserComicAction>(sp =>
+                    new CreateUserComicActionBuilder()
                         .WithUserComicsRepository(sp.GetRequiredService<IUserComicsRepository>())
                         .Build())
-                .AddSingleton<IDeleteUserComicCommand, UserComicCommands>(sp => 
-                    new UserComicCommands(sp.GetRequiredService<IUserComicsRepository>()));
+                .AddSingleton<IDeleteUserComicAction, UserComicActions>(sp => 
+                    new UserComicActions(sp.GetRequiredService<IUserComicsRepository>()));
         }
     }
 }

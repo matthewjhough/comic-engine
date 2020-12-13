@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
 
-namespace ComicEngine.Api.Commands.Marvels {
-    public interface IGetMarvelCommand {
+namespace ComicEngine.Api.Actions.Marvels {
+    public interface IGetMarvelAction {
         /// <summary>
         /// Accepts barcode number, and returns basic comic object response.
         /// </summary>
