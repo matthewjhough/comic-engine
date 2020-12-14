@@ -41,6 +41,11 @@ namespace ComicEngine.Graphql.Server.Types {
                         throw;
                     }
                 });
+
+            descriptor
+                .Field(t => t.StorageContainers(default))
+                .Type<ListType<StorageContainerType>>()
+                ;
         }
     }
 }

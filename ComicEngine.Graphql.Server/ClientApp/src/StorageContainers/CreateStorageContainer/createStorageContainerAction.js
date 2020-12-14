@@ -3,6 +3,7 @@ import {toggleLoading} from "../../ComicResults/comicResultsActions";
 import {makeGraphqlRequest} from "../../graphqlClient/graphqlClient";
 import {NotificationManager} from "react-notifications";
 import {createStorageContainerMutation} from "./createStorageContainerMutation";
+import {getStorageContainers} from "../GetStorageContainers/getStorageContainersAction";
 
 
 export function createStorageContainer(storageContainerLabel) {
@@ -53,7 +54,8 @@ export function createStorageContainer(storageContainerLabel) {
                     return dispatch(() => {});
                 }).then(() => {
                     dispatch(toggleLoading(false));
-                });
+                })
+                .then(() => dispatch(getStorageContainers()));
         });
     };
 }

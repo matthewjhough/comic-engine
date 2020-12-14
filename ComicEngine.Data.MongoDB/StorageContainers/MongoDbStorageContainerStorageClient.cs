@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Data.MongoDb.UserComics;
 using ComicEngine.Data.StorageContainers;
 using ComicEngine.Shared.StorageContainers;
 using MongoDB.Driver;
@@ -32,9 +32,22 @@ namespace ComicEngine.Data.MongoDb.StorageContainers
             return resource;
         }
 
-        public Task<IEnumerable<StorageContainer>> Get(string subject)
+        public async Task<IEnumerable<StorageContainer>> Get(string subject)
         {
-            throw new System.NotImplementedException();
+            var resources = await _storageContainers
+                .FindAsync(x =>
+                    string.Equals(x.StorageContainer.UserId, subject))
+                ;
+            
+            var storageContainers = resources
+                .ToList()
+                .Select(x =>
+                {
+                    x.StorageContainer.Id = x.Id;
+                    return x.StorageContainer;
+                });
+
+            return storageContainers;
         }
 
         public Task<bool> Delete(string resourceId)
