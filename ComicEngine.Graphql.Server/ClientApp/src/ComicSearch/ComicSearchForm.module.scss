@@ -13,6 +13,24 @@ $comicSearchBackground: #f1f1f1;
   }
 }
 
+.closeX {
+  font-size: 3rem;
+  cursor: pointer;
+  color: red;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+}
+
+.storageContainersDropdown {
+  margin: 2rem 0 0 0;
+  display: flex;
+}
+
+.iconBox {
+  padding: .5rem;
+}
+
 .formRow {
   padding: 0.5rem;
   display: table-row;
@@ -29,6 +47,10 @@ $comicSearchBackground: #f1f1f1;
 }
 label {
   display: table-cell;
+}
+
+.storageContainerSection {
+  padding: .5rem;
 }
 
 @media only screen and (max-width: 1000px) {

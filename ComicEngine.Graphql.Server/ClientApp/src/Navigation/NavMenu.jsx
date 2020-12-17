@@ -7,7 +7,7 @@ import {
   NavLink
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { routeConfig } from './routeConfig';
+import { slide as Menu } from 'react-burger-menu';
 import './NavMenu.css';
 import {LoginMenu} from "./LoginMenu";
 
@@ -36,6 +36,7 @@ export class NavMenu extends Component {
             <NavbarBrand href="/">
               ComicEngine
             </NavbarBrand>
+          <div className="non-mobile-menu">
             <Nav className="mr-auto" navbar>
               <NavItem>
                 <NavLink tag={Link} to="/">
@@ -44,6 +45,7 @@ export class NavMenu extends Component {
               </NavItem>
               <LoginMenu />
             </Nav>
+          </div>
         </Navbar>
       </header>
     );

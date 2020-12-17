@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ComicResult.module.scss';
 
-export function ComicResult({ comic, isSelected, ...rest }) {
+export function ComicResult({ comic, isSelected, isWithoutBorder, ...rest }) {
   if (!comic) {
     return <div />;
   }
@@ -12,7 +12,9 @@ export function ComicResult({ comic, isSelected, ...rest }) {
 
   return (
     <div
-      className={`${styles.comicResult} ${isSelected ? styles.isSelected : ''}`}
+      className={`
+      ${styles.comicResult} ${isWithoutBorder ? '' : styles.isWithoutBorder} 
+      ${isSelected ? styles.isSelected : ''}`}
       {...rest}>
       <h3>{comic.title}</h3>
       <div className={styles.contentContainer}>
@@ -26,7 +28,7 @@ export function ComicResult({ comic, isSelected, ...rest }) {
         <div className={styles.textContainer}>
           <p>
             <span className={styles.boldFont}>Description:</span>{' '}
-            {comic.description}
+            <span className={styles.textOverflow}>{comic.description}</span>
           </p>
           <p>
             <span className={styles.boldFont}>Copyright:</span>

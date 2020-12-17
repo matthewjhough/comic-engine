@@ -7,11 +7,18 @@
   max-width: 100%;
 
   font-size: 2rem;
-  border: 1px solid #ccc;
   padding: 1rem;
   background: #fff;
   margin: 0.35rem;
   cursor: pointer;
+}
+
+.resultBorder {
+  border: 1px solid #ccc;
+}
+
+.textOverflow {
+  
 }
 
 .isSelected {
@@ -65,5 +72,13 @@
 
   .textContainer {
     width: 100%;
+    p {
+      overflow: hidden;
+      max-width: 400px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
+  
+  .textOverflow {}
 }

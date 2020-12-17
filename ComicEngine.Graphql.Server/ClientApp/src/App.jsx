@@ -17,22 +17,22 @@ export default class App extends Component {
   
     render() {
     return (
-      <Layout>
-        <Route exact path="/" component={Home} />
-        <AuthorizeRoute
-          path={routeConfig.comicSearch.url}
-          component={routeConfig.comicSearch.component}
-        />
-        <AuthorizeRoute
-          path={routeConfig.myComics.url}
-          component={routeConfig.myComics.component}
-        />
-        <Route
-          path={ApplicationPaths.ApiAuthorizationPrefix}
-          component={ApiAuthorizationRoutes}
-        />
-        <NotificationContainer />
-      </Layout>
+        <Layout>
+            <Route exact path="/" component={Home} />
+            <AuthorizeRoute
+                path={routeConfig.comicSearch.url}
+                component={routeConfig.comicSearch.component}
+            />
+            <AuthorizeRoute
+                path={routeConfig.myComics.url}
+                component={routeConfig.myComics.component}
+            />
+            <Route
+                path={ApplicationPaths.ApiAuthorizationPrefix}
+                component={ApiAuthorizationRoutes}
+            />
+            <NotificationContainer />
+        </Layout>
     );
   }
 }

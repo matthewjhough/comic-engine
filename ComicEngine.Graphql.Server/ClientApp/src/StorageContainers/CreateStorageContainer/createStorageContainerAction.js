@@ -7,6 +7,17 @@ import {getStorageContainers} from "../GetStorageContainers/getStorageContainers
 
 
 export function createStorageContainer(storageContainerLabel) {
+    
+    if (!storageContainerLabel) {
+        NotificationManager.error(
+            'Save failed.',
+            `Label cannot be blank.`
+        );
+        return function(dispatch) {
+            return new Promise(() => console.error("no label provided.")).then(() => {});
+        }
+    }
+    
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
             const userId = user.profile.sub;

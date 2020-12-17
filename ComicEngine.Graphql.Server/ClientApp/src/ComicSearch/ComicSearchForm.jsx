@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './ComicSearchForm.module.scss';
-import { StickyButton } from '../StickyButton/StickyButton';
 import { ComicResultsContainer } from '../ComicResults/ComicResultsContainer';
 import { AbstractInput } from '../AbstractInput/AbstractInput';
 import { AbstractButton } from '../AbstractButton/AbstractButton';
+import {StickyContainer} from "../StickyContainer/StickyContainer";
+import {StorageContainersDropdownContainer} from "../StorageContainers/StorageContainersDropdownContainer";
+import {ComicResult} from "../ComicResults/ComicResult";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faArchive, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
 export function ComicSearchForm({
   updateIssueNumberInput,
@@ -67,19 +71,30 @@ export function ComicSearchForm({
       </form>
       <ComicResultsContainer
         selectComic={setSelectedComic}
-        isComicSelected={isComicSelected}
         selectedComicId={selectedComic.id}>
         {selectedComic.id ? (
-          <StickyButton
-            onClick={() => {
-              console.log("ComicSearchForm:: saving selected comic...", selectedComic);
-              makeSaveComicRequest(selectedComic);
-              console.log("ComicSearchForm:: Save operation complete.")
-              setSelectedComic({});
-            }}
-            type="button">
-            Save Comic
-          </StickyButton>
+            <StickyContainer>
+              <div className={styles.storageContainerSection}>
+                <div onClick={() => setSelectedComic(selectedComic)}  className={styles.closeX}>
+                  <FontAwesomeIcon icon={faWindowClose} />
+                </div>
+                <label>Select Storage Container:</label>
+                <div className={styles.storageContainersDropdown}>
+                  <div className={styles.iconBox}><FontAwesomeIcon icon={faArchive} /></div>
+                  <StorageContainersDropdownContainer />
+                </div>
+                <ComicResult comic={selectedComic} />
+              </div>
+              <AbstractButton 
+                  onClick={() => {
+                    console.log("ComicSearchForm:: saving selected comic...", selectedComic);
+                    makeSaveComicRequest(selectedComic);
+                    console.log("ComicSearchForm:: Save operation complete.")
+                    setSelectedComic({});
+              }}>
+                Save Comic
+              </AbstractButton>
+            </StickyContainer>
         ) : (
           ''
         )}
