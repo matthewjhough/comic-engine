@@ -14,6 +14,8 @@ namespace ComicEngine.Graphql.Server.Types {
                 .Type<UserComicType> ()
                 .Argument ("comic", a => 
                     a.Type<NonNullType<ComicInputType>> ())
+                .Argument("storageContainer", a => 
+                    a.Type<NonNullType<StorageContainerInputType>>())
                 .Argument("userId", a => 
                     a.Type<NonNullType<StringType>>())
                 // Move this out to reusable middleware for error reporting

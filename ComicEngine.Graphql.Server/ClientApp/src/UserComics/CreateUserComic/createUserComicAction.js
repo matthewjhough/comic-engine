@@ -4,8 +4,8 @@ import {makeGraphqlRequest} from "../../graphqlClient/graphqlClient";
 import {createUserComicMutation} from "./createUserComicMutation";
 import {NotificationManager} from "react-notifications";
 
-export function createUserComic(selectedComic) {
-    console.log('createUserComic:: making saved comic request...', selectedComic);
+export function createUserComic(selectedComic, storageContainer) {
+    console.log('createUserComic:: making saved comic request...', selectedComic, storageContainer);
     return function(dispatch) {
         console.log('createUserComic:: dispatching selected comic...');
         return comicEngineUserManager.getUser().then(user => {
@@ -14,6 +14,7 @@ export function createUserComic(selectedComic) {
 
             return makeGraphqlRequest(createUserComicMutation, {
                 comic: selectedComic,
+                storageContainer: storageContainer,
                 userId: user.profile.sub
             })
                 .then(res => res.json())

@@ -5,6 +5,7 @@ using ComicEngine.Api.Server.UserComics.CreateUserComic.Observers;
 using ComicEngine.Api.Server.UserComics.CreateUserComic.States;
 using ComicEngine.Data.UserComics;
 using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.Server.UserComics.CreateUserComic
@@ -17,12 +18,16 @@ namespace ComicEngine.Api.Server.UserComics.CreateUserComic
         {
         }
 
-        public async Task<UserComic> CreateUserComicAsync (Comic comic, string subject)
+        public async Task<UserComic> CreateUserComicAsync (
+            Comic comic, 
+            StorageContainer storageContainer, 
+            string subject)
         {
             // TODO: Error handling
             var userComicState = new CreateUserComicState
             {
                 InputComic = comic,
+                InputStorageContainer = storageContainer,
                 InputSubject = subject
             };
             var userComicResult = await ExecuteStateMachine(userComicState);

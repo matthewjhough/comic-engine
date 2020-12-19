@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Api.Client.UserComics
@@ -17,9 +18,13 @@ namespace ComicEngine.Api.Client.UserComics
         /// Saves a <see cref="Comic"/> to the users saved comics.
         /// </summary>
         /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
+        /// <param name="storageContainer">The <see cref="StorageContainer"/> the comic is stored in.</param>
         /// <param name="userId">The id or subject of the user making the request.</param>
         /// <returns><see cref="Comic"/></returns>
-        Task<UserComic> SaveComicToApi (Comic comic, string userId);
+        Task<UserComic> CreateUserComic (
+            Comic comic, 
+            StorageContainer storageContainer, 
+            string userId);
 
         /// <summary>
         /// Deletes a <see cref="Comic"/> to the users saved comics.

@@ -23,6 +23,8 @@ namespace ComicEngine.Api.Server.UserComics.CreateUserComic.Activities
             context.Instance.ResultUserComic = new UserComic
             {
                 Comic = context.Data,
+                // TODO: Validate this storage container exists.
+                StorageContainer = context.Instance.InputStorageContainer,
                 UserId = context.Instance.InputSubject
             };
             

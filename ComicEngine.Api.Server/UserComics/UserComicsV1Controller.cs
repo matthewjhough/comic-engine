@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicEngine.Api.Client.UserComics;
 using ComicEngine.Api.Server.Actions.UserComics;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,16 +34,23 @@ namespace ComicEngine.Api.Server.UserComics {
         }
 
         [HttpPost (EndpointsV1.UserComicsEndpoint)]
-        public async Task<UserComic> Create ([FromBody] Comic comic, [FromRoute] string userId) {
+        public async Task<UserComic> Create (
+            // TODO: CREATE COMIC REQUEST TYPE
+            [FromBody] CreateUserComicRequest createUserComicRequest, 
+            [FromRoute] string userId) {
             // TODO: Validation
-            if (comic.Title is null) {
+            if (createUserComicRequest.Comic.Title is null) {
                 throw new Exception ("Title is required.");
             }
             
-            _logger.LogDebug ("**** Comic from body title: {title} ****", comic.Title);
+            _logger.LogDebug ("**** Comic from body title: {title} ****", 
+                createUserComicRequest.Comic.Title);
             
             // Todo: add logging/exception handling
-            var userComic = await _createUserComicAction.CreateUserComicAsync (comic, userId);
+            var userComic = await _createUserComicAction.CreateUserComicAsync (
+                createUserComicRequest.Comic, 
+                createUserComicRequest.StorageContainer, 
+                userId);
 
             return userComic;
         }

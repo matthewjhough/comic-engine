@@ -1,6 +1,16 @@
 export const createUserComicMutation = `
-mutation createUserComic($comic: ComicInput!, $userId: String!) {
-    createUserComic(comic: $comic, userId: $userId) {
+mutation createUserComic(
+    $comic: ComicInput!,
+    $storageContainer: StorageContainerInput!,
+    $userId: String!) {
+    createUserComic(
+        comic: $comic, 
+        storageContainer: $storageContainer,
+        userId: $userId) {
+        storageContainer {
+            label
+            id
+        }
         comic {
             id
             title

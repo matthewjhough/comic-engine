@@ -17,6 +17,7 @@ export function ComicSearchForm({
   makeSaveComicRequest,
   toggleComicSearchLoadingTrue,
   selectedComic,
+  storageContainers,
   title,
   issueNumber
 }) {
@@ -33,6 +34,8 @@ export function ComicSearchForm({
   useEffect(() => {
     setSelectedComic({});
   }, [setSelectedComic]);
+  
+  console.log("Selected container: ", storageContainers.selected);
 
   return (
     <div className={styles.comicSearchForm}>
@@ -88,7 +91,7 @@ export function ComicSearchForm({
               <AbstractButton 
                   onClick={() => {
                     console.log("ComicSearchForm:: saving selected comic...", selectedComic);
-                    makeSaveComicRequest(selectedComic);
+                    makeSaveComicRequest(selectedComic, storageContainers.selected);
                     console.log("ComicSearchForm:: Save operation complete.")
                     setSelectedComic({});
               }}>

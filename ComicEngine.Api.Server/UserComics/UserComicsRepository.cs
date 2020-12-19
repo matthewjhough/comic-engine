@@ -13,7 +13,9 @@ namespace ComicEngine.Api.Server.UserComics {
 
         internal UserComicsRepository () {}
 
-        public async Task<UserComic> CreateUserComic (UserComic comic, string subject)
+        public async Task<UserComic> CreateUserComic (
+            UserComic comic, 
+            string subject)
         {
             var userComic = await ComicStorageClient.Create(comic, subject);
 

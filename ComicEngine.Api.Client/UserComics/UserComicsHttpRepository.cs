@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ComicEngine.Identity.Client;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
+using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -59,22 +60,27 @@ namespace ComicEngine.Api.Client.UserComics
 
             return comicResponse;
         }
-        
+
         /// <summary>
-        /// Saves a <see cref="Comic"/> to the users saved comics.
+        /// Implements <see cref="IUserComicsHttpRepository.CreateUserComic"/>.
         /// </summary>
-        /// <param name="comic">The <see cref="Comic"/> to be saved to the user's collection</param>
-        /// <param name="userId">The id or subject of the user making the request.</param>
-        /// <returns><see cref="Comic"/></returns>
-        public async Task<UserComic> SaveComicToApi (Comic comic, string userId) {
+        public async Task<UserComic> CreateUserComic (
+            Comic comic, 
+            StorageContainer storageContainer,
+            string userId) {
             
             var fullUrl = $"{_comicApiConfig.ClientBaseUrl}/{EndpointsV1.UserComicsEndpointBase}/{userId}";
             
             Logger.LogDebug ("Making request to: {endpoint}", fullUrl);
+            CreateUserComicRequest createUserComicRequest = new CreateUserComicRequest()
+            {
+                StorageContainer = storageContainer,
+                Comic = comic
+            };
             
             var client = new HttpRequestClientBuilder<object>()
                 .WithAbsoluteUrl(fullUrl)
-                .WithRequestBody(comic)
+                .WithRequestBody(createUserComicRequest)
                 .WithRequestMethod(HttpMethod.Post)
                 .WithHttpContextAccessor(_httpContextAccessor)
                 .WithTokenClientSettings(_tokenClientSettings)

@@ -31,6 +31,9 @@ namespace ComicEngine.Graphql.Server {
         public async Task<UserComic> CreateUserComic (IResolverContext context)
         {
             Comic comicInput = context.Argument<Comic> ("comic");
+            StorageContainer storageContainer = context
+                .Argument<StorageContainer>("storageContainer");
+
             string userId = context.Argument<string> ("userId");
 
             if (comicInput is null) {
@@ -39,7 +42,10 @@ namespace ComicEngine.Graphql.Server {
 
             _logger.LogDebug ("Executing mutation with comic titled: {title}", comicInput.Title);
 
-            UserComic response = await _comicApiRepository.SaveComicToApi (comicInput, userId);
+            UserComic response = await _comicApiRepository.CreateUserComic(
+                comicInput, 
+                storageContainer, 
+                userId);
 
             if (response is null)
             {

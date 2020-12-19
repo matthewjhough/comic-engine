@@ -28,7 +28,10 @@ $comicSearchBackground: #f1f1f1;
 }
 
 .iconBox {
-  padding: .5rem;
+  padding: 0 1.5rem;
+  font-size: 2.5rem;
+  display:flex;
+  align-items: center;
 }
 
 .formRow {
@@ -51,6 +54,7 @@ label {
 
 .storageContainerSection {
   padding: .5rem;
+  max-height: 90%;
 }
 
 @media only screen and (max-width: 1000px) {

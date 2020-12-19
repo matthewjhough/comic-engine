@@ -11,9 +11,10 @@ import {
 } from '../ComicResults/comicResultsActions';
 import { createUserComic } from '../UserComics/CreateUserComic/createUserComicAction';
 
-const mapStateToProps = ({ comicSearchForm, comicResults }) => ({
+const mapStateToProps = ({ comicSearchForm, comicResults, storageContainers }) => ({
   ...comicSearchForm,
-  ...comicResults
+  ...comicResults,
+  storageContainers
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,7 +23,8 @@ const mapDispatchToProps = dispatch => ({
   updateResultsFromForm: dispatch(updateResultsFromForm),
   toggleComicSearchLoadingTrue: () => dispatch(toggleLoading(true)),
   setSelectedComic: comic => dispatch(setSelectedComic(comic)),
-  makeSaveComicRequest: selectedComic => dispatch(createUserComic(selectedComic))
+  makeSaveComicRequest: (selectedComic, selectedContainer) => 
+      dispatch(createUserComic(selectedComic, selectedContainer))
 });
 
 export const ComicSearchFormContainer = connect(

@@ -3,6 +3,10 @@ query userComics($userId: String!) {
     userComics(userId: $userId) {
         id
         userId
+        storageContainer {
+         label
+         id
+        }
         comic {
             id
             title
