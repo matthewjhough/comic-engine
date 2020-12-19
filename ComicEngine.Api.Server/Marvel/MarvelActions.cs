@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ComicEngine.Api.Server.Actions.Marvels;
 using ComicEngine.Shared.Comics;
-using ComicEngine.Shared.Marvels;
+using ComicEngine.Shared.Marvel;
 
 namespace ComicEngine.Api.Server.Marvel {
     public class MarvelActions : IGetMarvelAction {

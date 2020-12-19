@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ComicEngine.Identity.Client;
 using ComicEngine.Shared;
-using ComicEngine.Shared.Marvels;
+using ComicEngine.Shared.Marvel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -53,6 +53,7 @@ namespace ComicEngine.Api.Server.Marvel {
             string ts = "1";
             string apiHashSource = ts + _marvelApiSettings.PrivateKey + _marvelApiSettings.PublicKey;
             string marvelHash;
+            int limit = 100;
 
             try {
                 using (MD5 md5Hash = MD5.Create ()) {
@@ -63,7 +64,7 @@ namespace ComicEngine.Api.Server.Marvel {
                 throw;
             }
 
-            var url = $"{_marvelApiSettings.BaseUrl}{route}?{query}&ts={ts}&apikey={_marvelApiSettings.PublicKey}&hash={marvelHash}";
+            var url = $"{_marvelApiSettings.BaseUrl}{route}?{query}&ts={ts}&apikey={_marvelApiSettings.PublicKey}&hash={marvelHash}&limit={limit}";
 
             return url;
         }

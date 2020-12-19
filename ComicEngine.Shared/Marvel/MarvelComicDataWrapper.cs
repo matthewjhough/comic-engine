@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ComicEngine.Shared.Marvels {
+namespace ComicEngine.Shared.Marvel {
     /// <summary>
     /// Gemeral Pagination wrapper around Marvel Comic Results.
     /// </summary>
