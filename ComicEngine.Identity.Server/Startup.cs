@@ -53,7 +53,7 @@ namespace ComicEngine.Identity.Server
             var connectionString = Configuration
                 .GetConnectionString("DefaultConnection");
             
-            //TODO: change UseSqlite to UseSqlServer
+            //TODO: change UseSqlite to UseSqlServer or mongodb
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(connectionString));
 
@@ -70,7 +70,7 @@ namespace ComicEngine.Identity.Server
                     options.Events.RaiseSuccessEvents = true;
                 })
                 .AddTestUsers(TestUsers.Users)
-                // TODO: Add in sql server configuration stores.
+                // TODO: Add in sql or mongo server configuration stores.
                 // this adds the config data from DB (clients, resources, CORS)
                 // .AddConfigurationStore(options =>
                 // {

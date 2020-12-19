@@ -1,6 +1,6 @@
 export const configuration = {
-    isUserActionLoggingEnabled: true,
-    isAuthLoggingEnabled: false,
+    isUserActionLoggingEnabled: false,
+    isAuthLoggingEnabled: true,
     isActionLoggingEnabled: false,
     isStateLoggingEnabled: false,
     isLoggingEnabled: true,

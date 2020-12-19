@@ -7,7 +7,7 @@ using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Test;
 
-namespace ComicEngine.Identity.Server.Quickstart
+namespace ComicEngine.Identity.Server
 {
     public class TestUsers
     {
