@@ -19,14 +19,14 @@ export function updateIssueNumberInput(issueNumber) {
 
 export function updateResultsFromForm(dispatch) {
   return function({ title, issueNumber }) {
-      console.log("comicSearchFormActions:: searching for title, issueNumber", title, issueNumber);
+      console.action("comicSearchFormActions:: searching for title, issueNumber", title, issueNumber);
     return makeGraphqlRequest(comicByTitleAndIssueNumber, {
       title,
       issueNumber
     })
       .then(res => res.json())
       .then(({ data, errors }) => {
-        console.log('comicSearchFormActions:: results returned from api: ', data, errors);
+        console.action('comicSearchFormActions:: results returned from api: ', data, errors);
         if (errors && errors.length > 0) {
           console.error('comicSearchFormActions:: An error occured retrieving results.', errors);
           return dispatch(setComicSearchResults({ searchResults: [] }));

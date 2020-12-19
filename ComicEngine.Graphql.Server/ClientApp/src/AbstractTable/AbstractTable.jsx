@@ -1,20 +1,20 @@
 import React from "react";
 import { Table, Badge } from "reactstrap";
+import styles from "./AbstractTable.module.scss";
 
 export function AbstractTable({ headers, body, deleteBadge, badgeHandler }) {
     return (
-        <Table bordered hover dark responsive>
+        <Table bordered hover responsive>
             <thead>
             <tr>
-                <th>#</th>
-                {headers.map(header => (<th key={header}>{header}</th>))}
+                <th className={styles.stickyHeader}>#</th>
+                {headers.map(header => (<th className={styles.stickyHeader} key={header}>{header}</th>))}
             </tr>
             </thead>
             <tbody> 
             {body.map(((rowValues, index) => (
                 <tr key={index}>
                     <th scope="row">
-                        {(index + 1)}
                         {deleteBadge && (
                             <Badge
                                 style={{ cursor: "pointer" }}

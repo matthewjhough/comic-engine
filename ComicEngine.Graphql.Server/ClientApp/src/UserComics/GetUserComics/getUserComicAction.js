@@ -6,7 +6,7 @@ import {getUserComicsQuery} from "./getUserComicsQuery";
 export function getUserComics() {
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
-            console.log("userComicsActions:: Current user subject: ", user.profile.sub);
+            console.action("userComicsActions:: Current user subject: ", user.profile.sub);
 
             return makeGraphqlRequest(getUserComicsQuery, {
                 userId: user.profile.sub

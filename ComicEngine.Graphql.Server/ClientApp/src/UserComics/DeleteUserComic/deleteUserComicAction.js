@@ -9,17 +9,18 @@ export function deleteUserComic(userComic) {
     const isDeleting = window.confirm(`Are you sure you want to delete ${userComic.comic.title}`);
     
     if (!isDeleting) {
+        console.user("User cancelled the deletion of comic: ", userComic);
         return function(dispatch) {
             return new Promise(() => 
-                console.log("Cancelling delete request for comic: ", userComic.comic.title))
+                console.action("Cancelling delete request for comic: ", userComic.comic.title))
                 .then(() => {});
         };
     }
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
-            console.log("userComicsActions:: Current user subject: ", user.profile.sub);
+            console.action("userComicsActions:: Current user subject: ", user.profile.sub);
             dispatch(toggleLoading(true));
-            console.log("userComicsActions:: Deleting user comic: ", userComic)
+            console.action("userComicsActions:: Deleting user comic: ", userComic)
 
             return makeGraphqlRequest(deleteUserComicMutation, {
                 userId: user.profile.sub,
@@ -27,7 +28,7 @@ export function deleteUserComic(userComic) {
             })
                 .then(res => res.json())
                 .then(json => {
-                    console.log("userComicsActions:: JSON returned from comic deletion: ", json);
+                    console.action("userComicsActions:: JSON returned from comic deletion: ", json);
 
                     if (json && json.errors) {
                         console.error("userComicsActions:: List of errors from response: ", json.errors);
@@ -43,7 +44,7 @@ export function deleteUserComic(userComic) {
                     }
 
 
-                    console.log('userComicsActions:: Comic removed from database.', userComic);
+                    console.action('userComicsActions:: Comic removed from database.', userComic);
                     NotificationManager.success(
                         'Removed',
                         `${userComic.comic.title} removed from My Comics`

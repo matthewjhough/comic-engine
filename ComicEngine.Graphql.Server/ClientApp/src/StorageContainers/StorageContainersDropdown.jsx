@@ -5,7 +5,8 @@ import styles from "./StorageContainersDropdown.module.scss";
 export function StorageContainersDropdown({
       setSelectedStorageContainer,
       getStorageContainers, 
-      storageContainers = [] 
+      results = [],
+      selected
 }) {
     useEffect(() => {
         getStorageContainers();
@@ -13,9 +14,9 @@ export function StorageContainersDropdown({
     
     return (<div className={styles.dropdownWrapper}>
         <AbstractSelect 
-            onChange={container => 
-                (console.log(container), setSelectedStorageContainer(container))} 
-            options={storageContainers.results.map(container => 
+            value={selected}
+            onChange={container => setSelectedStorageContainer(container)} 
+            options={results.map(container => 
                 ({value: container, label: container.label}))} 
         />
     </div>)

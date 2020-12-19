@@ -21,7 +21,7 @@ export function createStorageContainer(storageContainerLabel) {
     return function(dispatch) {
         return comicEngineUserManager.getUser().then(user => {
             const userId = user.profile.sub;
-            console.log("createStorageContainer:: Current user subject: ", user.profile.sub);
+            console.action("createStorageContainer:: Current user subject: ", user.profile.sub);
             dispatch(toggleLoading(true));
 
             const storageContainer = {
@@ -29,14 +29,14 @@ export function createStorageContainer(storageContainerLabel) {
                 userId
             };
 
-            console.log('createStorageContainer:: making request...', storageContainer);
+            console.action('createStorageContainer:: making request...', storageContainer);
             return makeGraphqlRequest(createStorageContainerMutation, {
                 storageContainer: storageContainer,
                 userId: user.profile.sub
             })
                 .then(res => res.json())
                 .then(({ data, errors, ...rest }) => {
-                    console.log("createStorageContainer:: response data: ", data, rest);
+                    console.action("createStorageContainer:: response data: ", data, rest);
                     if (errors && errors.length > 0) {
                         console.error(
                             'createStorageContainer:: something went wrong.',
@@ -50,7 +50,7 @@ export function createStorageContainer(storageContainerLabel) {
                         return dispatch(() => {});
                     }
 
-                    console.log('createStorageContainer:: saved to database.', data);
+                    console.action('createStorageContainer:: saved to database.', data);
                     NotificationManager.success(
                         'Success',
                         `${storageContainer.label} added to Storage Containers`

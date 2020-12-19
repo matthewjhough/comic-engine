@@ -24,26 +24,26 @@ export function UserComics({
   
   const getUserComicValue = (index, results) => results[index];
 
-  console.log("UserComics 'results': ", results);
   // TODO: do this logic on change, not on render
   const firstResultOrDefault = getOrDefault(results, "0", []);
   const headers = createUserComicHeaders(firstResultOrDefault);
   const body = createUserComicBody(headers, results);
-  console.log("UserComics generated headers: ", headers);
-  console.log("UserComics generated body: ", body);
   
   return (
     <AbstractContentWrapper>
       <AbstractFlexContainer isColumn>
         <StorageContainers />
+        <div>Comics in my Collection:</div>
         <AbstractTable 
             headers={headers} 
             body={body} 
             deleteBadge={true} 
             badgeHandler={(rowValues, index) => {
                 const selectedUserComic = getUserComicValue(index, results);
+                console.user("UserComics user selected comic for deletion: ", selectedUserComic);
                 
                 deleteUserComic(selectedUserComic);
+                console.user("UserComics user delete action complete.", selectedUserComic);
             }} 
         />
       </AbstractFlexContainer>

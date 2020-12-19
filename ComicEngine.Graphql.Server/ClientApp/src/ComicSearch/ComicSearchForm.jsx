@@ -21,10 +21,6 @@ export function ComicSearchForm({
   title,
   issueNumber
 }) {
-  const isComicSelected = (currentComicId, savedComicId) => {
-    return currentComicId === savedComicId;
-  };
-
   const clearForm = () => {
     updateIssueNumberInput('');
     updateTitleInput('');
@@ -34,8 +30,6 @@ export function ComicSearchForm({
   useEffect(() => {
     setSelectedComic({});
   }, [setSelectedComic]);
-  
-  console.log("Selected container: ", storageContainers.selected);
 
   return (
     <div className={styles.comicSearchForm}>
@@ -43,7 +37,7 @@ export function ComicSearchForm({
         className={styles.comicSearchFormElement}
         onSubmit={e => {
           e.preventDefault();
-
+          console.user("ComicSearchForm user searching for comic: (title, issueNumber)", title, issueNumber);
           setSelectedComic({});
           toggleComicSearchLoadingTrue();
           updateResultsFromForm({ title, issueNumber });
@@ -90,9 +84,9 @@ export function ComicSearchForm({
               </div>
               <AbstractButton 
                   onClick={() => {
-                    console.log("ComicSearchForm:: saving selected comic...", selectedComic);
+                    console.user("ComicSearchForm user saving selected comic...", selectedComic);
                     makeSaveComicRequest(selectedComic, storageContainers.selected);
-                    console.log("ComicSearchForm:: Save operation complete.")
+                    console.user("ComicSearchForm user save operation complete.")
                     setSelectedComic({});
               }}>
                 Save Comic

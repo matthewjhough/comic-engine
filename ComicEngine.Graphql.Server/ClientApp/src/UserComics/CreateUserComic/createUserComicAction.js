@@ -5,11 +5,11 @@ import {createUserComicMutation} from "./createUserComicMutation";
 import {NotificationManager} from "react-notifications";
 
 export function createUserComic(selectedComic, storageContainer) {
-    console.log('createUserComic:: making saved comic request...', selectedComic, storageContainer);
+    console.action('createUserComic:: making saved comic request...', selectedComic, storageContainer);
     return function(dispatch) {
-        console.log('createUserComic:: dispatching selected comic...');
+        console.action('createUserComic:: dispatching selected comic...');
         return comicEngineUserManager.getUser().then(user => {
-            console.log("createUserComic:: Current user subject: ", user.profile.sub);
+            console.action("createUserComic:: Current user subject: ", user.profile.sub);
             dispatch(toggleLoading(true));
 
             return makeGraphqlRequest(createUserComicMutation, {
@@ -32,7 +32,7 @@ export function createUserComic(selectedComic, storageContainer) {
                         return dispatch(setResults({ results: [] }));
                     }
 
-                    console.log('createUserComic:: Comic saved to database.', data);
+                    console.action('createUserComic:: Comic saved to database.', data);
                     NotificationManager.success(
                         'Success',
                         `${selectedComic.title} added to My Comics`

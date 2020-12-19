@@ -10,6 +10,26 @@ export function configureLogging(config) {
     console.log = () => {};
     console.warn = () => {};
     console.error = () => {};
+    console.action = () => {};
+    console.auth = () => {};
+    console.user = () => {};
+    console.state = () => {};
+    
+    if (config.isStateLoggingEnabled) {
+        console.state = consoleLogger;
+    }
+    
+    if (config.isUserActionLoggingEnabled) {
+        console.user = consoleLogger;
+    }
+    
+    if (config.isAuthLoggingEnabled) {
+        console.auth = consoleLogger;
+    }
+    
+    if (config.isActionLoggingEnabled) {
+        console.action = consoleLogger;
+    }
 
     if (config.isLoggingEnabled) {
         console.log = consoleLogger;

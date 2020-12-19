@@ -13,10 +13,9 @@ export function ComicResults({
   children
 }) {
   const selectComicMethod = selectComic ? selectComic : () => {};
-
-  console.log("ComicResults 'searchResults': ", searchResults);
   return (
     <div className={styles.comicResults}>
+      <div className={styles.resultsMessage}>Displaying {searchResults.length} results</div>
       <AbstractScrollDiv>
         {children}
         {isLoading ? (
