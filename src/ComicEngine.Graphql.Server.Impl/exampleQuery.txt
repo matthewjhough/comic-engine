@@ -1,0 +1,124 @@
+{
+  id: 77103,
+  copyright: "© 2020 MARVEL",
+  issueNumber: 35,
+  title: "The Amazing Spider-Man (2018) #35",
+  upc: "75960608936903511",
+  description: null,
+  characters: {
+    items: [
+      {
+        characterProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/characters/1009281",
+        name: "Doctor Doom",
+        role: null
+      },
+      {
+        characterProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/characters/1009610",
+        name: "Spider-Man",
+        role: null
+      }
+    ],
+    id: 0,
+    available: 2,
+    returned: 2,
+    collectionUri: "http://gateway.marvel.com/v1/public/comics/77103/characters"
+  },
+  creators: {
+    items: [
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/12998",
+        name: "Oscar Bazaldua",
+        role: "inker"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/5251",
+        name: "Vc Joe Caramagna",
+        role: "letterer"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/354",
+        name: "Tony Daniel",
+        role: "penciler (cover)"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/430",
+        name: "Edgar Delgado",
+        role: "colorist (cover)"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/7887",
+        name: "Steve Firchow",
+        role: "colorist"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/4300",
+        name: "Nick Lowe",
+        role: "editor"
+      },
+      {
+        creatorProfileId: 0,
+        id: 0,
+        comicStorageId: 0,
+        resourceUri: "http://gateway.marvel.com/v1/public/creators/11434",
+        name: "Nick Spencer",
+        role: "writer"
+      }
+    ],
+    id: 0,
+    available: 7,
+    returned: 7,
+    collectionUri: "http://gateway.marvel.com/v1/public/comics/77103/creators"
+  },
+  series: null,
+  publishDates: [
+    {
+      id: 0,
+      _Date: "0001-01-01T00:00:00",
+      type: "onsaleDate"
+    },
+    {
+      id: 0,
+      _Date: "0001-01-01T00:00:00",
+      type: "focDate"
+    }
+  ],
+  pageCount: 32,
+  resourceUri: "http://gateway.marvel.com/v1/public/comics/77103",
+  thumbnail: "http://i.annihil.us/u/prod/marvel/i/mg/3/80/5ddc132871629.jpg",
+  relevantLinks: [
+    {
+      id: 0,
+      type: "detail",
+      url: "http://marvel.com/comics/issue/77103/the_amazing_spider-man_2018_35?utm_campaign=apiRef&utm_source=8cc0c74f16c152ca096d989551583ec7"
+    },
+    {
+      id: 0,
+      type: "purchase",
+      url: "http://comicstore.marvel.com/The-Amazing-Spider-Man-35/digital-comic/53208?utm_campaign=apiRef&utm_source=8cc0c74f16c152ca096d989551583ec7"
+    }
+  ]
+}

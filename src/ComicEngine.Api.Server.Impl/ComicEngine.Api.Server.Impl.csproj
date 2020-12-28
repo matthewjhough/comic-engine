@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Marvel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="$(MicrosoftIdentityServerVersion)" />
+    <PackageReference Include="Newtonsoft.Json" Version="$(NewtonSoftVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComicEngine.Actions.Search.Impl\ComicEngine.Actions.Search.Impl.csproj" />
+    <ProjectReference Include="..\ComicEngine.Actions.Storage.Impl\ComicEngine.Actions.Storage.Impl.csproj" />
+    <ProjectReference Include="..\ComicEngine.Actions\ComicEngine.Actions.csproj" />
+    <ProjectReference Include="..\ComicEngine.Data.MongoDb.Impl\ComicEngine.Data.MongoDb.Impl.csproj" />
+    <ProjectReference Include="..\ComicEngine.Identity.Client.Impl\ComicEngine.Identity.Client.Impl.csproj" />
+    <ProjectReference Include="..\ComicEngine.State\ComicEngine.State.csproj" />
+    <ProjectReference Include="..\ComicEngine.Api.Client\ComicEngine.Api.Client.csproj" />
+  </ItemGroup>
+    
+</Project>

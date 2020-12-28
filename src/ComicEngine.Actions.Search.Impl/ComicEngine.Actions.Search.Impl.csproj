@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>$(MicrosoftFrameworkVersion)</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ComicEngine.Actions\ComicEngine.Actions.csproj" />
+      <ProjectReference Include="..\ComicEngine.Identity.Client.Impl\ComicEngine.Identity.Client.Impl.csproj" />
+    </ItemGroup>
+
+</Project>
