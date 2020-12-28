@@ -1,6 +1,6 @@
-using ComicEngine.Api.Server.Actions.UserComics;
-using ComicEngine.Api.Server.UserComics;
-using ComicEngine.Api.Server.UserComics.CreateUserComic;
+using ComicEngine.Actions.Impl.UserComics;
+using ComicEngine.Actions.Impl.UserComics.CreateUserComic;
+using ComicEngine.Actions.UserComics;
 using ComicEngine.Data.MongoDb.UserComics;
 using ComicEngine.Data.UserComics;
 using ComicEngine.Shared;

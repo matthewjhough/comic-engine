@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ComicEngine.Actions.Impl\ComicEngine.Actions.Impl.csproj" />
+    <ProjectReference Include="..\ComicEngine.Actions\ComicEngine.Actions.csproj" />
     <ProjectReference Include="..\ComicEngine.State\ComicEngine.State.csproj" />
     <ProjectReference Include="..\ComicEngine.Api.Client\ComicEngine.Api.Client.csproj" />
     <ProjectReference Include="..\ComicEngine.Data.MongoDb\ComicEngine.Data.MongoDb.csproj" />

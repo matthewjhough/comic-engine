@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Server.Actions.Marvels;
+using ComicEngine.Actions.Marvel;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
 using HotChocolate.AspNetCore.Authorization;

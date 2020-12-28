@@ -1,4 +1,4 @@
-using ComicEngine.Api.Server.Actions.Marvels;
+using ComicEngine.Actions.Marvel;
 using ComicEngine.Api.Server.Marvel;
 using ComicEngine.Shared;
 using Microsoft.AspNetCore.Http;

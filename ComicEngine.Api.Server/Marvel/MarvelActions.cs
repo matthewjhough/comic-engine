@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ComicEngine.Api.Server.Actions.Marvels;
+using ComicEngine.Actions.Marvel;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.Marvel;
 
@@ -49,7 +49,8 @@ namespace ComicEngine.Api.Server.Marvel {
 
             IEnumerable<MarvelComic> comicData = comicResponse
                 .Data
-                .Results.AsEnumerable ();
+                .Results
+                .AsEnumerable ();
 
             if (comicData is null) {
                 return new List<Comic> ();;
