@@ -1,7 +1,6 @@
 using ComicEngine.Actions.Marvel;
 using ComicEngine.Actions.Search.Impl;
 using ComicEngine.Actions.Search.Impl.Marvel;
-using ComicEngine.Api.Server.Impl.Marvel;
 using ComicEngine.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;

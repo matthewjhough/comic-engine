@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using IdentityModel.Client;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace ComicEngine.Identity.Client.Impl
         internal string RelativeUrl { get; set; }
         internal string AbsoluteUrl { get; set; }
 
-        private static readonly string AccessToken = "access_token";
+        private const string AccessToken = "access_token";
         internal TokenClientSettings TokenClientSettings { get; set; }
 
         /// <summary>
@@ -127,16 +128,23 @@ namespace ComicEngine.Identity.Client.Impl
             
             var client = new HttpClient();
             var disco = await client.GetDiscoveryDocumentAsync(TokenClientSettings.Authority);
-            var token = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            
+            var bearerHeader = HttpContextAccessor.HttpContext.Request.Headers["Authorization"];
+            var handler = new JwtSecurityTokenHandler();
+            var idToken = bearerHeader.ToString().Split(" ")[1];
+            var tokenResponse = await client.RequestTokenAsync(new TokenRequest()
             {
                 Address = disco.TokenEndpoint,
                 ClientId = TokenClientSettings.ClientId,
                 ClientSecret = TokenClientSettings.Secret,
-                Scope = TokenClientSettings.Scope,
-                GrantType = "client_credentials"
+                GrantType = "hybrid",
+                Headers =
+                {
+                    Authorization = new AuthenticationHeaderValue("Bearer", idToken)
+                }
             });
-            requestMessage.Headers.Add("Authorization", $"Bearer {token.AccessToken}");
-            Logger.LogDebug("access token added to request: {token}", token.AccessToken);
+            requestMessage.Headers.Add("Authorization", $"Bearer {tokenResponse.AccessToken}");
+            Logger.LogDebug("access token added to request: {token}", tokenResponse.AccessToken);
 
             return requestMessage;
         }

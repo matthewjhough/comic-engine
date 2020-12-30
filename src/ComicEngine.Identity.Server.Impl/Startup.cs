@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
 using ComicEngine.Identity.Server.Impl.Data;
 using ComicEngine.Identity.Server.Impl.Models;
-using ComicEngine.Identity.Server.Impl.Quickstart;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
@@ -87,6 +85,7 @@ namespace ComicEngine.Identity.Server.Impl
                 .AddInMemoryIdentityResources(ClientConfiguration.Ids)
                 .AddInMemoryApiResources(ClientConfiguration.Apis)
                 .AddInMemoryClients(ClientConfiguration.Clients)
+                .AddProfileService<UserClaimsProfileService>()
                 ;
             
             services.AddCors(options => options.AddPolicy(DevelopmentCors,

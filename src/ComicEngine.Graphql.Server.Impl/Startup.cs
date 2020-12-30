@@ -7,7 +7,6 @@ using ComicEngine.Api.Client.Impl.UserComics;
 using ComicEngine.Api.Client.StorageContainers;
 using ComicEngine.Api.Client.UserComics;
 using ComicEngine.Graphql.Server.Impl.Types;
-using ComicEngine.Identity.Client;
 using ComicEngine.Identity.Client.Impl;
 using ComicEngine.Shared;
 using HotChocolate;
@@ -74,6 +73,7 @@ namespace ComicEngine.Graphql.Server.Impl {
                     options =>
                     {
                         options.Authority = tokenClientSettings.Authority;
+                        
                         options.RequireHttpsMetadata = true;
                     });
 

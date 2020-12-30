@@ -4,7 +4,7 @@
 
 using IdentityServer4.Models;
 using System.Collections.Generic;
-using IdentityServer4;
+using IdentityModel;
 
 namespace ComicEngine.Identity.Server.Impl
 {
@@ -22,7 +22,13 @@ namespace ComicEngine.Identity.Server.Impl
         public static IEnumerable<ApiResource> Apis =>
             new[]
             {
-                new ApiResource("comic.api", "Comic engine api")
+                new ApiResource(
+                    "comic.api", 
+                    "Comic engine api",
+                    new []
+                    {
+                        JwtClaimTypes.Subject,
+                    })
             };
 
         public static IEnumerable<Client> Clients =>
@@ -35,7 +41,7 @@ namespace ComicEngine.Identity.Server.Impl
                     ClientName = "Comic Engine Graphql",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = {new Secret(ExampleSecret.Sha256())},
-                    AllowedScopes = { "comic.api" }
+                    AllowedScopes = { "comic.api", "openid" },
                 },
                 
                 // client_credentials flow client

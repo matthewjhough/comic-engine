@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using HotChocolate;
 
 namespace ComicEngine.Shared.Comics {
     public abstract class ProfileItem {

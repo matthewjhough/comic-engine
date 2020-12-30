@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ComicEngine.Shared.Comics;
-using ComicEngine.Shared.StorageContainers;
 using ComicEngine.Shared.UserComics;
 
 namespace ComicEngine.Data.UserComics {

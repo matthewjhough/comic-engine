@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ComicEngine.Api.Client.Comics;
 using ComicEngine.Api.Client.StorageContainers;
 using ComicEngine.Api.Client.UserComics;
-using ComicEngine.Data.StorageContainers;
 using ComicEngine.Shared;
 using ComicEngine.Shared.Comics;
 using ComicEngine.Shared.StorageContainers;
